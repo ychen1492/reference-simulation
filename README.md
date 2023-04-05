@@ -16,11 +16,11 @@
 | x spacing    | y spacing | z spacing   | 
 |:----:    |:----:  |  :----: |  
 | 3000m  | 2500m     | 100m     | 
-|
+
 - resolution
 
 | dx     | dy | dz   | overburden layers |
 |:----:    |:----:  |  :----: |  :----:  |
 | 18.5m  | 27.5m     | 10m     | 22      |
-|
+
 
