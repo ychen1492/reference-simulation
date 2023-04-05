@@ -25,6 +25,11 @@ overburden = 22
 
 
 def generate_base():
+    """
+    This is a function without any inputs to generate vtk and time data file
+    :return:
+    vtk and time data excel file
+    """
     redirect_darts_output('log.txt')
     proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
                         set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poro, report_time_step=report_time,
