@@ -1,0 +1,6 @@
+/__pycache__/*
+/.idea/*
+*.pkl
+*.pvd
+*.vts
+*.xlsx
