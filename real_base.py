@@ -21,12 +21,14 @@ set_dy = 27.5
 set_ny = int(y_spacing / set_dy)
 set_dz = 10
 set_nz = int(z_spacing / set_dz)
+overburden = 22
 
 
 def generate_base():
     redirect_darts_output('log.txt')
     proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
-                        set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poro, report_time_step=report_time, overburden=0)
+                        set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poro, report_time_step=report_time,
+                        overburden=overburden)
     proxy_model.init()
     proxy_model.run(export_to_vtk=True)
 

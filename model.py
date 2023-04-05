@@ -20,10 +20,12 @@ class Model(DartsModel):
         self.perm = np.concatenate([np.ones(nz) * perm for perm in perms], axis=0)
         self.poro = poro
         # add more layers above the reservoir
-        nz += overburden
+        underburden = overburden
+        nz += (overburden+underburden)
         overburden_prop = np.ones(set_nx * set_ny * overburden) * 1e-5
-        self.perm = np.concatenate([overburden_prop, self.perm])
-        self.poro = np.concatenate([overburden_prop, self.poro])
+        underburden_prop = np.ones(set_nx * set_ny * underburden) * 1e-5
+        self.perm = np.concatenate([overburden_prop, self.perm, underburden_prop])
+        self.poro = np.concatenate([overburden_prop, self.poro, underburden_prop])
         self.report_time = report_time_step
         # add more layers above or below the reservoir
         self.reservoir = StructReservoir(self.timer, nx=nx, ny=ny, nz=nz, dx=set_dx, dy=set_dy, dz=set_dz,
@@ -46,15 +48,15 @@ class Model(DartsModel):
         self.reservoir.add_well("INJ")
         # add perforations to the payzone
         start_index = overburden + 1
-        end_index = nz + 1
-        for n in range(1, 2):
+        end_index = nz - underburden + 1
+        for n in range(start_index, end_index):
             self.reservoir.add_perforation(well=self.reservoir.wells[-1], i=self.iw[0], j=self.jw[0], k=n,
                                            well_index=self.well_index)
 
         # add well
         self.reservoir.add_well("PRD")
         # add perforations to te payzone 
-        for n in range(1, 2):
+        for n in range(start_index, end_index):
             self.reservoir.add_perforation(self.reservoir.wells[-1], i=self.iw[1], j=self.jw[1], k=n,
                                            well_index=self.well_index)
 
