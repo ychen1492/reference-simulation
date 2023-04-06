@@ -105,7 +105,9 @@ class Model(DartsModel):
         nb = self.reservoir.mesh.n_res_blocks
         temp = _Backward1_T_Ph_vec(X[0:2 * nb:2] / 10, X[1:2 * nb:2] / 18.015)
         press = X[0:2 * nb:2]
-        peclet_number = np.array(self.physics.engine.peclet_number[0:nb], copy=False)
+        thermal_conduction = np.array(self.physics.engine.thermal_conduction[0:nb], copy=False)
+        thermal_convection = np.array(self.physics.engine.thermal_convection[0:nb], copy=False)
+        peclet_number = abs(thermal_convection/thermal_conduction)
 
         local_cell_data = {'Temperature': temp, 'Pressure': press,
                            'Perm': self.reservoir.global_data['permx'],
