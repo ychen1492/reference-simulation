@@ -73,8 +73,8 @@ class Model(DartsModel):
         rcond[self.perm <= 1e-5] = 2.2 * 86.4  # kJ/m/day/K
         rcond[self.perm > 1e-5] = 3 * 86.4
 
-        self.physics = Geothermal(timer=self.timer, n_points=64, min_p=1, max_p=800,
-                                  min_e=10, max_e=30000, mass_rate=False, cache=False)
+        self.physics = Geothermal(timer=self.timer, n_points=64, min_p=0, max_p=800,
+                                  min_e=10, max_e=50000, mass_rate=True, cache=False)
 
         # timestep parameters
         self.params.first_ts = 1e-3
@@ -82,8 +82,8 @@ class Model(DartsModel):
         self.params.max_ts = 100
 
         # nonlinear and linear solver tolerance
-        self.params.tolerance_newton = 1e-4
-        self.params.tolerance_linear = 1e-6
+        self.params.tolerance_newton = 1e-5
+        self.params.tolerance_linear = 1e-7
         self.runtime = total_time
 
         self.timer.node["initialization"].stop()
@@ -91,14 +91,18 @@ class Model(DartsModel):
     def set_initial_conditions(self):
         # self.physics.set_nonuniform_initial_conditions(self.reservoir.mesh, pressure_grad=100, temperature_grad=30)
         self.physics.set_uniform_initial_conditions(self.reservoir.mesh, uniform_pressure=self.uniform_pressure,
-                                                    uniform_temperature=self.prod_temperature)
+                                                   uniform_temperature=self.prod_temperature)
 
+    # T=300K, P=200bars, the enthalpy is 1914.13 [?]
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_mass_rate_water_inj(416700, self.inj_temperature)
+                # w.control = self.physics.new_rate_water_inj(7500, 300)
+                w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
+                # w.constraint = self.physics.new_bhp_water_inj(200, 300)
             else:
-                w.control = self.physics.new_mass_rate_water_prod(7500)
+                w.control = self.physics.new_mass_rate_water_prod(417000)
+                # w.control = self.physics.new_rate_water_prod(7500)
 
     def export_pro_vtk(self, file_name='Results'):
         X = np.array(self.physics.engine.X, copy=False)
@@ -136,9 +140,12 @@ class Model(DartsModel):
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
-                    w.control = self.physics.new_mass_rate_water_inj(416700, self.inj_temperature)
+                    # w.control = self.physics.new_rate_water_inj(7500, 300)
+                    w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
+                    # w.constraint = self.physics.new_bhp_water_inj(200, 300)
                 else:
-                    w.control = self.physics.new_mass_rate_water_prod(7500)
+                    w.control = self.physics.new_mass_rate_water_prod(417000)
+                    # w.control = self.physics.new_rate_water_prod(7500)
             self.physics.engine.run(ts)
             self.physics.engine.report()
             if export_to_vtk:
