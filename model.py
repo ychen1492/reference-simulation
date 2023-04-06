@@ -96,9 +96,9 @@ class Model(DartsModel):
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_mass_rate_water_inj(2500, self.inj_temperature)
+                w.control = self.physics.new_mass_rate_water_inj(416700, self.inj_temperature)
             else:
-                w.control = self.physics.new_mass_rate_water_prod(2500)
+                w.control = self.physics.new_mass_rate_water_prod(7500)
 
     def export_pro_vtk(self, file_name='Results'):
         X = np.array(self.physics.engine.X, copy=False)
@@ -136,9 +136,9 @@ class Model(DartsModel):
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
-                    w.control = self.physics.new_mass_rate_water_inj(2500, self.inj_temperature)
+                    w.control = self.physics.new_mass_rate_water_inj(416700, self.inj_temperature)
                 else:
-                    w.control = self.physics.new_mass_rate_water_prod(2500)
+                    w.control = self.physics.new_mass_rate_water_prod(7500)
             self.physics.engine.run(ts)
             self.physics.engine.report()
             if export_to_vtk:
