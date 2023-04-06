@@ -96,16 +96,16 @@ class Model(DartsModel):
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_mass_rate_water_inj(2500, self.inj_temperature)
+                w.control = self.physics.new_rate_water_inj(7500, self.inj_temperature)
             else:
-                w.control = self.physics.new_mass_rate_water_prod(2500)
+                w.control = self.physics.new_rate_water_prod(7500)
 
     def export_pro_vtk(self, file_name='Results'):
         X = np.array(self.physics.engine.X, copy=False)
         nb = self.reservoir.mesh.n_res_blocks
         temp = _Backward1_T_Ph_vec(X[0:2 * nb:2] / 10, X[1:2 * nb:2] / 18.015)
         press = X[0:2 * nb:2]
-        peclet_number = np.array(self.physics.engine.pecletNumber[0:nb], copy=False)
+        peclet_number = np.array(self.physics.engine.peclet_number[0:nb], copy=False)
 
         local_cell_data = {'Temperature': temp, 'Pressure': press,
                            'Perm': self.reservoir.global_data['permx'],
@@ -136,9 +136,9 @@ class Model(DartsModel):
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
-                    w.control = self.physics.new_mass_rate_water_inj(2500, self.inj_temperature)
+                    w.control = self.physics.new_rate_water_inj(7500, self.inj_temperature)
                 else:
-                    w.control = self.physics.new_mass_rate_water_prod(2500)
+                    w.control = self.physics.new_rate_water_prod(7500)
             self.physics.engine.run(ts)
             self.physics.engine.report()
             if export_to_vtk:
