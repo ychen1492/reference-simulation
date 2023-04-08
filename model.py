@@ -20,7 +20,7 @@ class Model(DartsModel):
         self.perm = np.concatenate([np.ones(nz) * perm for perm in perms], axis=0)
         self.poro = poro
         # add more layers above the reservoir
-        underburden = overburden
+        underburden = 0
         nz += (overburden+underburden)
         overburden_prop = np.ones(set_nx * set_ny * overburden) * 1e-5
         underburden_prop = np.ones(set_nx * set_ny * underburden) * 1e-5
@@ -96,9 +96,9 @@ class Model(DartsModel):
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_rate_water_inj(7500, self.inj_temperature)
+                w.control = self.physics.new_rate_water_inj(7800, self.inj_temperature)
             else:
-                w.control = self.physics.new_rate_water_prod(7500)
+                w.control = self.physics.new_rate_water_prod(7800)
 
     def export_pro_vtk(self, file_name='Results'):
         X = np.array(self.physics.engine.X, copy=False)
@@ -113,6 +113,13 @@ class Model(DartsModel):
                            'Perm': self.reservoir.global_data['permx'],
                            'PecletNumber': peclet_number}
         self.export_vtk(local_cell_data=local_cell_data)
+
+    def export_data(self):
+        X = np.array(self.physics.engine.X, copy=False)
+        nb = self.reservoir.mesh.n_res_blocks
+        temp = _Backward1_T_Ph_vec(X[0:2 * nb:2] / 10, X[1:2 * nb:2] / 18.015)
+        press = X[0:2 * nb:2]
+        return press, temp
 
     def run(self, export_to_vtk=False, file_name='data'):
         import random
@@ -138,9 +145,9 @@ class Model(DartsModel):
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
-                    w.control = self.physics.new_rate_water_inj(7500, self.inj_temperature)
+                    w.control = self.physics.new_rate_water_inj(7800, self.inj_temperature)
                 else:
-                    w.control = self.physics.new_rate_water_prod(7500)
+                    w.control = self.physics.new_rate_water_prod(7800)
             self.physics.engine.run(ts)
             self.physics.engine.report()
             if export_to_vtk:
