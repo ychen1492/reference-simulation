@@ -31,25 +31,31 @@ def generate_base():
     vtk and time data excel file
     """
     redirect_darts_output('log.txt')
-    proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
+    geothermal_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
                         set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poro, report_time_step=report_time,
                         overburden=base_overburden)
-    proxy_model.init()
-    proxy_model.run(export_to_vtk=True)
+    geothermal_model.init()
+    geothermal_model.run(export_to_vtk=True)
 
-    proxy_model_elapsed_time = proxy_model.timer.node['initialization'].get_timer() + proxy_model.timer.node[
-        'simulation'].get_timer()
-
-    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
-
+    pressure, temperature = geothermal_model.export_data()
+    temperature_dict = {}
+    pressure_dict = {}
     if not os.path.exists('RealBase'):
         os.mkdir('RealBase')
-    output_path = os.path.relpath(f'./RealBase/base_resolution_ho.xlsx')
-    writer = pd.ExcelWriter(output_path)
-    td.to_excel(writer, 'Sheet1')
-    writer.save()
-    with open('./RealBase/simulation_time_resolution_ho.txt', 'w') as f:
-        f.write(f'{proxy_model_elapsed_time}')
+    # the temperature distribution of the first 22 layers
+    top_layer_temp = temperature.reshape(geothermal_model.reservoir.nx, geothermal_model.reservoir.ny,
+                                         geothermal_model.reservoir.nz, order='F')[:, :, 0:22].flatten(order='F')
+    top_layer_pressure = pressure.reshape(geothermal_model.reservoir.nx, geothermal_model.reservoir.ny,
+                                          geothermal_model.reservoir.nz, order='F')[:, :, 0:22].flatten(order='F')
+    temperature_dict['base'] = top_layer_temp
+    pressure_dict['base'] = top_layer_pressure
+
+    output_path = os.path.relpath(f'RealBase/temperature_layers.csv')
+    output_path_pressure = os.path.relpath(f'RealBase/pressure_layers.csv')
+    df = pd.DataFrame.from_dict(temperature_dict)
+    df.to_csv(output_path, index=False)
+    df_press = pd.DataFrame.from_dict(pressure_dict)
+    df_press.to_csv(output_path_pressure, index=False)
 
 
 def upscale_overburden(overburden_thickness):
@@ -85,29 +91,31 @@ def upscale_overburden(overburden_thickness):
     redirect_darts_output('log.txt')
     # add the overburden layers' dz
     set_dz_new = np.concatenate([overburden_dz, np.ones(set_nx * set_ny * set_nz) * set_dz])
-    proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
+    geothermal_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
                         set_dy=set_dy, set_dz=set_dz_new, perms=perms, poro=poro, report_time_step=report_time,
                         overburden=overburden)
-    proxy_model.init()
-    proxy_model.run(export_to_vtk=True)
-
-    proxy_model_elapsed_time = proxy_model.timer.node['initialization'].get_timer() + proxy_model.timer.node[
-        'simulation'].get_timer()
-
-    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
-
+    geothermal_model.init()
+    geothermal_model.run(export_to_vtk=True)
+    pressure, temperature = geothermal_model.export_data()
+    temperature_dict = {}
+    pressure_dict = {}
     if not os.path.exists('UpdateDz'):
         os.mkdir('UpdateDz')
-    output_path = os.path.relpath(f'./UpdateDz/scenario_50.xlsx')
-    writer = pd.ExcelWriter(output_path)
-    td.to_excel(writer, 'Sheet1')
-    writer.save()
-    with open('./UpdateDz/scenario_50.txt', 'w') as f:
-        f.write(f'{proxy_model_elapsed_time}')
-
-    return proxy_model
+    # the temperature distribution of the first 8 layers
+    top_layer_temp = temperature.reshape(geothermal_model.reservoir.nx, geothermal_model.reservoir.ny,
+                                         geothermal_model.reservoir.nz, order='F')[:, :, 0:8].flatten(order='F')
+    top_layer_pressure = pressure.reshape(geothermal_model.reservoir.nx, geothermal_model.reservoir.ny,
+                                          geothermal_model.reservoir.nz, order='F')[:, :, 0:8].flatten(order='F')
+    temperature_dict['upscaled'] = top_layer_temp
+    pressure_dict['upscaled'] = top_layer_pressure
+    output_path = os.path.relpath(f'UpdateDz/temperature_upscaled_layers.csv')
+    output_path_pressure = os.path.relpath(f'UpdateDz/pressure_upscaled_layers.csv')
+    df = pd.DataFrame.from_dict(temperature_dict)
+    df.to_csv(output_path, index=False)
+    df_press = pd.DataFrame.from_dict(pressure_dict)
+    df_press.to_csv(output_path_pressure, index=False)
 
 
 if __name__ == '__main__':
-    # proxy_model = upscale_overburden(220)
-    generate_base()
+    upscale_overburden(220)
+    # generate_base()

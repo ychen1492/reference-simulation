@@ -5,3 +5,5 @@
 *.vts
 *.xlsx
 log*
+/RealBase/*
+/UpdateDz/*
