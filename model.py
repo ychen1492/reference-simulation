@@ -34,8 +34,8 @@ class Model(DartsModel):
         # given the x spacing 4500m, the distance between injection well and boundary is 1800m
         # well spacing is 1200m
         # add well's locations
-        injection_well_x = int(2560/set_dx)
-        production_well_x = injection_well_x + int(1024/set_dx)
+        injection_well_x = int(2400/set_dx)
+        production_well_x = injection_well_x + int(1200/set_dx)
         self.iw = [injection_well_x, production_well_x]
         self.jw = [int(set_ny/2), int(set_ny/2)]
 
@@ -97,9 +97,9 @@ class Model(DartsModel):
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_rate_water_inj(3000, self.inj_temperature)
+                w.control = self.physics.new_rate_water_inj(4000, self.inj_temperature)
             else:
-                w.control = self.physics.new_rate_water_prod(3000)
+                w.control = self.physics.new_rate_water_prod(4000)
 
     def export_pro_vtk(self, file_name='Results'):
         X = np.array(self.physics.engine.X, copy=False)
@@ -142,9 +142,9 @@ class Model(DartsModel):
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
-                    w.control = self.physics.new_rate_water_inj(3000, self.inj_temperature)
+                    w.control = self.physics.new_rate_water_inj(4000, self.inj_temperature)
                 else:
-                    w.control = self.physics.new_rate_water_prod(3000)
+                    w.control = self.physics.new_rate_water_prod(4000)
             self.physics.engine.run(ts)
             self.physics.engine.report()
             if export_to_vtk:
