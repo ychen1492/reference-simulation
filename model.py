@@ -6,13 +6,12 @@ import numpy as np
 
 
 class Model(DartsModel):
-    def __init__(self, total_time, set_nx, set_nz, perms, poro,
-                 set_dx, set_dz, report_time_step, overburden):
+    def __init__(self, total_time, set_nx, set_ny, set_nz, perms, poro,
+                 set_dx, set_dy, set_dz, report_time_step, overburden):
         # call base class constructor
         super().__init__()
 
         self.timer.node["initialization"].start()
-        set_ny = 1
         # parameters for the reservoir
         (nx, ny, nz) = (set_nx, set_ny, set_nz)
         self.perm = perms
@@ -26,19 +25,19 @@ class Model(DartsModel):
         self.poro = np.concatenate([overburden_prop, self.poro, underburden_prop])
         self.report_time = report_time_step
         # add more layers above or below the reservoir
-        self.reservoir = StructReservoir(self.timer, nx=nx, ny=ny, nz=nz, dx=set_dx, dy=40, dz=set_dz,
+        self.reservoir = StructReservoir(self.timer, nx=nx, ny=ny, nz=nz, dx=set_dx, dy=set_dy, dz=set_dz,
                                          permx=self.perm, permy=self.perm, permz=0.1*self.perm, poro=self.poro,
                                          depth=2300)
 
         # add larger volumes
-        self.reservoir.set_boundary_volume(yz_minus=1e15, yz_plus=1e15)
+        self.reservoir.set_boundary_volume(yz_minus=1e15, yz_plus=1e15, xz_minus=1e15, xz_plus=1e15)
         # given the x spacing 4500m, the distance between injection well and boundary is 1800m
         # well spacing is 1200m
         # add well's locations
         injection_well_x = int(2560/set_dx)
         production_well_x = injection_well_x + int(1024/set_dx)
         self.iw = [injection_well_x, production_well_x]
-        self.jw = [set_ny, set_ny]
+        self.jw = [int(set_ny/2), int(set_ny/2)]
 
         self.well_index = 100
 
@@ -98,9 +97,9 @@ class Model(DartsModel):
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_rate_water_inj(1500, self.inj_temperature)
+                w.control = self.physics.new_rate_water_inj(3000, self.inj_temperature)
             else:
-                w.control = self.physics.new_rate_water_prod(1500)
+                w.control = self.physics.new_rate_water_prod(3000)
 
     def export_pro_vtk(self, file_name='Results'):
         X = np.array(self.physics.engine.X, copy=False)
@@ -143,9 +142,9 @@ class Model(DartsModel):
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
-                    w.control = self.physics.new_rate_water_inj(1500, self.inj_temperature)
+                    w.control = self.physics.new_rate_water_inj(3000, self.inj_temperature)
                 else:
-                    w.control = self.physics.new_rate_water_prod(1500)
+                    w.control = self.physics.new_rate_water_prod(3000)
             self.physics.engine.run(ts)
             self.physics.engine.report()
             if export_to_vtk:
