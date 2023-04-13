@@ -73,11 +73,11 @@ class Model(DartsModel):
         rcond[self.perm <= 1e-5] = 2.2 * 86.4  # kJ/m/day/K
         rcond[self.perm > 1e-5] = 3 * 86.4
 
-        self.physics = Geothermal(timer=self.timer, n_points=64, min_p=0, max_p=800,
-                                  min_e=10, max_e=50000, mass_rate=True, cache=False)
+        self.physics = Geothermal(timer=self.timer, n_points=64, min_p=1, max_p=800,
+                                  min_e=10, max_e=30000, mass_rate=True, cache=False)
 
         # timestep parameters
-        self.params.first_ts = 1e-3
+        self.params.first_ts = 1e-5
         self.params.mult_ts = 8
         self.params.max_ts = 100
 
@@ -97,23 +97,18 @@ class Model(DartsModel):
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                # w.control = self.physics.new_rate_water_inj(7500, 300)
                 w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
-                # w.constraint = self.physics.new_bhp_water_inj(200, 300)
             else:
                 w.control = self.physics.new_mass_rate_water_prod(417000)
-                # w.control = self.physics.new_rate_water_prod(7500)
 
     def export_pro_vtk(self, file_name='Results'):
         X = np.array(self.physics.engine.X, copy=False)
         nb = self.reservoir.mesh.n_res_blocks
         temp = _Backward1_T_Ph_vec(X[0:2 * nb:2] / 10, X[1:2 * nb:2] / 18.015)
         press = X[0:2 * nb:2]
-        peclet_number = np.array(self.physics.engine.pecletNumber[0:nb], copy=False)
 
         local_cell_data = {'Temperature': temp, 'Pressure': press,
-                           'Perm': self.reservoir.global_data['permx'],
-                           'PecletNumber': peclet_number}
+                           'Perm': self.reservoir.global_data['permx']}
         self.export_vtk(local_cell_data=local_cell_data)
 
     def run(self, export_to_vtk=False, file_name='data'):
