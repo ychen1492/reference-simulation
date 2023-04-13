@@ -15,8 +15,6 @@ class Model(DartsModel):
         set_ny = 1
         # parameters for the reservoir
         (nx, ny, nz) = (set_nx, set_ny, set_nz)
-        # perms = np.ones(set_nx * set_ny) * perms
-        # poro = np.ones(set_nx * set_ny * set_nz) * poro
         self.perm = perms
         self.poro = poro
         # add more layers above the reservoir
@@ -28,8 +26,8 @@ class Model(DartsModel):
         self.poro = np.concatenate([overburden_prop, self.poro, underburden_prop])
         self.report_time = report_time_step
         # add more layers above or below the reservoir
-        self.reservoir = StructReservoir(self.timer, nx=nx, ny=ny, nz=nz, dx=set_dx, dy=1000, dz=set_dz,
-                                         permx=self.perm, permy=self.perm, permz=0, poro=self.poro,
+        self.reservoir = StructReservoir(self.timer, nx=nx, ny=ny, nz=nz, dx=set_dx, dy=40, dz=set_dz,
+                                         permx=self.perm, permy=self.perm, permz=0.1*self.perm, poro=self.poro,
                                          depth=2300)
 
         # add larger volumes
@@ -37,8 +35,8 @@ class Model(DartsModel):
         # given the x spacing 4500m, the distance between injection well and boundary is 1800m
         # well spacing is 1200m
         # add well's locations
-        injection_well_x = int(2400/set_dx)
-        production_well_x = injection_well_x + int(1200/set_dx)
+        injection_well_x = int(2560/set_dx)
+        production_well_x = injection_well_x + int(1024/set_dx)
         self.iw = [injection_well_x, production_well_x]
         self.jw = [set_ny, set_ny]
 
@@ -69,12 +67,16 @@ class Model(DartsModel):
         rcond = np.array(self.reservoir.mesh.rock_cond, copy=False)
         hcap[self.perm <= 1e-5] = 400 * 2.5  # volumetric heat capacity: kJ/m3/K
         hcap[self.perm > 1e-5] = 400 * 2.5
+        volume = self.reservoir.volume
 
         rcond[self.perm <= 1e-5] = 2.2 * 86.4  # kJ/m/day/K
         rcond[self.perm > 1e-5] = 3 * 86.4
 
-        self.physics = Geothermal(timer=self.timer, n_points=128, min_p=1, max_p=800,
-                                  min_e=10, max_e=50000, mass_rate=False, cache=False)
+        # rcond[self.perm <= 1e-5] = 1e-10  # kJ/m/day/K
+        # rcond[self.perm > 1e-5] = 1e-10
+
+        self.physics = Geothermal(timer=self.timer, n_points=64, min_p=1, max_p=800,
+                                  min_e=10, max_e=30000, mass_rate=False, cache=False)
 
         # timestep parameters
         self.params.first_ts = 1e-3
@@ -96,9 +98,9 @@ class Model(DartsModel):
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_rate_water_inj(5500, self.inj_temperature)
+                w.control = self.physics.new_rate_water_inj(1500, self.inj_temperature)
             else:
-                w.control = self.physics.new_rate_water_prod(5500)
+                w.control = self.physics.new_rate_water_prod(1500)
 
     def export_pro_vtk(self, file_name='Results'):
         X = np.array(self.physics.engine.X, copy=False)
@@ -141,9 +143,9 @@ class Model(DartsModel):
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
-                    w.control = self.physics.new_rate_water_inj(5500, self.inj_temperature)
+                    w.control = self.physics.new_rate_water_inj(1500, self.inj_temperature)
                 else:
-                    w.control = self.physics.new_rate_water_prod(5500)
+                    w.control = self.physics.new_rate_water_prod(1500)
             self.physics.engine.run(ts)
             self.physics.engine.report()
             if export_to_vtk:
