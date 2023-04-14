@@ -1,10 +1,16 @@
 # Reference simulation of Direct Use Geothermal Systems
 
-- Before running any py files, make sure the environment install `requirements.txt`
+## System requirements
+- Windows 10
+- Language: Python
+
+## Computational Dependencies
+- Packages and libraries
+    - Before running any py files, make sure the environment install `requirements.txt`
     - Create a blank conda environment and activate it
     - Run `pip install -r <path to requirements.txt>` in terminal
 
-### Files explanation
+## Files explanation
 1. `model.py`
     - It inherents from `DartsModel`, where the initial contion, boundary condition, reservoir type, simulation engine can be defined
     - To avoid effect of pressure and temperature on water density, mass rate control is chosen as boundary condition
