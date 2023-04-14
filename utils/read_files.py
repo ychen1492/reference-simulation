@@ -21,9 +21,8 @@ def from_las_to_poro(path_to_las, number_layers):
     v_water = 1490  # m/s
     porosity = (density_log * conversion - 1. / v_sandstone) / (1. / v_water - 1. / v_sandstone)
     # get porosity which is not nan
-    porosity = abs(porosity[~np.isnan(porosity)])
-    # remove the negative porosity
-    porosity = porosity[porosity > 0]
+    porosity = porosity[~np.isnan(porosity)]
+
     group_size = math.ceil(len(porosity) / int(number_layers))
     groups = []
     for i in range(0, len(porosity), group_size):

@@ -15,9 +15,9 @@ total_time = 10000
 nz = 10
 def proxy_model_simulation(nx, ny):
     poro = np.concatenate([np.ones(nx*ny) * p for p in org_poro], axis=0)
-    # calculate permeability
-    org_perm = np.exp(110.744 * poro**3-171.8268*poro**2+74.9227*poro-2.047)
-    perms = org_perm * 10
+    # calculate permeability, this is from Duncan's thesis
+    org_perm = np.exp(110.744 * poro**3-171.8268*poro**2+92.9227*poro-2.047)
+    perms = org_perm
     set_nx = nx
     set_dx = x_spacing / set_nx
     set_nz = nz
@@ -39,14 +39,15 @@ def proxy_model_simulation(nx, ny):
 def run_simulation():
     # fixed ny = 80
     ny = 50
-    list_nx = [40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]
+    # list_nx = [40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]
+    list_nx = [160, 180, 200, 220, 240, 260, 280, 300]
     for i in list_nx:
         temperature, geothermal_model = proxy_model_simulation(i, ny)
 
         if not os.path.exists('SerialResolution'):
             os.mkdir('SerialResolution')
 
-        output_path = os.path.relpath(f'SerialResolution/temperature_resolution_dx_test.csv')
+        output_path = os.path.relpath(f'SerialResolution/temperature_resolution_dx_test_1.csv')
         if os.path.exists(output_path):
             df = pd.read_csv(output_path, delimiter=',')
             df[f'{x_spacing / geothermal_model.reservoir.nx:.2f}'] = temperature['PRD : temperature (K)']
@@ -63,6 +64,4 @@ if __name__ == '__main__':
     z_spacing = 100
     # read porosity from the file
     org_poro = from_las_to_poro('LogData/Well_HONSELERSDIJK_GT_01_depth_gr.las', nz)
-    # with open('LogData/porosity_californie_sidetrack_dz.pkl', 'rb') as f:
-    #     org_poro = pickle.load(f)
     run_simulation()
