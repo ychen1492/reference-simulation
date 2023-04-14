@@ -1,5 +1,8 @@
 # Reference simulation of Direct Use Geothermal Systems
-
+Link to jupyter notebook visualization of heterogeneous case
+<a target="_blank" href="https://colab.research.google.com/github/ychen1492/reference-simulation/blob/heterogeneous-case/he_resolution_visualization.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 ## System requirements
 - Windows 10
 - Language: Python
