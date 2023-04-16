@@ -71,14 +71,11 @@ class Model(DartsModel):
         rcond[self.perm <= 1e-5] = 2.2 * 86.4  # kJ/m/day/K
         rcond[self.perm > 1e-5] = 3 * 86.4
 
-        # rcond[self.perm <= 1e-5] = 1e-10  # kJ/m/day/K
-        # rcond[self.perm > 1e-5] = 1e-10
-
         self.physics = Geothermal(timer=self.timer, n_points=64, min_p=1, max_p=800,
-                                  min_e=10, max_e=30000, mass_rate=True, cache=False)
+                                  min_e=10, max_e=30000, mass_rate=False, cache=False)
 
         # timestep parameters
-        self.params.first_ts = 1e-5
+        self.params.first_ts = 1e-3
         self.params.mult_ts = 8
         self.params.max_ts = 100
 

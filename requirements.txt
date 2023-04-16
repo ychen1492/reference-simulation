@@ -124,5 +124,4 @@ wget==3.2
 widgetsnbextension==4.0.7
 wincertstore==0.2
 xlrd==2.0.1
-zenodopy==0.2.0
 zipp==3.15.0
