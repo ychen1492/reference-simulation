@@ -20,6 +20,8 @@ Link to jupyter notebook visualization of heterogeneous case
     - `grav` option in `Geothermal` class is set to `True` by default. 
 2. `real_base.py`
     - It is a main file to generate base model for a homogeneous reservoir with given resolution and overburden and underburden layers
+
+Following two tables show the base domain and resolution for a homogeneous reservoir, given a fixed injection/production rate. The serial forward simulation results which are used to decide this base can be found in [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7828527.svg)](https://doi.org/10.5281/zenodo.7828527)
 - domain
 
 | x spacing    | y spacing | z spacing   | 
