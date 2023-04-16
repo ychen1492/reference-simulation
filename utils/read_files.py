@@ -3,6 +3,13 @@ import numpy as np
 import pandas as pd
 
 
+def read_las(path_to_las):
+    well_californie_sidetrack1_01 = pd.read_table(path_to_las, delim_whitespace=True)
+    well_californie_sidetrack1_01 = well_californie_sidetrack1_01.replace(-999.0000, np.NaN)
+
+    return well_californie_sidetrack1_01
+
+
 def from_las_to_poro(path_to_las, number_layers):
     """
         For the given las path and number of layers, output the porosity
@@ -10,9 +17,8 @@ def from_las_to_poro(path_to_las, number_layers):
     :param number_layers: number of reservoir layers
     :return:
     """
-    well_californie_sidetrack1_01 = pd.read_table(path_to_las, delim_whitespace=True)
-    well_californie_sidetrack1_01 = well_californie_sidetrack1_01.replace(-999.0000, np.NaN)
 
+    well_californie_sidetrack1_01 = read_las(path_to_las)
     density_log = well_californie_sidetrack1_01['DT']
     # micro second/foot to second/m
     conversion = 1e-6 / 0.3048
