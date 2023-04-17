@@ -12,12 +12,9 @@ class Model(DartsModel):
         super().__init__()
 
         self.timer.node["initialization"].start()
-
         # parameters for the reservoir
         (nx, ny, nz) = (set_nx, set_ny, set_nz)
-        perms = np.ones(set_nx * set_ny) * perms
-        poro = np.ones(set_nx * set_ny * set_nz) * poro
-        self.perm = np.concatenate([np.ones(nz) * perm for perm in perms], axis=0)
+        self.perm = perms
         self.poro = poro
         # add more layers above the reservoir
         underburden = overburden
@@ -29,15 +26,15 @@ class Model(DartsModel):
         self.report_time = report_time_step
         # add more layers above or below the reservoir
         self.reservoir = StructReservoir(self.timer, nx=nx, ny=ny, nz=nz, dx=set_dx, dy=set_dy, dz=set_dz,
-                                         permx=self.perm, permy=self.perm, permz=self.perm * 0.1, poro=self.poro,
+                                         permx=self.perm, permy=self.perm, permz=0.1*self.perm, poro=self.poro,
                                          depth=2300)
 
         # add larger volumes
         self.reservoir.set_boundary_volume(yz_minus=1e15, yz_plus=1e15, xz_minus=1e15, xz_plus=1e15)
-        # given the x spacing 3000m, the distance between injection well and boundary is 1200m
+        # given the x spacing 4500m, the distance between injection well and boundary is 1800m
         # well spacing is 1200m
         # add well's locations
-        injection_well_x = int(1200/set_dx)
+        injection_well_x = int(2400/set_dx)
         production_well_x = injection_well_x + int(1200/set_dx)
         self.iw = [injection_well_x, production_well_x]
         self.jw = [int(set_ny/2), int(set_ny/2)]
@@ -69,15 +66,16 @@ class Model(DartsModel):
         rcond = np.array(self.reservoir.mesh.rock_cond, copy=False)
         hcap[self.perm <= 1e-5] = 400 * 2.5  # volumetric heat capacity: kJ/m3/K
         hcap[self.perm > 1e-5] = 400 * 2.5
+        volume = self.reservoir.volume
 
         rcond[self.perm <= 1e-5] = 2.2 * 86.4  # kJ/m/day/K
         rcond[self.perm > 1e-5] = 3 * 86.4
 
         self.physics = Geothermal(timer=self.timer, n_points=64, min_p=1, max_p=800,
-                                  min_e=10, max_e=30000, mass_rate=True, cache=False)
+                                  min_e=10, max_e=30000, mass_rate=False, cache=False)
 
         # timestep parameters
-        self.params.first_ts = 1e-5
+        self.params.first_ts = 1e-3
         self.params.mult_ts = 8
         self.params.max_ts = 100
 
@@ -93,13 +91,16 @@ class Model(DartsModel):
         self.physics.set_uniform_initial_conditions(self.reservoir.mesh, uniform_pressure=self.uniform_pressure,
                                                    uniform_temperature=self.prod_temperature)
 
-    # T=300K, P=200bars, the enthalpy is 1914.13 [?]
+    # T=300K, P=200bars, the enthalpy is 1914.13 [kJ/kg]
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
+                w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
             else:
-                w.control = self.physics.new_mass_rate_water_prod(417000)
+                w.control = self.physics.new_rate_water_prod(3200)
+            #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
+            # else:
+            #     w.control = self.physics.new_mass_rate_water_prod(417000)
 
     def export_pro_vtk(self, file_name='Results'):
         X = np.array(self.physics.engine.X, copy=False)
@@ -110,6 +111,13 @@ class Model(DartsModel):
         local_cell_data = {'Temperature': temp, 'Pressure': press,
                            'Perm': self.reservoir.global_data['permx']}
         self.export_vtk(local_cell_data=local_cell_data)
+
+    def export_data(self):
+        X = np.array(self.physics.engine.X, copy=False)
+        nb = self.reservoir.mesh.n_res_blocks
+        temp = _Backward1_T_Ph_vec(X[0:2 * nb:2] / 10, X[1:2 * nb:2] / 18.015)
+        press = X[0:2 * nb:2]
+        return press, temp, self.reservoir.global_data['permx']
 
     def run(self, export_to_vtk=False, file_name='data'):
         import random
@@ -135,12 +143,14 @@ class Model(DartsModel):
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
-                    # w.control = self.physics.new_rate_water_inj(7500, 300)
-                    w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
-                    # w.constraint = self.physics.new_bhp_water_inj(200, 300)
+                    w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
                 else:
-                    w.control = self.physics.new_mass_rate_water_prod(417000)
-                    # w.control = self.physics.new_rate_water_prod(7500)
+                    w.control = self.physics.new_rate_water_prod(3200)   
+                #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
+                    
+                # else:
+                #     w.control = self.physics.new_mass_rate_water_prod(417000)
+                 
             self.physics.engine.run(ts)
             self.physics.engine.report()
             if export_to_vtk:

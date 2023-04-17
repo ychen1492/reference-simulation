@@ -5,4 +5,5 @@
 *.vts
 *.xlsx
 log*
+*/__pycache__/*
 /RealBase/*
