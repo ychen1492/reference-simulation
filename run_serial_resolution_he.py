@@ -1,18 +1,15 @@
 import os
-import pickle
-
 import numpy as np
 from darts.engines import redirect_darts_output
-from matplotlib import pyplot as plt
-
 from model import Model
 import pandas as pd
-
 from utils.read_files import from_las_to_poro
 
 report_time = 100
 total_time = 10000
 nz = 10
+
+
 def proxy_model_simulation(nx, ny):
 
     set_nx = nx
