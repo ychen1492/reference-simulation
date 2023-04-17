@@ -91,7 +91,7 @@ class Model(DartsModel):
         self.physics.set_uniform_initial_conditions(self.reservoir.mesh, uniform_pressure=self.uniform_pressure,
                                                    uniform_temperature=self.prod_temperature)
 
-    # T=300K, P=200bars, the enthalpy is 1914.13 [?]
+    # T=300K, P=200bars, the enthalpy is 1914.13 [kJ/kg]
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
