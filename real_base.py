@@ -8,7 +8,7 @@ from model import Model
 
 report_time = 100
 total_time = 10000
-perms = 3000
+perm = 3000
 poro = 0.2
 
 np.random.seed(550)
@@ -31,8 +31,10 @@ def generate_base():
     vtk and time data excel file
     """
     redirect_darts_output('log.txt')
+    poros = np.ones(set_nx * set_ny*set_nz) * poro
+    perms = np.ones(set_nx * set_ny*set_nz) * perm
     proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
-                        set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poro, report_time_step=report_time,
+                        set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poros, report_time_step=report_time,
                         overburden=overburden)
     proxy_model.init()
     proxy_model.run(export_to_vtk=True)
@@ -44,11 +46,11 @@ def generate_base():
 
     if not os.path.exists('RealBase'):
         os.mkdir('RealBase')
-    output_path = os.path.relpath(f'./RealBase/base_resolution_ho_mass.xlsx')
+    output_path = os.path.relpath(f'./RealBase/base_resolution_ho_mass_1.xlsx')
     writer = pd.ExcelWriter(output_path)
     td.to_excel(writer, 'Sheet1')
     writer.save()
-    with open('./RealBase/simulation_time_resolution_ho_mass.txt', 'w') as f:
+    with open('./RealBase/simulation_time_resolution_ho_mass_1.txt', 'w') as f:
         f.write(f'{proxy_model_elapsed_time}')
 
 

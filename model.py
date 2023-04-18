@@ -1,4 +1,5 @@
 from darts.models.physics.geothermal import Geothermal
+from darts.models.physics.iapws.iapws97 import _Region1
 from darts.models.reservoirs.struct_reservoir import StructReservoir
 from darts.models.darts_model import DartsModel
 from darts.models.physics.iapws.iapws_property_vec import _Backward1_T_Ph_vec
@@ -30,11 +31,11 @@ class Model(DartsModel):
                                          depth=2300)
 
         # add larger volumes
-        self.reservoir.set_boundary_volume(yz_minus=1e15, yz_plus=1e15, xz_minus=1e15, xz_plus=1e15)
+        # self.reservoir.set_boundary_volume(yz_minus=1e15, yz_plus=1e15, xz_minus=1e15, xz_plus=1e15)
         # given the x spacing 4500m, the distance between injection well and boundary is 1800m
         # well spacing is 1200m
         # add well's locations
-        injection_well_x = int(2400/set_dx)
+        injection_well_x = int(1800/set_dx)
         production_well_x = injection_well_x + int(1200/set_dx)
         self.iw = [injection_well_x, production_well_x]
         self.jw = [int(set_ny/2), int(set_ny/2)]
@@ -59,7 +60,7 @@ class Model(DartsModel):
 
         self.uniform_pressure = 200
         self.inj_temperature = 300
-        self.prod_temperature = 350
+        self.prod_temperature = 300
 
         # rock heat capacity and rock thermal conduction
         hcap = np.array(self.reservoir.mesh.heat_capacity, copy=False)
@@ -72,7 +73,7 @@ class Model(DartsModel):
         rcond[self.perm > 1e-5] = 3 * 86.4
 
         self.physics = Geothermal(timer=self.timer, n_points=64, min_p=1, max_p=800,
-                                  min_e=10, max_e=30000, mass_rate=False, cache=False)
+                                  min_e=10, max_e=30000, mass_rate=True, cache=False)
 
         # timestep parameters
         self.params.first_ts = 1e-3
@@ -91,16 +92,22 @@ class Model(DartsModel):
         self.physics.set_uniform_initial_conditions(self.reservoir.mesh, uniform_pressure=self.uniform_pressure,
                                                    uniform_temperature=self.prod_temperature)
 
-    # T=300K, P=200bars, the enthalpy is 1914.13 [kJ/kg]
     def set_boundary_conditions(self):
+        injection_enthalpy = _Region1(self.inj_temperature, self.uniform_pressure/10)["h"]
+        injection_mass_rate = self.convert_volumetric_to_mass(7500, self.inj_temperature, self.uniform_pressure/10)
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
-            else:
-                w.control = self.physics.new_rate_water_prod(3200)
-            #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
+            #     w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
             # else:
-            #     w.control = self.physics.new_mass_rate_water_prod(417000)
+            #     w.control = self.physics.new_rate_water_prod(3200)
+                w.control = self.physics.new_mass_rate_water_inj(injection_mass_rate, injection_enthalpy)
+            else:
+                w.control = self.physics.new_mass_rate_water_prod(injection_mass_rate)
+
+    def convert_volumetric_to_mass(self, volumetric_rate, temperature, pressure):
+        water_density = 1.0 / _Region1(temperature, pressure)["v"]
+        mass_rate = volumetric_rate * water_density / 18.01
+        return mass_rate
 
     def export_pro_vtk(self, file_name='Results'):
         X = np.array(self.physics.engine.X, copy=False)
@@ -142,14 +149,16 @@ class Model(DartsModel):
         self.export_pro_vtk(file_name)
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
+                injection_enthalpy = _Region1(self.inj_temperature, self.uniform_pressure / 10)["h"]
+                injection_mass_rate = self.convert_volumetric_to_mass(7500, self.inj_temperature,
+                                                                      self.uniform_pressure / 10)
                 if 'I' in w.name:
-                    w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
+                    #     w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
+                    # else:
+                    #     w.control = self.physics.new_rate_water_prod(3200)
+                    w.control = self.physics.new_mass_rate_water_inj(injection_mass_rate, injection_enthalpy)
                 else:
-                    w.control = self.physics.new_rate_water_prod(3200)   
-                #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
-                    
-                # else:
-                #     w.control = self.physics.new_mass_rate_water_prod(417000)
+                    w.control = self.physics.new_mass_rate_water_prod(injection_mass_rate)
                  
             self.physics.engine.run(ts)
             self.physics.engine.report()
