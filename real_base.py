@@ -11,7 +11,6 @@ total_time = 10000
 perm = 3000
 poro = 0.2
 
-np.random.seed(550)
 x_spacing = 3000
 y_spacing = 2500
 z_spacing = 100
@@ -35,23 +34,18 @@ def generate_base():
     perms = np.ones(set_nx * set_ny*set_nz) * perm
     proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
                         set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poros, report_time_step=report_time,
-                        overburden=overburden)
+                        overburden=overburden, rate=7500, is_mass_rate=True)
     proxy_model.init()
     proxy_model.run(export_to_vtk=True)
-
-    proxy_model_elapsed_time = proxy_model.timer.node['initialization'].get_timer() + proxy_model.timer.node[
-        'simulation'].get_timer()
 
     td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
 
     if not os.path.exists('RealBase'):
         os.mkdir('RealBase')
-    output_path = os.path.relpath(f'./RealBase/base_resolution_ho_mass_1.xlsx')
+    output_path = os.path.relpath(f'./RealBase/base_resolution_ho_mass.xlsx')
     writer = pd.ExcelWriter(output_path)
     td.to_excel(writer, 'Sheet1')
     writer.save()
-    with open('./RealBase/simulation_time_resolution_ho_mass_1.txt', 'w') as f:
-        f.write(f'{proxy_model_elapsed_time}')
 
 
 if __name__ == '__main__':

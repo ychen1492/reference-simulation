@@ -1,3 +1,5 @@
+import pickle
+
 from darts.models.physics.geothermal import Geothermal
 from darts.models.physics.iapws.iapws97 import _Region1
 from darts.models.reservoirs.struct_reservoir import StructReservoir
@@ -8,7 +10,7 @@ import numpy as np
 
 class Model(DartsModel):
     def __init__(self, total_time, set_nx, set_ny, set_nz, perms, poro,
-                 set_dx, set_dy, set_dz, report_time_step, overburden):
+                 set_dx, set_dy, set_dz, report_time_step, overburden, rate, is_mass_rate):
         # call base class constructor
         super().__init__()
 
@@ -17,9 +19,11 @@ class Model(DartsModel):
         (nx, ny, nz) = (set_nx, set_ny, set_nz)
         self.perm = perms
         self.poro = poro
+        self.rate = rate
+        self.is_mass_rate = is_mass_rate
         # add more layers above the reservoir
         underburden = overburden
-        nz += (overburden+underburden)
+        nz += (overburden + underburden)
         overburden_prop = np.ones(set_nx * set_ny * overburden) * 1e-5
         underburden_prop = np.ones(set_nx * set_ny * underburden) * 1e-5
         self.perm = np.concatenate([overburden_prop, self.perm, underburden_prop])
@@ -27,7 +31,7 @@ class Model(DartsModel):
         self.report_time = report_time_step
         # add more layers above or below the reservoir
         self.reservoir = StructReservoir(self.timer, nx=nx, ny=ny, nz=nz, dx=set_dx, dy=set_dy, dz=set_dz,
-                                         permx=self.perm, permy=self.perm, permz=0.1*self.perm, poro=self.poro,
+                                         permx=self.perm, permy=self.perm, permz=0.1 * self.perm, poro=self.poro,
                                          depth=2300)
 
         # add larger volumes
@@ -35,10 +39,10 @@ class Model(DartsModel):
         # given the x spacing 4500m, the distance between injection well and boundary is 1800m
         # well spacing is 1200m
         # add well's locations
-        injection_well_x = int(1800/set_dx)
-        production_well_x = injection_well_x + int(1200/set_dx)
+        injection_well_x = int(1500 / set_dx)
+        production_well_x = injection_well_x + int(1200 / set_dx)
         self.iw = [injection_well_x, production_well_x]
-        self.jw = [int(set_ny/2), int(set_ny/2)]
+        self.jw = [int(set_ny / 2), int(set_ny / 2)]
 
         self.well_index = 100
 
@@ -60,20 +64,19 @@ class Model(DartsModel):
 
         self.uniform_pressure = 200
         self.inj_temperature = 300
-        self.prod_temperature = 300
+        self.prod_temperature = 350
 
         # rock heat capacity and rock thermal conduction
         hcap = np.array(self.reservoir.mesh.heat_capacity, copy=False)
         rcond = np.array(self.reservoir.mesh.rock_cond, copy=False)
         hcap[self.perm <= 1e-5] = 400 * 2.5  # volumetric heat capacity: kJ/m3/K
         hcap[self.perm > 1e-5] = 400 * 2.5
-        volume = self.reservoir.volume
 
         rcond[self.perm <= 1e-5] = 2.2 * 86.4  # kJ/m/day/K
         rcond[self.perm > 1e-5] = 3 * 86.4
 
         self.physics = Geothermal(timer=self.timer, n_points=64, min_p=1, max_p=800,
-                                  min_e=10, max_e=30000, mass_rate=True, cache=False)
+                                  min_e=10, max_e=30000, mass_rate=self.is_mass_rate, cache=False)
 
         # timestep parameters
         self.params.first_ts = 1e-3
@@ -90,24 +93,30 @@ class Model(DartsModel):
     def set_initial_conditions(self):
         # self.physics.set_nonuniform_initial_conditions(self.reservoir.mesh, pressure_grad=100, temperature_grad=30)
         self.physics.set_uniform_initial_conditions(self.reservoir.mesh, uniform_pressure=self.uniform_pressure,
-                                                   uniform_temperature=self.prod_temperature)
+                                                    uniform_temperature=self.prod_temperature)
 
     def set_boundary_conditions(self):
-        injection_enthalpy = _Region1(self.inj_temperature, self.uniform_pressure/10)["h"]
-        injection_mass_rate = self.convert_volumetric_to_mass(7500, self.inj_temperature, self.uniform_pressure/10)
-        for _, w in enumerate(self.reservoir.wells):
-            if 'I' in w.name:
-            #     w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
-            # else:
-            #     w.control = self.physics.new_rate_water_prod(3200)
-                w.control = self.physics.new_mass_rate_water_inj(injection_mass_rate, injection_enthalpy)
-            else:
-                w.control = self.physics.new_mass_rate_water_prod(injection_mass_rate)
+        if self.is_mass_rate:
+            injection_mass_rate, injection_enthalpy = self.convert_volumetric_to_mass(self.rate, self.inj_temperature,
+                                                                                      self.uniform_pressure / 10)
+            for _, w in enumerate(self.reservoir.wells):
+                if 'I' in w.name:
+                    w.control = self.physics.new_mass_rate_water_inj(injection_mass_rate, injection_enthalpy)
+                else:
+                    w.control = self.physics.new_mass_rate_water_prod(injection_mass_rate)
+        else:
+            for _, w in enumerate(self.reservoir.wells):
+                if 'I' in w.name:
+                    w.control = self.physics.new_rate_water_inj(self.rate, self.inj_temperature)
+                else:
+                    w.control = self.physics.new_rate_water_prod(self.rate)
 
-    def convert_volumetric_to_mass(self, volumetric_rate, temperature, pressure):
+    @staticmethod
+    def convert_volumetric_to_mass(volumetric_rate, temperature, pressure):
         water_density = 1.0 / _Region1(temperature, pressure)["v"]
-        mass_rate = volumetric_rate * water_density / 18.01
-        return mass_rate
+        injection_enthalpy = _Region1(temperature, pressure)["h"] * 18.015
+        mass_rate = volumetric_rate * water_density / 18.015
+        return mass_rate, injection_enthalpy
 
     def export_pro_vtk(self, file_name='Results'):
         X = np.array(self.physics.engine.X, copy=False)
@@ -147,20 +156,30 @@ class Model(DartsModel):
             time_step_arr = np.append(time_step_arr, self.runtime - even_end)
 
         self.export_pro_vtk(file_name)
+        average_reservoir_pressure = []
         for ts in time_step_arr:
-            for _, w in enumerate(self.reservoir.wells):
-                injection_enthalpy = _Region1(self.inj_temperature, self.uniform_pressure / 10)["h"]
-                injection_mass_rate = self.convert_volumetric_to_mass(7500, self.inj_temperature,
-                                                                      self.uniform_pressure / 10)
-                if 'I' in w.name:
-                    #     w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
-                    # else:
-                    #     w.control = self.physics.new_rate_water_prod(3200)
-                    w.control = self.physics.new_mass_rate_water_inj(injection_mass_rate, injection_enthalpy)
-                else:
-                    w.control = self.physics.new_mass_rate_water_prod(injection_mass_rate)
-                 
+            if self.is_mass_rate:
+                injection_mass_rate, injection_enthalpy = self.convert_volumetric_to_mass(self.rate,
+                                                                                          self.inj_temperature,
+                                                                                          self.uniform_pressure / 10)
+                for _, w in enumerate(self.reservoir.wells):
+                    if 'I' in w.name:
+                        w.control = self.physics.new_mass_rate_water_inj(injection_mass_rate, injection_enthalpy)
+                    else:
+                        w.control = self.physics.new_mass_rate_water_prod(injection_mass_rate)
+            else:
+                for _, w in enumerate(self.reservoir.wells):
+                    if 'I' in w.name:
+                        w.control = self.physics.new_rate_water_inj(self.rate, self.inj_temperature)
+                    else:
+                        w.control = self.physics.new_rate_water_prod(self.rate)
+
             self.physics.engine.run(ts)
+            # output the average pressure for each time step
+            press, _, _ = self.export_data()
+            average_reservoir_pressure.append(np.average(press))
             self.physics.engine.report()
             if export_to_vtk:
                 self.export_pro_vtk(file_name)
+        with open('./RealBase/average_pressure_mass.pkl', 'wb') as f:
+            pickle.dump(np.array(average_reservoir_pressure), f)
