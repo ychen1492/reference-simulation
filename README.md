@@ -22,10 +22,16 @@ Direct Use Geothermal Systems (DUGS), which are also known as low enthalpy geoth
 ## Results visualization
 ### Homogeneous reservoir
 Following two tables show the base domain and resolution for a homogeneous reservoir, given a fixed injection/production rate. 
-The serial forward simulation results which are used to decide this base can be found in [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7834079.svg)](https://doi.org/10.5281/zenodo.7834079). The colab link 
+The serial forward simulation results which are used to decide this base can be found in 
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7834079.svg)](https://doi.org/10.5281/zenodo.7834079).
+
+The colab link 
+
 <a target="_blank" href="https://colab.research.google.com/github/ychen1492/reference-simulation/blob/main/ho_resolution_visualization.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a> 
+
 is to visulize the forward simulation results (loss and production temperature). Set the loss tolerance to $10^{-3}$, following resolution and confining layers result is decided for a homogeneous reservoir.
 
 - resolution and confining layers
@@ -43,10 +49,15 @@ for the given domain as follows
 ### Layered reservoir
 Following two tables show the base domain and resolution for a layered reservoir, given a fixed injection/production rate using one well logs to get permeability and porosity for each layer. Link to all goethermal well log data [Geothermal Log](https://gitlab.com/puskar1998/geothermal_logs).
 The serial forward simulation results which are used to decide this base can be found in 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7834079.svg)](https://doi.org/10.5281/zenodo.7834079). The colab link 
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7834079.svg)](https://doi.org/10.5281/zenodo.7834079).
+
+The colab link 
+
 <a target="_blank" href="https://colab.research.google.com/github/ychen1492/reference-simulation/blob/main/he_resolution_visualization.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
+
 is to visulize the forward simulation results (loss and production temperature). Set the loss tolerance to $10^{-3}$, following resolution and confining layers result is decided for a layered reservoir.
 
 - resolution and confining layers
