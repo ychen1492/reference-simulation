@@ -64,7 +64,7 @@ is to visulize the forward simulation results (loss and production temperature).
 
 | dx     | dy | dz   | overburden layers |
 |:----:    |:----:  |  :----: |  :----:  |
-| 18m  | 20m     | 10m     | 22      |
+| 25m  | 25m     | 11m     | 22      |
 
 for the given domain as follows
 

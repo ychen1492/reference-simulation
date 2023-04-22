@@ -18,9 +18,8 @@ def proxy_model_simulation(nx, ny, nz=10):
     # calculate permeability, this is from Duncan's thesis
     f = 110.744 * (org_poro ** 3) - 171.8268 * (org_poro ** 2) + 102.9227 * org_poro - 2.047
     org_perm = [np.exp(x) for x in f]
-    if nz < 20:
-        org_poro = arithmetic_average(org_poro, nz)
-        org_perm = harmonic_average(org_perm, nz)
+    org_poro = arithmetic_average(org_poro, nz)
+    org_perm = harmonic_average(org_perm, nz)
     set_nx = nx
     set_dx = x_spacing / set_nx
     set_nz = nz
