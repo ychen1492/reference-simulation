@@ -118,7 +118,7 @@ class Model(DartsModel):
         nb = self.reservoir.mesh.n_res_blocks
         temp = _Backward1_T_Ph_vec(X[0:2 * nb:2] / 10, X[1:2 * nb:2] / 18.015)
         press = X[0:2 * nb:2]
-        return press, temp, self.reservoir.global_data['permx']
+        return X, press, temp, self.reservoir.global_data['permx']
 
     def run(self, export_to_vtk=False, file_name='data'):
         import random
@@ -154,5 +154,21 @@ class Model(DartsModel):
                  
             self.physics.engine.run(ts)
             self.physics.engine.report()
+            trans = self.reservoir.tran
+            cell_m = self.reservoir.cell_m
+            cell_p = self.reservoir.cell_p
+            X, _, _, _ = self.export_data()
+
+            fluxes = calculate_flux(X, cell_m, cell_p, trans)
             if export_to_vtk:
                 self.export_pro_vtk(file_name)
+def calculate_flux(X, block_m, block_p, tran):
+    fluxes = []
+    count = 0
+    for m, p in zip(block_m, block_p):
+        delta_p = X[p * 2] - X[m * 2]
+        flux = -tran[count] * delta_p
+        fluxes.append(flux)
+        count += 1
+
+    return fluxes

@@ -7,7 +7,7 @@ from darts.engines import redirect_darts_output
 from model import Model
 
 report_time = 100
-total_time = 5*365
+total_time = 5 * 365
 perm = 2000
 poro = 0.2
 
@@ -24,6 +24,8 @@ set_nz = 1
 overburden = 0
 
 
+
+
 def generate_base():
     """
     This is a function without any inputs to generate vtk and time data file
@@ -31,13 +33,14 @@ def generate_base():
     vtk and time data excel file
     """
     redirect_darts_output('log.txt')
-    poros = np.ones(set_nx*set_ny*set_nz)*poro
-    perms = np.ones(set_nx*set_ny*set_nz)*perm
+    poros = np.ones(set_nx * set_ny * set_nz) * poro
+    perms = np.ones(set_nx * set_ny * set_nz) * perm
     proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
                         set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poros, report_time_step=report_time,
                         overburden=overburden, rate=0.5, well_spacing=130)
     proxy_model.init()
     proxy_model.run(export_to_vtk=False)
+
 
     proxy_model_elapsed_time = proxy_model.timer.node['initialization'].get_timer() + proxy_model.timer.node[
         'simulation'].get_timer()

@@ -10,6 +10,39 @@ total_time = 10000
 nz = 10
 
 
+def calcualte_flux(press, cell_m_x, cell_m_y, cell_m_z, cell_p_x, cell_p_y, cell_p_z, prod_press, trans_x, trans_y, trans_z):
+    # calculate the pressure difference at the x direction
+    press_diff_x = []
+    for i, j in zip(cell_m_x, cell_p_x):
+        if j >= 12000:
+            # connection between the well and the grid
+            press_diff_x.append(press[i] - prod_press)
+        else:
+            press_diff_x.append(press[i] - press[j])
+    # calculate the pressure difference at the y direction
+    press_diff_y = []
+    for i, j in zip(cell_m_y, cell_p_y):
+        if j >= 12000:
+            # connection between the well and the grid
+            press_diff_y.append(press[i] - prod_press)
+        else:
+
+            press_diff_y.append(press[i] - press[j])
+    # calculate the pressure difference at the z direction
+    press_diff_z = []
+    for i, j in zip(cell_m_z, cell_p_z):
+        if j >= 12000:
+            # connection between the well and the grid
+            press_diff_z.append(press[i] - prod_press)
+        else:
+
+            press_diff_z.append(press[i] - press[j])
+    flux_x = [p_x * trans for p_x, trans in zip(press_diff_x, trans_x)]
+    flux_y = [p_y * trans for p_y, trans in zip(press_diff_y, trans_y)]
+    flux_z = [p_z * trans for p_z, trans in zip(press_diff_z, trans_z)]
+
+    return np.array([flux_x]), np.array([flux_y]), np.array([flux_z])
+
 def proxy_model_simulation(nx, ny):
 
     set_nx = nx
@@ -39,7 +72,7 @@ def run_simulation():
     # fixed ny = 80
     ny = 50
     # list_nx = [40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]
-    list_nx = [160, 180, 200, 220, 240, 260, 280, 300]
+    list_nx = [100]
     for i in list_nx:
         temperature, geothermal_model = proxy_model_simulation(i, ny)
 
