@@ -11,7 +11,7 @@ def read_las(path_to_las):
     return well_californie_sidetrack1_01
 
 
-def from_las_to_poro(path_to_las, number_layers, reservoir_thickness):
+def from_las_to_poro(path_to_las, number_layers):
     """
         For the given las path and number of layers, output the porosity
     :param reservoir_thickness: the thickness of the reservoir
@@ -30,15 +30,10 @@ def from_las_to_poro(path_to_las, number_layers, reservoir_thickness):
     porosity = (density_log * conversion - 1. / v_sandstone) / (1. / v_water - 1. / v_sandstone)
     # get porosity which is not nan
     porosity = porosity[~np.isnan(porosity)]
-    # get the reservoir thickness of porosity
-    intervals = []
-    # 10 is the interval of measurement
-    for i in range(0, len(porosity), reservoir_thickness*10):
-        intervals.append(porosity[i:i+reservoir_thickness*10])
-    group_size = math.ceil(len(intervals[1]) / int(number_layers))
+    group_size = math.ceil(len(porosity) / int(number_layers))
     groups = []
     # choose the second interval as the reservoir interval
-    for i in range(0, len(intervals[1]), group_size):
+    for i in range(0, len(porosity), group_size):
         group = porosity[i:i + group_size]
         ave_poro = np.average(group)
         groups.append(ave_poro)
