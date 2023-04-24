@@ -52,5 +52,7 @@ def generate_base():
         f.write(f'{proxy_model_elapsed_time}')
 
 
+
+
 if __name__ == '__main__':
     generate_base()
