@@ -5,7 +5,7 @@ from model import Model
 import pandas as pd
 
 from utils.math_rel import harmonic_average, arithmetic_average
-from utils.read_files import from_las_to_poro
+from utils.read_files import from_las_to_poro_gamma
 
 report_time = 100
 total_time = 10000
@@ -14,7 +14,7 @@ nz = 10
 
 def proxy_model_simulation(nx, ny, nz=10):
     # read porosity from the file
-    org_poro = from_las_to_poro('LogData/Well_HONSELERSDIJK_GT_01_depth_gr.las', 180)
+    org_poro = from_las_to_poro_gamma('LogData/Well_HONSELERSDIJK_GT_01_depth_gr.las', 180)
     # calculate permeability, this is from Duncan's thesis
     f = 110.744 * (org_poro ** 3) - 171.8268 * (org_poro ** 2) + 102.9227 * org_poro - 2.047
     org_perm = [np.exp(x) for x in f]
