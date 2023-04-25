@@ -117,7 +117,7 @@ def read_pickle_file(ny, nx, dir_to_pickle):
             with open(os.path.join(dir_to_pickle, file), 'rb') as f:
                 # Call load method to deserialze
                 poro = pickle.load(f)
-                f = [110.744 * (p ** 3) - 171.8268 * (p ** 2) + 112.9227 * p - 2.047 for p in poro.flatten()]
+                f = [110.744 * (p ** 3) - 171.8268 * (p ** 2) + 92.9227 * p - 2.047 for p in poro.flatten()]
                 org_perm = [np.exp(x) for x in f]
                 perm = np.reshape(org_perm, poro.shape)
                 poro = resize(poro, (ny, nx), order=1, mode='reflect', anti_aliasing=True)

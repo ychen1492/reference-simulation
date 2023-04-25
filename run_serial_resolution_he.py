@@ -35,12 +35,19 @@ def run_simulation():
     # fixed ny = 80
     ny = 100
     # list_nx = [40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]
-    list_nx = [40]
+    list_nx = [40,60,80]
     # list_nx = [160, 180, 200, 220, 240, 260, 280, 300]
     # list_nz = [16, 18, 20]
     # list_nz = [1,3,5,7,9,11,13,15]
     # list_nz = [10]
     for i in list_nx:
+        print('\n')
+        print(f'nx = {i}')
+        print('\n')
+        print(f'dx {x_spacing / i:.2f}, dy {y_spacing / ny:.2f},'
+              f' dz {z_spacing / nz:.2f}')
+        print('\n')
+
         temperature, geothermal_model = proxy_model_simulation(i, ny)
 
         if not os.path.exists('SerialResolution'):
