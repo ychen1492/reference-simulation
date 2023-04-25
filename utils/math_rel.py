@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 # Kriging interpolation--------------------------------
 from pykrige.ok import OrdinaryKriging
 from pykrige.uk import UniversalKriging
+from gstools import Gaussian
 import numpy as np
 
 
@@ -40,8 +41,7 @@ def arithmetic_average(input_array, upscaled_amount):
 
 
 def apply_kriging(nx, ny, n_sample, poro):
-
-    Kriging_switch = 0  # 0 --- ordinary kriging; 1 --- universal kriging
+    Kriging_switch = 1  # 0 --- ordinary kriging; 1 --- universal kriging
 
     np.random.seed(1234)
     # n_sample = 40  # set 1000 samples to test if the code is correct
@@ -49,10 +49,11 @@ def apply_kriging(nx, ny, n_sample, poro):
     data_idx_y = np.random.randint(ny, size=n_sample)
 
     # data_poro = 0.225 * (1 + 0.15 * np.random.randn(n_sample))  # generate Gaussian poro of N~(0.225，0.15)
-    poro_temp = poro.reshape((ny, nx))
+    # poro_temp = poro.reshape((ny, nx))
     data_poro = np.zeros(n_sample)
     for ii in range(n_sample):
-        data_poro[ii] = poro_temp[data_idx_y[ii]][data_idx_x[ii]]
+        # data_poro[ii] = poro_temp[data_idx_y[ii]][data_idx_x[ii]]
+        data_poro[ii] = poro[ii]
 
     data = np.zeros((n_sample, 3))
     data[:, 0] = data_idx_x
@@ -67,26 +68,16 @@ def apply_kriging(nx, ny, n_sample, poro):
     data = np.array(data)
     gridx = gridx.astype(float)
     gridy = gridy.astype(float)
-
+    cov_model = Gaussian(dim=2, len_scale=30, anis=6.8, angles=-0.2, var=0.5, nugget=0.5)
     if Kriging_switch == 0:
-        # params = {'sill': 25, 'range': 20, 'nugget': 2}
-        OK = OrdinaryKriging(data[:, 0], data[:, 1], data[:, 2], variogram_model='gaussian',
-                             verbose=True, weight=False, enable_plotting=False, enable_statistics=True, nlags=15)
-
+        OK = OrdinaryKriging(data[:, 0], data[:, 1], data[:, 2], cov_model)
         z, ss = OK.execute('grid', gridx, gridy)
     elif Kriging_switch == 1:
-        UK = UniversalKriging(data[:, 0], data[:, 1], data[:, 2], variogram_model='gaussian',
-                              verbose=True, enable_plotting=False, nlags=15)
+        UK = UniversalKriging(data[:, 0], data[:, 1], data[:, 2], cov_model)
         z, ss = UK.execute('grid', gridx, gridy)
 
     z[z < 0.1] = 0.01
     z[z > 0.4] = 0.4
-
-    plt.hist(z.flatten(), 25, density=True, facecolor='silver')
-    plt.show()
-    # plt.imshow(z)
-    plt.matshow(z, origin='lower', cmap='plasma')
-    plt.show()
 
     # smoothen the sample point
     for ii, sample in enumerate(data):
@@ -112,15 +103,16 @@ def apply_kriging(nx, ny, n_sample, poro):
         except Exception as e:
             print(str(e))
 
-        try:
-            neighbors.append(z[int(sample[1] + 1), int(sample[0])])
-        except Exception as e:
-            print(str(e))
+            try:
+                neighbors.append(z[int(sample[1] + 1), int(sample[0])])
+            except Exception as e:
+                print(str(e))
 
-        z[int(sample[1]), int(sample[0])] = np.average(neighbors)
+            z[int(sample[1]), int(sample[0])] = np.average(neighbors)
+    plt.hist(z.flatten(), 25, density=True, facecolor='silver')
+    # plt.imshow(z)
+    plt.matshow(z, origin='lower', cmap='plasma')
+    plt.colorbar()
+    plt.show()
 
-    # plt.hist(z.flatten(), 25, density=True, facecolor='silver')
-    # plt.show()
-    # # plt.imshow(z)
-    # plt.matshow(z, origin='lower', cmap='plasma')
-    # plt.show()
+    return z

@@ -35,7 +35,7 @@ class Model(DartsModel):
         # well spacing is 1200m
         # add well's locations
         injection_well_x = int(2400/set_dx)
-        production_well_x = injection_well_x + int(1200/set_dx)
+        production_well_x = injection_well_x + int(1500/set_dx)
         self.iw = [injection_well_x, production_well_x]
         self.jw = [int(set_ny/2), int(set_ny/2)]
 
@@ -71,11 +71,11 @@ class Model(DartsModel):
         rcond[self.perm <= 1e-5] = 2.2 * 86.4  # kJ/m/day/K
         rcond[self.perm > 1e-5] = 3 * 86.4
 
-        self.physics = Geothermal(timer=self.timer, n_points=64, min_p=1, max_p=800,
-                                  min_e=10, max_e=30000, mass_rate=False, cache=False)
+        self.physics = Geothermal(timer=self.timer, n_points=64, min_p=1, max_p=1000,
+                                  min_e=10, max_e=50000, mass_rate=False, cache=False)
 
         # timestep parameters
-        self.params.first_ts = 1e-3
+        self.params.first_ts = 1e-5
         self.params.mult_ts = 8
         self.params.max_ts = 100
 
@@ -95,9 +95,9 @@ class Model(DartsModel):
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
+                w.control = self.physics.new_rate_water_inj(5500, self.inj_temperature)
             else:
-                w.control = self.physics.new_rate_water_prod(3200)
+                w.control = self.physics.new_rate_water_prod(5500)
             #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
             # else:
             #     w.control = self.physics.new_mass_rate_water_prod(417000)
@@ -143,9 +143,9 @@ class Model(DartsModel):
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
-                    w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
+                    w.control = self.physics.new_rate_water_inj(5500, self.inj_temperature)
                 else:
-                    w.control = self.physics.new_rate_water_prod(3200)   
+                    w.control = self.physics.new_rate_water_prod(5500)
                 #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
                     
                 # else:
