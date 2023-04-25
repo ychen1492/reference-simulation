@@ -66,13 +66,12 @@ class Model(DartsModel):
         rcond = np.array(self.reservoir.mesh.rock_cond, copy=False)
         hcap[self.perm <= 1e-5] = 400 * 2.5  # volumetric heat capacity: kJ/m3/K
         hcap[self.perm > 1e-5] = 400 * 2.5
-        volume = self.reservoir.volume
 
         rcond[self.perm <= 1e-5] = 2.2 * 86.4  # kJ/m/day/K
         rcond[self.perm > 1e-5] = 3 * 86.4
 
-        self.physics = Geothermal(timer=self.timer, n_points=64, min_p=1, max_p=800,
-                                  min_e=10, max_e=30000, mass_rate=False, cache=False)
+        self.physics = Geothermal(timer=self.timer, n_points=64, min_p=1, max_p=1000,
+                                  min_e=10, max_e=50000, mass_rate=False, cache=False)
 
         # timestep parameters
         self.params.first_ts = 1e-3
@@ -95,9 +94,9 @@ class Model(DartsModel):
     def set_boundary_conditions(self):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
+                w.control = self.physics.new_rate_water_inj(4600, self.inj_temperature)
             else:
-                w.control = self.physics.new_rate_water_prod(3200)
+                w.control = self.physics.new_rate_water_prod(4600)
             #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
             # else:
             #     w.control = self.physics.new_mass_rate_water_prod(417000)
@@ -143,9 +142,9 @@ class Model(DartsModel):
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
-                    w.control = self.physics.new_rate_water_inj(3200, self.inj_temperature)
+                    w.control = self.physics.new_rate_water_inj(4600, self.inj_temperature)
                 else:
-                    w.control = self.physics.new_rate_water_prod(3200)   
+                    w.control = self.physics.new_rate_water_prod(4600)
                 #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
                     
                 # else:
