@@ -42,13 +42,14 @@ def run_simulation():
     # list_nz = [1,3,5,7,9,11,13,15]
     # list_nz = [10]
     for i in list_nx:
-        temperature, geothermal_model = proxy_model_simulation(i, ny)
-        print('\n')
+    	print('\n')
         print(f'nx = {i}')
         print('\n')
         print(f'dx {x_spacing / i:.2f}, dy {y_spacing / ny:.2f},'
               f'dz {z_spacing / set_nz:.2f}')
         print('\n')
+        temperature, geothermal_model = proxy_model_simulation(i, ny)
+        
 
         if not os.path.exists('SerialResolutionHo'):
             os.mkdir('SerialResolutionHo')
