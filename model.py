@@ -66,7 +66,6 @@ class Model(DartsModel):
         rcond = np.array(self.reservoir.mesh.rock_cond, copy=False)
         hcap[self.perm <= 1e-5] = 400 * 2.5  # volumetric heat capacity: kJ/m3/K
         hcap[self.perm > 1e-5] = 400 * 2.5
-        volume = self.reservoir.volume
 
         rcond[self.perm <= 1e-5] = 2.2 * 86.4  # kJ/m/day/K
         rcond[self.perm > 1e-5] = 3 * 86.4
