@@ -35,7 +35,7 @@ def run_simulation():
     # fixed ny = 80
     ny = 100
     # list_nx = [40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]
-    list_nx = [40,60,80]
+    list_nx = [40]
     # list_nx = [160, 180, 200, 220, 240, 260, 280, 300]
     # list_nz = [16, 18, 20]
     # list_nz = [1,3,5,7,9,11,13,15]
@@ -50,18 +50,18 @@ def run_simulation():
 
         temperature, geothermal_model = proxy_model_simulation(i, ny)
 
-        if not os.path.exists('SerialResolution'):
-            os.mkdir('SerialResolution')
+        if not os.path.exists('SerialResolutionHe'):
+            os.mkdir('SerialResolutionHe')
 
-        output_path = os.path.relpath(f'SerialResolution/temperature_resolution_dz_tt.csv')
+        output_path = os.path.relpath(f'SerialResolutionHe/temperature_resolution_dx.csv')
         if os.path.exists(output_path):
             df = pd.read_csv(output_path, delimiter=',')
-            df[f'{z_spacing / geothermal_model.reservoir.nz:.2f}'] = temperature['PRD : temperature (K)']
+            df[f'{x_spacing / geothermal_model.reservoir.nx:.2f}'] = temperature['PRD : temperature (K)']
             df.to_csv(output_path, index=False)
         else:
-            temperature.rename(columns={'PRD : temperature (K)': f'{z_spacing / geothermal_model.reservoir.nz:.2f}'},
+            temperature.rename(columns={'PRD : temperature (K)': f'{x_spacing / geothermal_model.reservoir.nx:.2f}'},
                                inplace=True)
-            temperature[['time', f'{z_spacing / geothermal_model.reservoir.nz:.2f}']].to_csv(output_path, index=False)
+            temperature[['time', f'{x_spacing / geothermal_model.reservoir.nx:.2f}']].to_csv(output_path, index=False)
 
 
 if __name__ == '__main__':
