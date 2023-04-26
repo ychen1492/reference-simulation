@@ -24,7 +24,7 @@ def proxy_model_simulation(nx, ny, nz=10):
                         set_dy=set_dy, set_dz=set_dz, perms=perm, poro=poro, report_time_step=report_time,
                         overburden=0)
     proxy_model.init()
-    proxy_model.run(export_to_vtk=True)
+    proxy_model.run(export_to_vtk=False)
 
     td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
 
