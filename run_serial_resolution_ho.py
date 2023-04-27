@@ -8,7 +8,7 @@ import pandas as pd
 
 report_time = 100
 total_time = 10000
-perm = 6000
+perm = 3000
 poro = 0.2
 set_nz = 10
 
