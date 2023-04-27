@@ -35,34 +35,34 @@ def proxy_model_simulation(nx, ny, nz=set_nz):
 
 
 def run_simulation():
-    nx = 180
-    list_ny = [40, 60, 80, 100, 120, 140, 160, 180, 220, 240, 260, 280, 300]
+    nx = 225
+    ny = 75
     # list_nx = [40]
     # list_nx = [160, 180, 200, 220, 240, 260, 280, 300]
     # list_nz = [16, 18, 20]
-    # list_nz = [1,3,5,7,9,11,13,15]
+    list_nz = [1, 3, 5, 7, 9, 11, 13, 15]
     # list_nz = [10]
-    for i in list_ny:
+    for i in list_nz:
         print('\n')
-        print(f'ny = {i}')
+        print(f'nz = {i}')
         print('\n')
-        print(f'dx {x_spacing / nx:.2f}, dy {y_spacing / i:.2f},'
-              f'dz {z_spacing / set_nz:.2f}')
+        print(f'dx {x_spacing / nx:.2f}, dy {y_spacing / ny:.2f},'
+              f'dz {z_spacing / i:.2f}')
         print('\n')
-        temperature, geothermal_model = proxy_model_simulation(nx, i)
+        temperature, geothermal_model = proxy_model_simulation(nx, ny, i)
 
         if not os.path.exists('SerialResolutionHo'):
             os.mkdir('SerialResolutionHo')
 
-        output_path = os.path.relpath(f'SerialResolutionHo/temperature_resolution_dy.csv')
+        output_path = os.path.relpath(f'SerialResolutionHo/temperature_resolution_dz.csv')
         if os.path.exists(output_path):
             df = pd.read_csv(output_path, delimiter=',')
-            df[f'{y_spacing / geothermal_model.reservoir.ny:.2f}'] = temperature['PRD : temperature (K)']
+            df[f'{z_spacing / geothermal_model.reservoir.nz:.2f}'] = temperature['PRD : temperature (K)']
             df.to_csv(output_path, index=False)
         else:
-            temperature.rename(columns={'PRD : temperature (K)': f'{y_spacing / geothermal_model.reservoir.ny:.2f}'},
+            temperature.rename(columns={'PRD : temperature (K)': f'{z_spacing / geothermal_model.reservoir.nz:.2f}'},
                                inplace=True)
-            temperature[['time', f'{y_spacing / geothermal_model.reservoir.ny:.2f}']].to_csv(output_path, index=False)
+            temperature[['time', f'{z_spacing / geothermal_model.reservoir.nz:.2f}']].to_csv(output_path, index=False)
 
 
 if __name__ == '__main__':

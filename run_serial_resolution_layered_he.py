@@ -7,11 +7,9 @@ from utils.read_files import from_las_to_poro_gamma
 
 report_time = 100
 total_time = 10000
-nz = 10
 
 
-def proxy_model_simulation(nx, ny):
-
+def proxy_model_simulation(nx, ny, nz):
     set_nx = nx
     set_dx = x_spacing / set_nx
     set_nz = nz
@@ -37,32 +35,33 @@ def proxy_model_simulation(nx, ny):
 
 
 def run_simulation():
-    # fixed ny = 80
-    nx = 180
-    list_ny = [40, 60, 80, 100, 120, 140, 160, 220, 240, 260, 280, 300]
+    nx = 225
+    ny = 75
+    # list_ny = [40, 60, 80, 100, 120, 140, 160, 220, 240, 260, 280, 300]
     # list_nx = [40]
     # list_nx = [160, 180, 200, 220, 240, 260, 280, 300]
-    for i in list_ny:
+    list_nz = [17,19,21]
+    for i in list_nz:
         print('\n')
-        print(f'ny = {i}')
+        print(f'nz = {i}')
         print('\n')
-        print(f'dx {x_spacing / nx:.2f}, dy {y_spacing / i:.2f},'
-              f'dz {z_spacing / nz:.2f}')
+        print(f'dx {x_spacing / nx:.2f}, dy {y_spacing / ny:.2f},'
+              f'dz {z_spacing / i:.2f}')
         print('\n')
-        temperature, geothermal_model = proxy_model_simulation(nx, i)
+        temperature, geothermal_model = proxy_model_simulation(nx, ny, i)
 
         if not os.path.exists('SerialResolutionLayered'):
             os.mkdir('SerialResolutionLayered')
 
-        output_path = os.path.relpath(f'SerialResolutionLayered/temperature_resolution_dy.csv')
+        output_path = os.path.relpath(f'SerialResolutionLayered/temperature_resolution_dz.csv')
         if os.path.exists(output_path):
             df = pd.read_csv(output_path, delimiter=',')
-            df[f'{y_spacing / geothermal_model.reservoir.ny:.2f}'] = temperature['PRD : temperature (K)']
+            df[f'{z_spacing / geothermal_model.reservoir.nz:.2f}'] = temperature['PRD : temperature (K)']
             df.to_csv(output_path, index=False)
         else:
-            temperature.rename(columns={'PRD : temperature (K)': f'{y_spacing / geothermal_model.reservoir.ny:.2f}'},
+            temperature.rename(columns={'PRD : temperature (K)': f'{z_spacing / geothermal_model.reservoir.nz:.2f}'},
                                inplace=True)
-            temperature[['time', f'{y_spacing / geothermal_model.reservoir.ny:.2f}']].to_csv(output_path, index=False)
+            temperature[['time', f'{z_spacing / geothermal_model.reservoir.nz:.2f}']].to_csv(output_path, index=False)
 
 
 if __name__ == '__main__':
