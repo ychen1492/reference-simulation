@@ -24,7 +24,7 @@ def proxy_model_simulation(nx, ny, nz=10):
                         set_dy=set_dy, set_dz=set_dz, perms=perm, poro=poro, report_time_step=report_time,
                         overburden=0)
     proxy_model.init()
-    proxy_model.run(export_to_vtk=False)
+    proxy_model.run(export_to_vtk=True)
 
     td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
 
@@ -33,35 +33,35 @@ def proxy_model_simulation(nx, ny, nz=10):
 
 def run_simulation():
     # fixed ny = 80
-    ny = 100
-    # list_nx = [40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]
-    list_nx = [40]
+    nx = 140
+    list_ny = [40, 60, 100, 120, 180, 200, 240, 260, 280, 300]
+    # list_ny = [40]
     # list_nx = [160, 180, 200, 220, 240, 260, 280, 300]
     # list_nz = [16, 18, 20]
     # list_nz = [1,3,5,7,9,11,13,15]
     # list_nz = [10]
-    for i in list_nx:
+    for i in list_ny:
         print('\n')
-        print(f'nx = {i}')
+        print(f'ny = {i}')
         print('\n')
-        print(f'dx {x_spacing / i:.2f}, dy {y_spacing / ny:.2f},'
+        print(f'dx {x_spacing / nx:.2f}, dy {y_spacing / i:.2f},'
               f' dz {z_spacing / nz:.2f}')
         print('\n')
 
-        temperature, geothermal_model = proxy_model_simulation(i, ny)
+        temperature, geothermal_model = proxy_model_simulation(nx, i)
 
         if not os.path.exists('SerialResolutionHe'):
             os.mkdir('SerialResolutionHe')
 
-        output_path = os.path.relpath(f'SerialResolutionHe/temperature_resolution_dx.csv')
+        output_path = os.path.relpath(f'SerialResolutionHe/temperature_resolution_dy.csv')
         if os.path.exists(output_path):
             df = pd.read_csv(output_path, delimiter=',')
-            df[f'{x_spacing / geothermal_model.reservoir.nx:.2f}'] = temperature['PRD : temperature (K)']
+            df[f'{y_spacing / geothermal_model.reservoir.ny:.2f}'] = temperature['PRD : temperature (K)']
             df.to_csv(output_path, index=False)
         else:
-            temperature.rename(columns={'PRD : temperature (K)': f'{x_spacing / geothermal_model.reservoir.nx:.2f}'},
+            temperature.rename(columns={'PRD : temperature (K)': f'{y_spacing / geothermal_model.reservoir.ny:.2f}'},
                                inplace=True)
-            temperature[['time', f'{x_spacing / geothermal_model.reservoir.nx:.2f}']].to_csv(output_path, index=False)
+            temperature[['time', f'{y_spacing / geothermal_model.reservoir.ny:.2f}']].to_csv(output_path, index=False)
 
 
 if __name__ == '__main__':
