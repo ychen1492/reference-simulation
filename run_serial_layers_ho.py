@@ -15,6 +15,7 @@ x_spacing = 4500
 y_spacing = 4000
 z_spacing = 100
 
+
 def proxy_model_simulation(overburden):
     set_dx = 20
     set_nx = int(x_spacing / set_dx)

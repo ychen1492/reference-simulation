@@ -16,7 +16,13 @@ x_spacing = 4500
 y_spacing = 4000
 z_spacing = 100
 
+
 def proxy_model_simulation(overburden):
+    """
+        Main method to run multiple forward simulations for given different overburden layers
+    :param overburden: the number of the overburden layers
+    :return:
+    """
     set_dx = 20
     set_nx = int(x_spacing / set_dx)
     set_dy = 75
@@ -44,6 +50,10 @@ def proxy_model_simulation(overburden):
 
 
 def run_simulation():
+    """
+        Run simulation and increase the number of confining layers
+    :return: csv files which contain the pressure and temperature of the top reservoir layer
+    """
     overburden_layers = 0
     temperature_dict = {}
     pressure_dict = {}
@@ -67,8 +77,10 @@ def run_simulation():
     output_path = os.path.relpath(f'SerialLayersStratified/temperature_layers.csv')
     output_path_pressure = os.path.relpath(f'SerialLayersStratified/pressure_layers.csv')
     df = pd.DataFrame.from_dict(temperature_dict)
+    # Write the temperature of the top reservoir layer to a csv
     df.to_csv(output_path, index=False)
     df_press = pd.DataFrame.from_dict(pressure_dict)
+    # Write the pressure of the top reservoir layer to a csv
     df_press.to_csv(output_path_pressure, index=False)
 
     while np.abs(min(top_layer_temp) - max(top_layer_temp)) > 0.05:
