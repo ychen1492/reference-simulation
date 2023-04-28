@@ -1,14 +1,19 @@
 import math
+import os
+import pickle
+
 import numpy as np
 import pandas as pd
-from matplotlib import pyplot as plt
+from skimage.transform import resize
+
+from utils.math_rel import apply_kriging
 
 
 def read_las(path_to_las):
-    well_californie_sidetrack1_01 = pd.read_table(path_to_las, delim_whitespace=True)
-    well_californie_sidetrack1_01 = well_californie_sidetrack1_01.replace(-999.0000, np.NaN)
+    well_log = pd.read_table(path_to_las, delim_whitespace=True)
+    well_log = well_log.replace(-999.0000, np.NaN)
 
-    return well_californie_sidetrack1_01
+    return well_log
 
 
 def from_las_to_poro(path_to_las, number_layers):
@@ -39,3 +44,90 @@ def from_las_to_poro(path_to_las, number_layers):
         groups.append(ave_poro)
 
     return np.array(groups)
+
+
+def from_las_to_poro_gamma(path_to_las, number_of_layers):
+    """
+        For the given las path and number of layers, using the gamma ray to output the porosity
+    :param path_to_las: the path to the second las file which contains gamma ray log
+    :param number_of_layers: number of layers
+    :return:
+    """
+
+    well_gr = read_las(path_to_las)
+    if 'DEPTH' in well_gr.columns:
+        well_gr = well_gr[(well_gr['DEPTH'] <= 2100) & (2000 <= well_gr['DEPTH'])]
+    elif 'DEPT' in well_gr.columns:
+        well_gr = well_gr[(2000 <= well_gr['DEPT']) & (well_gr['DEPT'] <= 2100)]
+    if 'GR' in well_gr.columns:
+        well_gamma_ray = well_gr['GR']
+    elif 'GR_A' in well_gr.columns:
+        well_gamma_ray = well_gr['GR_A']
+    gr_sandstone = min(well_gamma_ray)
+    gr_shale = max(well_gamma_ray)
+    # get the shale content
+    shale_content_well = (well_gamma_ray - gr_sandstone) / (gr_shale - gr_sandstone)
+    # the relationship between shale contents and total porosity
+    total_porosity_well = (shale_content_well - 0.4876) / -1.8544
+    # effective porosity
+    eff_porosity_well = abs(total_porosity_well - shale_content_well * 0.1)
+    # get porosity which is not nan
+    eff_porosity_well = eff_porosity_well[~np.isnan(eff_porosity_well)]
+    group_size = math.ceil(len(eff_porosity_well) / int(number_of_layers))
+    groups = []
+    # choose the second interval as the reservoir interval
+    for i in range(0, len(eff_porosity_well), group_size):
+        group = eff_porosity_well[i:i + group_size]
+        ave_poro = np.average(group)
+        groups.append(ave_poro)
+
+    return np.array(groups)
+
+
+def get_porosity_values(nx, ny, nz):
+    well_1_poro = from_las_to_poro_gamma('LogData/Well_HONSELERSDIJK_GT_01_depth_gr.las', nz)
+    well_2_poro = from_las_to_poro_gamma('LogData/Well_PIJNACKER_GT_01_depth_gamma_4.las', nz)
+    well_3_poro = from_las_to_poro_gamma('LogData/Well_PIJNACKER_GT_03_SIDETRACK2_depth_gamma_2.las', nz)
+    well_4_poro = from_las_to_poro_gamma('LogData/Well_DE_LIER_GT_01_depth_gr_3.las', nz)
+    well_5_poro = from_las_to_poro_gamma('LogData/Well_POELDIJK_GT_01_depth_gr_temp_2.las', nz)
+    well_6_poro = from_las_to_poro_gamma('LogData/Well_KWINNTSHEUL_GT_01_depth_gr_temp.las', nz)
+    well_7_poro = from_las_to_poro_gamma('LogData/Well_NAALDWIJK_GT_01_depth_cali_sonic_gr_pef_rhob_rt_rxo_nphi.las',
+                                         nz)
+
+    for i in range(nz):
+        data_points = np.array([well_1_poro[i], well_2_poro[i], well_3_poro[i], well_4_poro[i], well_5_poro[i],
+                                well_6_poro[i], well_7_poro[i]])
+        layers_poro = apply_kriging(nx, ny, len(data_points), data_points)
+
+        if not os.path.exists('Porosity'):
+            os.mkdir('Porosity')
+
+        # Open a file and use dump()
+        with open(f'./Porosity/layer_{i}_poro.pkl', 'wb') as file:
+
+            # A new file will be created
+            pickle.dump(layers_poro, file)
+
+def read_pickle_file(ny, nx, dir_to_pickle):
+    poros = {}
+    perms = {}
+    for file in os.listdir(dir_to_pickle):
+        if file.endswith(".pkl"):
+            # Open the file in binary mode
+            with open(os.path.join(dir_to_pickle, file), 'rb') as f:
+                # Call load method to deserialze
+                poro = pickle.load(f)
+                f = [110.744 * (p ** 3) - 171.8268 * (p ** 2) + 92.9227 * p - 2.047 for p in poro.flatten()]
+                org_perm = [np.exp(x) for x in f]
+                perm = np.reshape(org_perm, poro.shape)
+                poro = resize(poro, (ny, nx), order=1, mode='reflect', anti_aliasing=True)
+                perm = resize(perm, (ny, nx), order=0, mode='reflect', anti_aliasing=True)
+                poros[file] = np.rot90(poro).flatten(order='F')
+                perms[file] = np.rot90(perm).flatten(order='F')
+    porosity = []
+    for i in list(poros.values()):
+        porosity.extend(i)
+    permeability = []
+    for i in list(perms.values()):
+        permeability.extend(i)
+    return np.array(porosity), np.array(permeability)

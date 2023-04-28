@@ -1,11 +1,10 @@
 import os
-import numpy as np
+
 from darts.engines import redirect_darts_output
 from model import Model
 import pandas as pd
 
-from utils.math_rel import harmonic_average, arithmetic_average
-from utils.read_files import from_las_to_poro
+from utils.read_files import read_pickle_file
 
 report_time = 100
 total_time = 10000
@@ -13,13 +12,7 @@ nz = 10
 
 
 def proxy_model_simulation(nx, ny, nz=10):
-    # read porosity from the file
-    org_poro = from_las_to_poro('LogData/Well_HONSELERSDIJK_GT_01_depth_gr.las', 180)
-    # calculate permeability, this is from Duncan's thesis
-    f = 110.744 * (org_poro ** 3) - 171.8268 * (org_poro ** 2) + 102.9227 * org_poro - 2.047
-    org_perm = [np.exp(x) for x in f]
-    org_poro = arithmetic_average(org_poro, nz)
-    org_perm = harmonic_average(org_perm, nz)
+    poro, perm = read_pickle_file(ny, nx, "Porosity")
     set_nx = nx
     set_dx = x_spacing / set_nx
     set_nz = nz
@@ -27,13 +20,11 @@ def proxy_model_simulation(nx, ny, nz=10):
     set_ny = ny
     set_dy = y_spacing / set_ny
     redirect_darts_output('log.txt')
-    poro = np.concatenate([np.ones(nx * ny) * p for p in org_poro], axis=0)
-    perms = np.concatenate([np.ones(nx * ny) * p for p in org_perm], axis=0)
     proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
-                        set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poro, report_time_step=report_time,
+                        set_dy=set_dy, set_dz=set_dz, perms=perm, poro=poro, report_time_step=report_time,
                         overburden=0)
     proxy_model.init()
-    proxy_model.run(export_to_vtk=False)
+    proxy_model.run(export_to_vtk=True)
 
     td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
 
@@ -42,33 +33,40 @@ def proxy_model_simulation(nx, ny, nz=10):
 
 def run_simulation():
     # fixed ny = 80
-    nx = 222
-    ny = 90
-    # list_ny = [40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300]
+    nx = 140
+    list_ny = [40, 60, 100, 120, 180, 200, 240, 260, 280, 300]
+    # list_ny = [40]
     # list_nx = [160, 180, 200, 220, 240, 260, 280, 300]
     # list_nz = [16, 18, 20]
-    list_nz = [1,3,5,7,9,11,13,15]
-    # list_nz = [3]
-    for i in list_nz:
-        temperature, geothermal_model = proxy_model_simulation(nx, ny, i)
+    # list_nz = [1,3,5,7,9,11,13,15]
+    # list_nz = [10]
+    for i in list_ny:
+        print('\n')
+        print(f'ny = {i}')
+        print('\n')
+        print(f'dx {x_spacing / nx:.2f}, dy {y_spacing / i:.2f},'
+              f' dz {z_spacing / nz:.2f}')
+        print('\n')
 
-        if not os.path.exists('SerialResolution'):
-            os.mkdir('SerialResolution')
+        temperature, geothermal_model = proxy_model_simulation(nx, i)
 
-        output_path = os.path.relpath(f'SerialResolution/temperature_resolution_dz.csv')
+        if not os.path.exists('SerialResolutionHe'):
+            os.mkdir('SerialResolutionHe')
+
+        output_path = os.path.relpath(f'SerialResolutionHe/temperature_resolution_dy.csv')
         if os.path.exists(output_path):
             df = pd.read_csv(output_path, delimiter=',')
-            df[f'{z_spacing / geothermal_model.reservoir.nz:.2f}'] = temperature['PRD : temperature (K)']
+            df[f'{y_spacing / geothermal_model.reservoir.ny:.2f}'] = temperature['PRD : temperature (K)']
             df.to_csv(output_path, index=False)
         else:
-            temperature.rename(columns={'PRD : temperature (K)': f'{z_spacing / geothermal_model.reservoir.nz:.2f}'},
+            temperature.rename(columns={'PRD : temperature (K)': f'{y_spacing / geothermal_model.reservoir.ny:.2f}'},
                                inplace=True)
-            temperature[['time', f'{z_spacing / geothermal_model.reservoir.nz:.2f}']].to_csv(output_path, index=False)
+            temperature[['time', f'{y_spacing / geothermal_model.reservoir.ny:.2f}']].to_csv(output_path, index=False)
 
 
 if __name__ == '__main__':
-    x_spacing = 4000
-    y_spacing = 3600
+    x_spacing = 4500
+    y_spacing = 4000
     z_spacing = 100
 
     run_simulation()
