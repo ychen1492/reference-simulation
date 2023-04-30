@@ -5,11 +5,11 @@ import pandas as pd
 from darts.engines import redirect_darts_output
 
 from model import Model
+from utils.math_rel import arithmetic_average, harmonic_average
+from utils.read_files import from_las_to_poro_gamma
 
 report_time = 100
 total_time = 10000
-perm = 3000
-poro = 0.2
 
 x_spacing = 4500
 y_spacing = 4000
@@ -29,11 +29,15 @@ def generate_base():
     :return:
     vtk and time data excel file
     """
+    # read porosity from the file
+    org_poro = from_las_to_poro_gamma('LogData/Well_PIJNACKER_GT_01_depth_gamma_4.las', set_nz)
+    poro = np.concatenate([np.ones(set_nx * set_ny) * p for p in org_poro], axis=0)
+    # calculate permeability, this is from Duncan's thesis
+    org_perm = np.exp(110.744 * poro ** 3 - 171.8268 * poro ** 2 + 92.9227 * poro - 2.047)
+    perms = org_perm
     redirect_darts_output('log.txt')
-    perms = np.ones(set_nx * set_ny * set_nz) * perm
-    poros = np.ones(set_nx * set_ny * set_nz) * poro
     proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
-                        set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poros, report_time_step=report_time,
+                        set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poro, report_time_step=report_time,
                         overburden=overburden)
     proxy_model.init()
     proxy_model.run(export_to_vtk=True)
@@ -45,11 +49,11 @@ def generate_base():
 
     if not os.path.exists('RealBase'):
         os.mkdir('RealBase')
-    output_path = os.path.relpath(f'./RealBase/base_resolution_ho.xlsx')
+    output_path = os.path.relpath(f'./RealBase/base_resolution_layered.xlsx')
     writer = pd.ExcelWriter(output_path)
     td.to_excel(writer, 'Sheet1')
     writer.save()
-    with open('./RealBase/simulation_time_resolution_ho.txt', 'w') as f:
+    with open('./RealBase/simulation_time_resolution_layered.txt', 'w') as f:
         f.write(f'{proxy_model_elapsed_time}')
 
 

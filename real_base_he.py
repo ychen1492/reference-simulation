@@ -6,17 +6,17 @@ from darts.engines import redirect_darts_output
 
 from model import Model
 from utils.math_rel import arithmetic_average, harmonic_average
-from utils.read_files import from_las_to_poro_gamma
+from utils.read_files import from_las_to_poro_gamma, read_pickle_file
 
 report_time = 100
 total_time = 10000
 
-x_spacing = 4000
-y_spacing = 3600
+x_spacing = 4500
+y_spacing = 4000
 z_spacing = 100
-set_dx = 25
+set_dx = 20
 set_nx = int(x_spacing / set_dx)
-set_dy = 25
+set_dy = 75
 set_ny = int(y_spacing / set_dy)
 set_dz = 10
 set_nz = int(z_spacing / set_dz)
@@ -29,18 +29,10 @@ def generate_base():
     :return:
     vtk and time data excel file
     """
-    # read porosity from the file
-    org_poro = from_las_to_poro_gamma('LogData/Well_HONSELERSDIJK_GT_01_depth_gr.las', 180)
-    # calculate permeability, this is from Duncan's thesis
-    f = 110.744 * (org_poro ** 3) - 171.8268 * (org_poro ** 2) + 102.9227 * org_poro - 2.047
-    org_perm = [np.exp(x) for x in f]
-    org_poro = arithmetic_average(org_poro, set_nz)
-    org_perm = harmonic_average(org_perm, set_nz)
-    poro = np.concatenate([np.ones(set_nx * set_ny) * p for p in org_poro], axis=0)
-    perms = np.concatenate([np.ones(set_nx * set_ny) * p for p in org_perm], axis=0)
+    poros, perms = read_pickle_file(set_ny, set_nx, "Porosity")
     redirect_darts_output('log.txt')
     proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
-                        set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poro, report_time_step=report_time,
+                        set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poros, report_time_step=report_time,
                         overburden=overburden)
     proxy_model.init()
     proxy_model.run(export_to_vtk=True)

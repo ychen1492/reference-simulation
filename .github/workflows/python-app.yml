@@ -18,6 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        path: reference-simulation
     - name: Set up Python 3.8
       uses: actions/setup-python@v3
       with:
@@ -41,12 +43,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          path: reference-simulation
       - uses: actions/setup-python@v3
       - name: Install dependencies
         run: |
           pip install sphinx sphinx_rtd_theme
       - name: Sphinx build
         run: |
+          cd reference-simulation
           sphinx-build doc _build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
