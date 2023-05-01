@@ -76,7 +76,7 @@ def apply_kriging(nx, ny, n_sample, poro):
         UK = UniversalKriging(data[:, 0], data[:, 1], data[:, 2], cov_model)
         z, ss = UK.execute('grid', gridx, gridy)
 
-    z[z < 0.1] = 0.01
+    z[z < 0.1] = 0.1
     z[z > 0.4] = 0.4
 
     # smoothen the sample point
@@ -109,10 +109,10 @@ def apply_kriging(nx, ny, n_sample, poro):
                 print(str(e))
 
             z[int(sample[1]), int(sample[0])] = np.average(neighbors)
-    plt.hist(z.flatten(), 25, density=True, facecolor='silver')
-    # plt.imshow(z)
-    plt.matshow(z, origin='lower', cmap='plasma')
-    plt.colorbar()
-    plt.show()
+    # plt.hist(z.flatten(), 25, density=True, facecolor='silver')
+    # # plt.imshow(z)
+    # plt.matshow(z, origin='lower', cmap='plasma')
+    # plt.colorbar()
+    # plt.show()
 
     return z

@@ -35,7 +35,7 @@ class Model(DartsModel):
         # well spacing is 1200m
         # add well's locations
         injection_well_x = int(2400/set_dx)
-        production_well_x = injection_well_x + int(1300/set_dx)
+        production_well_x = injection_well_x + int(1800/set_dx)
         self.iw = [injection_well_x, production_well_x]
         self.jw = [int(set_ny/2), int(set_ny/2)]
 
@@ -95,6 +95,7 @@ class Model(DartsModel):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
                 w.control = self.physics.new_rate_water_inj(7500, self.inj_temperature)
+                w.constraint = self.physics.new_bhp_water_inj(200, self.inj_temperature)
             else:
                 w.control = self.physics.new_rate_water_prod(7500)
             #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
@@ -143,6 +144,7 @@ class Model(DartsModel):
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
                     w.control = self.physics.new_rate_water_inj(7500, self.inj_temperature)
+                    w.constraint = self.physics.new_bhp_water_inj(200, self.inj_temperature)
                 else:
                     w.control = self.physics.new_rate_water_prod(7500)
                 #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
