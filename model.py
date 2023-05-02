@@ -31,11 +31,11 @@ class Model(DartsModel):
 
         # add larger volumes
         self.reservoir.set_boundary_volume(yz_minus=1e15, yz_plus=1e15, xz_minus=1e15, xz_plus=1e15)
-        # given the x spacing 4500m, the distance between injection well and boundary is 1800m
-        # well spacing is 1200m
+        # given the x spacing 4500m, the distance between injection well and boundary is 2400m
+        # well spacing is 1300m
         # add well's locations
         injection_well_x = int(2400/set_dx)
-        production_well_x = injection_well_x + int(1800/set_dx)
+        production_well_x = injection_well_x + int(1300/set_dx)
         self.iw = [injection_well_x, production_well_x]
         self.jw = [int(set_ny/2), int(set_ny/2)]
 
@@ -48,14 +48,14 @@ class Model(DartsModel):
         end_index = nz - underburden + 1
         for n in range(start_index, end_index):
             self.reservoir.add_perforation(well=self.reservoir.wells[-1], i=self.iw[0], j=self.jw[0], k=n,
-                                           well_index=self.well_index)
+                                           well_index=self.well_index, multi_segment=False)
 
         # add well
         self.reservoir.add_well("PRD")
         # add perforations to te payzone 
         for n in range(start_index, end_index):
             self.reservoir.add_perforation(self.reservoir.wells[-1], i=self.iw[1], j=self.jw[1], k=n,
-                                           well_index=self.well_index)
+                                           well_index=self.well_index, multi_segment=False)
 
         self.uniform_pressure = 200
         self.inj_temperature = 300
@@ -95,7 +95,7 @@ class Model(DartsModel):
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
                 w.control = self.physics.new_rate_water_inj(7500, self.inj_temperature)
-                w.constraint = self.physics.new_bhp_water_inj(200, self.inj_temperature)
+                # w.constraint = self.physics.new_bhp_water_inj(200, self.inj_temperature)
             else:
                 w.control = self.physics.new_rate_water_prod(7500)
             #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
@@ -144,7 +144,7 @@ class Model(DartsModel):
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
                     w.control = self.physics.new_rate_water_inj(7500, self.inj_temperature)
-                    w.constraint = self.physics.new_bhp_water_inj(200, self.inj_temperature)
+                    # w.constraint = self.physics.new_bhp_water_inj(200, self.inj_temperature)
                 else:
                     w.control = self.physics.new_rate_water_prod(7500)
                 #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)

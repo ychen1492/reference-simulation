@@ -76,7 +76,7 @@ def apply_kriging(nx, ny, n_sample, poro):
         UK = UniversalKriging(data[:, 0], data[:, 1], data[:, 2], cov_model)
         z, ss = UK.execute('grid', gridx, gridy)
 
-    z[z < 0.1] = 0.1
+    z[z < 0.1] = 0.01
     z[z > 0.4] = 0.4
 
     # smoothen the sample point

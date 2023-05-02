@@ -12,7 +12,6 @@ nz = 10
 
 
 def proxy_model_simulation(nx, ny, nz=10):
-    # get_porosity_values(20)
     poro, perm = read_pickle_file_upscaling_z(ny, nx, nz, "Porosity20")
     set_nx = nx
     set_dx = x_spacing / set_nx
@@ -25,7 +24,7 @@ def proxy_model_simulation(nx, ny, nz=10):
                         set_dy=set_dy, set_dz=set_dz, perms=perm, poro=poro, report_time_step=report_time,
                         overburden=0)
     proxy_model.init()
-    proxy_model.run(export_to_vtk=True)
+    proxy_model.run(export_to_vtk=False)
 
     td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
 
@@ -39,7 +38,8 @@ def run_simulation():
     # list_nx = [160, 180, 200, 220, 240, 260, 280, 300]
     # list_nz = [16, 18, 20]
     # list_nz = [20]
-    list_nz = [3]
+    list_nz = [1, 3, 5, 7, 9, 11, 13, 15, 17]
+    # list_nz = [1]
     # list_nz = [10]
 
     for i in list_nz:
