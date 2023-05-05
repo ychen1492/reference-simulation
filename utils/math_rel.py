@@ -34,7 +34,7 @@ def arithmetic_average(input_array, upscaled_amount):
         # Calculate the sum of the input
         sum_inputs = sum(group)
         # Calculate the arithmetic average
-        arithmetic_avg = sum_inputs/len(group)
+        arithmetic_avg = sum_inputs / len(group)
         groups.append(arithmetic_avg)
 
     return groups
@@ -116,3 +116,9 @@ def apply_kriging(nx, ny, n_sample, poro):
     # plt.show()
 
     return z
+
+
+def calculate_heat_in_place(rho_fluid, heat_capacity_fluid, porosity, rho_rock, heat_capacity_rock,
+                            dx, dy, dz, initial_temperature, injection_temperature):
+    return (rho_fluid * heat_capacity_fluid * porosity + rho_rock * heat_capacity_rock * (1 - porosity)) \
+        * (initial_temperature - injection_temperature) * (dx * dy * dz)

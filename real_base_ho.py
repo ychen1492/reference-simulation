@@ -34,7 +34,7 @@ def generate_base():
     poros = np.ones(set_nx * set_ny * set_nz) * poro
     proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
                         set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poros, report_time_step=report_time,
-                        overburden=overburden)
+                        overburden=overburden, temp_gradient=True)
     proxy_model.init()
     proxy_model.run(export_to_vtk=True)
 
@@ -45,12 +45,16 @@ def generate_base():
 
     if not os.path.exists('RealBase'):
         os.mkdir('RealBase')
-    output_path = os.path.relpath(f'./RealBase/base_resolution_ho.xlsx')
+    output_path = os.path.relpath(f'./RealBase/base_resolution_ho_gradient.xlsx')
     writer = pd.ExcelWriter(output_path)
     td.to_excel(writer, 'Sheet1')
     writer.save()
-    with open('./RealBase/simulation_time_resolution_ho.txt', 'w') as f:
+    with open('./RealBase/simulation_time_resolution_ho_gradient.txt', 'w') as f:
         f.write(f'{proxy_model_elapsed_time}')
+
+
+def check_the_temperature_gradient():
+    pass
 
 
 if __name__ == '__main__':

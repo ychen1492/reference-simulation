@@ -7,7 +7,7 @@ import numpy as np
 
 class Model(DartsModel):
     def __init__(self, total_time, set_nx, set_ny, set_nz, perms, poro,
-                 set_dx, set_dy, set_dz, report_time_step, overburden):
+                 set_dx, set_dy, set_dz, report_time_step, overburden, top_depth=2300, temp_gradient=False):
         # call base class constructor
         super().__init__()
 
@@ -18,26 +18,33 @@ class Model(DartsModel):
         self.poro = poro
         # add more layers above the reservoir
         underburden = overburden
-        nz += (overburden+underburden)
+        nz += (overburden + underburden)
         overburden_prop = np.ones(set_nx * set_ny * overburden) * 1e-5
         underburden_prop = np.ones(set_nx * set_ny * underburden) * 1e-5
         self.perm = np.concatenate([overburden_prop, self.perm, underburden_prop])
         self.poro = np.concatenate([overburden_prop, self.poro, underburden_prop])
         self.report_time = report_time_step
-        # add more layers above or below the reservoir
+
+        if temp_gradient:
+            # different layers the depth will be different
+            layer_depth = [top_depth + i * set_dz for i in range(nz)]
+            depth = np.concatenate([np.ones(nx * ny) * layer for layer in layer_depth])
+        else:
+            depth = top_depth
+
         self.reservoir = StructReservoir(self.timer, nx=nx, ny=ny, nz=nz, dx=set_dx, dy=set_dy, dz=set_dz,
-                                         permx=self.perm, permy=self.perm, permz=0.1*self.perm, poro=self.poro,
-                                         depth=2300)
+                                         permx=self.perm, permy=self.perm, permz=0.1 * self.perm, poro=self.poro,
+                                         depth=depth)
 
         # add larger volumes
         self.reservoir.set_boundary_volume(yz_minus=1e15, yz_plus=1e15, xz_minus=1e15, xz_plus=1e15)
         # given the x spacing 4500m, the distance between injection well and boundary is 2400m
         # well spacing is 1300m
         # add well's locations
-        injection_well_x = int(2400/set_dx)
-        production_well_x = injection_well_x + int(1300/set_dx)
+        injection_well_x = int(2400 / set_dx)
+        production_well_x = injection_well_x + int(1300 / set_dx)
         self.iw = [injection_well_x, production_well_x]
-        self.jw = [int(set_ny/2), int(set_ny/2)]
+        self.jw = [int(set_ny / 2), int(set_ny / 2)]
 
         self.well_index = 100
 
@@ -86,9 +93,9 @@ class Model(DartsModel):
         self.timer.node["initialization"].stop()
 
     def set_initial_conditions(self):
-        # self.physics.set_nonuniform_initial_conditions(self.reservoir.mesh, pressure_grad=100, temperature_grad=30)
-        self.physics.set_uniform_initial_conditions(self.reservoir.mesh, uniform_pressure=self.uniform_pressure,
-                                                   uniform_temperature=self.prod_temperature)
+        self.physics.set_nonuniform_initial_conditions(self.reservoir.mesh, pressure_grad=100, temperature_grad=30)
+        # self.physics.set_uniform_initial_conditions(self.reservoir.mesh, uniform_pressure=self.uniform_pressure,
+        #                                            uniform_temperature=self.prod_temperature)
 
     # T=300K, P=200bars, the enthalpy is 1914.13 [kJ/kg]
     def set_boundary_conditions(self):
@@ -148,10 +155,10 @@ class Model(DartsModel):
                 else:
                     w.control = self.physics.new_rate_water_prod(7500)
                 #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
-                    
+
                 # else:
                 #     w.control = self.physics.new_mass_rate_water_prod(417000)
-                 
+
             self.physics.engine.run(ts)
             self.physics.engine.report()
             if export_to_vtk:
