@@ -163,12 +163,12 @@ class Model(DartsModel):
             if export_to_vtk:
                 self.export_pro_vtk(file_name)
 def calculate_flux(X, block_m, block_p, tran):
-    fluxes = []
+    velocities = []
     count = 0
     for m, p in zip(block_m, block_p):
         delta_p = X[p * 2] - X[m * 2]
-        flux = -tran[count] * delta_p
-        fluxes.append(flux)
+        velocity = -tran[count] * delta_p
+        velocities.append(velocity)
         count += 1
 
-    return fluxes
+    return velocities
