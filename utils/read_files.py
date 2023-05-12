@@ -181,4 +181,4 @@ def read_pickle_file_upscaling_z(ny, nx, nz, dir_to_pickle):
     # fig.colorbar(permplot, ax=axx[0], location='bottom', label='Permeability (mD)')
     # plt.show()
 
-    return porosity.flatten(), permeability.flatten()*10
+    return porosity.flatten(), permeability.flatten()
