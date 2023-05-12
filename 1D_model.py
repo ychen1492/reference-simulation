@@ -6,7 +6,7 @@ from darts.engines import redirect_darts_output
 
 from model import Model
 
-report_time = 100
+report_time = 365
 total_time = 5 * 365
 perm = 2000
 poro = 0.2
@@ -45,7 +45,7 @@ def generate_base():
     proxy_model_elapsed_time = proxy_model.timer.node['initialization'].get_timer() + proxy_model.timer.node[
         'simulation'].get_timer()
 
-    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
+    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data_report)
 
     if not os.path.exists('SmallModel'):
         os.mkdir('SmallModel')

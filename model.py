@@ -78,7 +78,7 @@ class Model(DartsModel):
         # timestep parameters
         self.params.first_ts = 1e-5
         self.params.mult_ts = 8
-        self.params.max_ts = 100
+        self.params.max_ts = 365
 
         # nonlinear and linear solver tolerance
         self.params.tolerance_newton = 1e-5
