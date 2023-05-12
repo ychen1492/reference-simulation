@@ -14,6 +14,8 @@ class TestReadFiles(unittest.TestCase):
         # Action
         actual_dataframe = read_las(path_to_input)
         actual_DT_values = actual_dataframe['DT']
+
+        # Assertion
         for i, j in zip(expected_DT_values, actual_DT_values):
             if np.isnan(i) and np.isnan(j):
                 self.assertTrue(True)

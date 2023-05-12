@@ -11,6 +11,11 @@ from utils.math_rel import apply_kriging
 
 
 def read_las(path_to_las):
+    """
+        Retrieve the log values from the las file
+    :param path_to_las: the path to the las file which contains the log data
+    :return: the log values which are from the las. it is a DataFrame
+    """
     well_log = pd.read_table(path_to_las, delim_whitespace=True)
     well_log = well_log.replace(-999.0000, np.NaN)
 
@@ -153,6 +158,15 @@ def read_pickle_file(ny, nx, dir_to_pickle):
     return np.array(porosity), np.array(permeability)
 
 def read_pickle_file_upscaling_z(ny, nx, nz, dir_to_pickle):
+    """
+        The way to get the upscaled reservoir permeability, porosity when different
+        nx, ny and nz are given
+    :param ny: number of the grid in y direction
+    :param nx: number of the grid in x direction
+    :param nz: number of the grid in z direction
+    :param dir_to_pickle: the directory which contains the pickle files which have porosity in
+    :return: porosity, permeability in 1D
+    """
     poros = []
     perms = []
     for file in os.listdir(dir_to_pickle):
