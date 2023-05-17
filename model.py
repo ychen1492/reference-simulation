@@ -1,11 +1,11 @@
 import pickle
 
 from darts.models.physics.geothermal import Geothermal
-from darts.models.physics.iapws.iapws97 import _Region1
+from darts.models.physics.iapws.iapws_property_vec import _Backward1_T_Ph_vec
 from darts.models.reservoirs.struct_reservoir import StructReservoir
 from darts.models.darts_model import DartsModel
-from darts.models.physics.iapws.iapws_property_vec import _Backward1_T_Ph_vec
 import numpy as np
+from iapws.iapws97 import _Region1
 
 
 class Model(DartsModel):
@@ -102,12 +102,14 @@ class Model(DartsModel):
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
                     w.control = self.physics.new_mass_rate_water_inj(injection_mass_rate, injection_enthalpy)
+                    # w.constraint = self.physics.new_bhp_water_inj(self.uniform_pressure, self.inj_temperature)
                 else:
                     w.control = self.physics.new_mass_rate_water_prod(injection_mass_rate)
         else:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
                     w.control = self.physics.new_rate_water_inj(self.rate, self.inj_temperature)
+                    # w.constraint = self.physics.new_bhp_water_inj(self.uniform_pressure, self.inj_temperature)
                 else:
                     w.control = self.physics.new_rate_water_prod(self.rate)
 
@@ -165,12 +167,14 @@ class Model(DartsModel):
                 for _, w in enumerate(self.reservoir.wells):
                     if 'I' in w.name:
                         w.control = self.physics.new_mass_rate_water_inj(injection_mass_rate, injection_enthalpy)
+                        # w.constraint = self.physics.new_bhp_water_inj(self.uniform_pressure, self.inj_temperature)
                     else:
                         w.control = self.physics.new_mass_rate_water_prod(injection_mass_rate)
             else:
                 for _, w in enumerate(self.reservoir.wells):
                     if 'I' in w.name:
                         w.control = self.physics.new_rate_water_inj(self.rate, self.inj_temperature)
+                        # w.constraint = self.physics.new_bhp_water_inj(self.uniform_pressure, self.inj_temperature)
                     else:
                         w.control = self.physics.new_rate_water_prod(self.rate)
 
@@ -181,5 +185,5 @@ class Model(DartsModel):
             self.physics.engine.report()
             if export_to_vtk:
                 self.export_pro_vtk(file_name)
-        with open('./RealBase/average_pressure_mass.pkl', 'wb') as f:
+        with open('./RealBase/average_pressure_mass_constraint.pkl', 'wb') as f:
             pickle.dump(np.array(average_reservoir_pressure), f)

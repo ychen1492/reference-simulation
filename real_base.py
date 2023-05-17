@@ -42,7 +42,7 @@ def generate_base():
 
     if not os.path.exists('RealBase'):
         os.mkdir('RealBase')
-    output_path = os.path.relpath(f'./RealBase/base_resolution_ho_mass.xlsx')
+    output_path = os.path.relpath(f'./RealBase/base_resolution_ho_mass_constraint.xlsx')
     writer = pd.ExcelWriter(output_path)
     td.to_excel(writer, 'Sheet1')
     writer.save()
