@@ -1,14 +1,14 @@
-# Some Feature A
+# Geothermal Reference Simulation
 
-## Subsection
+## Resolution and the number of confining layers
 
-Exciting documentation in here.
-Let's make a list (empty surrounding lines required):
+Concetual reservoir models are applied extensively to investigate the thermal response and to understand the physics during geothermal production. Constructing a conceptual geothermal reservoir model is important at the initial phase of numerical simulation. It is vital to know the resolution and the number of the confining layers to accurately capture the thermal response and enough heat recharging from the confining layers.
 
-- item 1
 
-  - nested item 1
-  - nested item 2
+- Homogeneouse reservoir
 
-- item 2
-- item 3
+  - Constant permeability and porosity
+  - Constant mass rate control
+
+- Stratified reservoir
+- Heterogeneous reservoir
