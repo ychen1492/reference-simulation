@@ -4,6 +4,7 @@ import numpy as np
 from darts.engines import redirect_darts_output
 from model import Model
 import pandas as pd
+
 from utils.read_files import read_pickle_file_upscaling_z, from_las_to_poro_gamma
 
 report_time = 100
@@ -37,6 +38,7 @@ def proxy_model_simulation_layered(nx, ny, nz):
 
     return td, proxy_model
 
+
 def proxy_model_simulation_he(nx, ny, nz=10):
     poro, perm = read_pickle_file_upscaling_z(ny, nx, nz, "Porosity20")
     set_nx = nx
@@ -55,6 +57,7 @@ def proxy_model_simulation_he(nx, ny, nz=10):
     td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
 
     return td, proxy_model
+
 
 def proxy_model_simulation(nx, ny, nz=set_nz):
     """

@@ -12,16 +12,19 @@ Direct Use Geothermal Systems (DUGS), which are also known as low enthalpy geoth
     - Run `pip install -r <path to requirements.txt>` in terminal
 
 ## Files explanation
-1. `model.py`
+1. `src/model.py`
     - It inherents from `DartsModel`, where the initial contion, boundary condition, reservoir type, simulation engine can be defined
     - To avoid effect of pressure and temperature on water density, mass rate control is chosen as boundary condition
     - `grav` option in `Geothermal` class is set to `True` by default. 
-2. `run_serial_resolution_*.py`
+2. `src/run_serial_resolution.py`
     - It is a main file to run multiple forward simultions to investigate the production temperature of different types of the reservoirs
     - The results of these files are csv files which have production temperature for each dx, dy and dz values
-3. `run_serial_layers_*.py`
+3. `src/run_serial_layers.py`
     - It is a main file to run multiple forward simulations to investigate the minimum confining layers 
     - The results fo these files are csv files whcih record the temperature and pressure of the top reservoir layer
+4. `src/real_base.py`
+    - It is the file which is used to generate the vtk results using the the resolution and confining layers information derived from `src/run_serial_resolution.py`.
+
 
 
 ## Results visualization
