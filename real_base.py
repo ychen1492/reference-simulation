@@ -21,7 +21,7 @@ set_dy = 27.5
 set_ny = int(y_spacing / set_dy)
 set_dz = 10
 set_nz = int(z_spacing / set_dz)
-overburden = 5
+overburden = 0
 
 
 def generate_base():
