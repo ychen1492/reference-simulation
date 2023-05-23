@@ -102,14 +102,12 @@ class Model(DartsModel):
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
                     w.control = self.physics.new_mass_rate_water_inj(injection_mass_rate, injection_enthalpy)
-                    # w.constraint = self.physics.new_bhp_water_inj(self.uniform_pressure, self.inj_temperature)
                 else:
                     w.control = self.physics.new_mass_rate_water_prod(injection_mass_rate)
         else:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
                     w.control = self.physics.new_rate_water_inj(self.rate, self.inj_temperature)
-                    # w.constraint = self.physics.new_bhp_water_inj(self.uniform_pressure, self.inj_temperature)
                 else:
                     w.control = self.physics.new_rate_water_prod(self.rate)
 
