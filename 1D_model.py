@@ -7,17 +7,16 @@ from darts.engines import redirect_darts_output
 from model import Model
 
 report_time = 365
-total_time = 5 * 365
-perm = 2000
+total_time = 20 * 365
+perm = 3000
 poro = 0.2
 
-np.random.seed(550)
-x_spacing = 300
+x_spacing = 3600
 y_spacing = 100
 z_spacing = 100
 set_dx = 30
 set_nx = int(x_spacing / set_dx)
-set_dy = 8
+set_dy = 5
 set_ny = 1
 set_dz = 5
 set_nz = 1
@@ -37,19 +36,18 @@ def generate_base():
     perms = np.ones(set_nx * set_ny * set_nz) * perm
     proxy_model = Model(total_time=total_time, set_nx=set_nx, set_ny=set_ny, set_nz=set_nz, set_dx=set_dx,
                         set_dy=set_dy, set_dz=set_dz, perms=perms, poro=poros, report_time_step=report_time,
-                        overburden=overburden, rate=0.5, well_spacing=130)
+                        overburden=overburden, rate=0.5, well_spacing=300, is_mass_rate=True)
     proxy_model.init()
     proxy_model.run(export_to_vtk=False)
-
 
     proxy_model_elapsed_time = proxy_model.timer.node['initialization'].get_timer() + proxy_model.timer.node[
         'simulation'].get_timer()
 
-    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data_report)
+    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
 
     if not os.path.exists('SmallModel'):
         os.mkdir('SmallModel')
-    output_path = os.path.relpath(f'./SmallModel/1d_model.xlsx')
+    output_path = os.path.relpath(f'SmallModel/1d_model_1.xlsx')
     writer = pd.ExcelWriter(output_path)
     td.to_excel(writer, 'Sheet1')
     writer.save()
