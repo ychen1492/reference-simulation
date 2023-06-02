@@ -19,14 +19,12 @@ jobs:
       - name: Install dependencies
         run: |
           pip install sphinx sphinx_book_theme myst_parser sphinxcontrib-apidoc
-      - name: Sphinx build
+      - name: Build the documentation
         run: |
-          sphinx-build doc _build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+            cd doc
+            make html
+            touch _build/html/.nojekyll
+      - name: Deploy documentation
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          publish_branch: gh-pages
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/
-          force_orphan: true
+            folder: docs/_build/html

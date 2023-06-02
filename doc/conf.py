@@ -28,7 +28,7 @@ extensions = [
 
 apidoc_module_dir = '../src'
 apidoc_output_dir = '_api/'
-autodoc_mock_imports = ["utils","darts","numpy"]
+autodoc_mock_imports = ["utils","darts","numpy","pandas"]
 source_suffix = ['.rst', '.md']
 
 templates_path = ['_templates']
