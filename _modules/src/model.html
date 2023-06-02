@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>src.model &#8212; Geothermal-Reference-Simulation 0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/src/model';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Geothermal-Reference-Simulation 0.1.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Geothermal Reference Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../resolutionlayerstudy.html">Base Resolution and Confining Layers</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../_api/modules.html">API interface</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../_api/src.html">src package</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for src.model</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">darts.models.physics.geothermal</span> <span class="kn">import</span> <span class="n">Geothermal</span>
+<span class="kn">from</span> <span class="nn">darts.models.reservoirs.struct_reservoir</span> <span class="kn">import</span> <span class="n">StructReservoir</span>
+<span class="kn">from</span> <span class="nn">darts.models.darts_model</span> <span class="kn">import</span> <span class="n">DartsModel</span>
+<span class="kn">from</span> <span class="nn">darts.models.physics.iapws.iapws_property_vec</span> <span class="kn">import</span> <span class="n">_Backward1_T_Ph_vec</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="Model"><a class="viewcode-back" href="../../_api/src.html#src.model.Model">[docs]</a><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">DartsModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total_time</span><span class="p">,</span> <span class="n">set_nx</span><span class="p">,</span> <span class="n">set_ny</span><span class="p">,</span> <span class="n">set_nz</span><span class="p">,</span> <span class="n">perms</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span>
+                 <span class="n">set_dx</span><span class="p">,</span> <span class="n">set_dy</span><span class="p">,</span> <span class="n">set_dz</span><span class="p">,</span> <span class="n">report_time_step</span><span class="p">,</span> <span class="n">overburden</span><span class="p">):</span>
+        <span class="c1"># call base class constructor</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="s2">&quot;initialization&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="c1"># parameters for the reservoir</span>
+        <span class="p">(</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="p">,</span> <span class="n">nz</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">set_nx</span><span class="p">,</span> <span class="n">set_ny</span><span class="p">,</span> <span class="n">set_nz</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">perm</span> <span class="o">=</span> <span class="n">perms</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poro</span> <span class="o">=</span> <span class="n">poro</span>
+        <span class="c1"># add more layers above the reservoir</span>
+        <span class="n">underburden</span> <span class="o">=</span> <span class="n">overburden</span>
+        <span class="n">nz</span> <span class="o">+=</span> <span class="p">(</span><span class="n">overburden</span><span class="o">+</span><span class="n">underburden</span><span class="p">)</span>
+        <span class="n">overburden_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">set_nx</span> <span class="o">*</span> <span class="n">set_ny</span> <span class="o">*</span> <span class="n">overburden</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-5</span>
+        <span class="n">underburden_prop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">set_nx</span> <span class="o">*</span> <span class="n">set_ny</span> <span class="o">*</span> <span class="n">underburden</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">perm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">overburden_prop</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">perm</span><span class="p">,</span> <span class="n">underburden_prop</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">poro</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">overburden_prop</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">poro</span><span class="p">,</span> <span class="n">underburden_prop</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">report_time</span> <span class="o">=</span> <span class="n">report_time_step</span>
+        <span class="c1"># add more layers above or below the reservoir</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span> <span class="o">=</span> <span class="n">StructReservoir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">,</span> <span class="n">nx</span><span class="o">=</span><span class="n">nx</span><span class="p">,</span> <span class="n">ny</span><span class="o">=</span><span class="n">ny</span><span class="p">,</span> <span class="n">nz</span><span class="o">=</span><span class="n">nz</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">set_dx</span><span class="p">,</span> <span class="n">dy</span><span class="o">=</span><span class="n">set_dy</span><span class="p">,</span> <span class="n">dz</span><span class="o">=</span><span class="n">set_dz</span><span class="p">,</span>
+                                         <span class="n">permx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">perm</span><span class="p">,</span> <span class="n">permy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">perm</span><span class="p">,</span> <span class="n">permz</span><span class="o">=</span><span class="mf">0.1</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">perm</span><span class="p">,</span> <span class="n">poro</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">poro</span><span class="p">,</span>
+                                         <span class="n">depth</span><span class="o">=</span><span class="mi">2300</span><span class="p">)</span>
+
+        <span class="c1"># add larger volumes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">set_boundary_volume</span><span class="p">(</span><span class="n">yz_minus</span><span class="o">=</span><span class="mf">1e15</span><span class="p">,</span> <span class="n">yz_plus</span><span class="o">=</span><span class="mf">1e15</span><span class="p">,</span> <span class="n">xz_minus</span><span class="o">=</span><span class="mf">1e15</span><span class="p">,</span> <span class="n">xz_plus</span><span class="o">=</span><span class="mf">1e15</span><span class="p">)</span>
+        <span class="c1"># given the x spacing 4500m, the distance between injection well and boundary is 2400m</span>
+        <span class="c1"># well spacing is 1300m</span>
+        <span class="c1"># add well&#39;s locations</span>
+        <span class="n">injection_well_x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">2400</span><span class="o">/</span><span class="n">set_dx</span><span class="p">)</span>
+        <span class="n">production_well_x</span> <span class="o">=</span> <span class="n">injection_well_x</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="mi">1300</span><span class="o">/</span><span class="n">set_dx</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iw</span> <span class="o">=</span> <span class="p">[</span><span class="n">injection_well_x</span><span class="p">,</span> <span class="n">production_well_x</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">jw</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">set_ny</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">set_ny</span><span class="o">/</span><span class="mi">2</span><span class="p">)]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">well_index</span> <span class="o">=</span> <span class="mi">100</span>
+
+        <span class="c1"># add well</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">add_well</span><span class="p">(</span><span class="s2">&quot;INJ&quot;</span><span class="p">)</span>
+        <span class="c1"># add perforations to the payzone</span>
+        <span class="n">start_index</span> <span class="o">=</span> <span class="n">overburden</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">end_index</span> <span class="o">=</span> <span class="n">nz</span> <span class="o">-</span> <span class="n">underburden</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">add_perforation</span><span class="p">(</span><span class="n">well</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">wells</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iw</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">j</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">jw</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">n</span><span class="p">,</span>
+                                           <span class="n">well_index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">well_index</span><span class="p">,</span> <span class="n">multi_segment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># add well</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">add_well</span><span class="p">(</span><span class="s2">&quot;PRD&quot;</span><span class="p">)</span>
+        <span class="c1"># add perforations to te payzone </span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">add_perforation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">wells</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">iw</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">j</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">jw</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="n">n</span><span class="p">,</span>
+                                           <span class="n">well_index</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">well_index</span><span class="p">,</span> <span class="n">multi_segment</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">uniform_pressure</span> <span class="o">=</span> <span class="mi">200</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inj_temperature</span> <span class="o">=</span> <span class="mi">300</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prod_temperature</span> <span class="o">=</span> <span class="mi">350</span>
+
+        <span class="c1"># rock heat capacity and rock thermal conduction</span>
+        <span class="n">hcap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">heat_capacity</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">rcond</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">rock_cond</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">hcap</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">perm</span> <span class="o">&lt;=</span> <span class="mf">1e-5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">400</span> <span class="o">*</span> <span class="mf">2.5</span>  <span class="c1"># volumetric heat capacity: kJ/m3/K</span>
+        <span class="n">hcap</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">perm</span> <span class="o">&gt;</span> <span class="mf">1e-5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">400</span> <span class="o">*</span> <span class="mf">2.5</span>
+
+        <span class="n">rcond</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">perm</span> <span class="o">&lt;=</span> <span class="mf">1e-5</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="mf">86.4</span>  <span class="c1"># kJ/m/day/K</span>
+        <span class="n">rcond</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">perm</span> <span class="o">&gt;</span> <span class="mf">1e-5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="mf">86.4</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">physics</span> <span class="o">=</span> <span class="n">Geothermal</span><span class="p">(</span><span class="n">timer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">,</span> <span class="n">n_points</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">min_p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_p</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                                  <span class="n">min_e</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_e</span><span class="o">=</span><span class="mi">50000</span><span class="p">,</span> <span class="n">mass_rate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cache</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># timestep parameters</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">first_ts</span> <span class="o">=</span> <span class="mf">1e-5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">mult_ts</span> <span class="o">=</span> <span class="mi">8</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">max_ts</span> <span class="o">=</span> <span class="mi">100</span>
+
+        <span class="c1"># nonlinear and linear solver tolerance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">tolerance_newton</span> <span class="o">=</span> <span class="mf">1e-5</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">tolerance_linear</span> <span class="o">=</span> <span class="mf">1e-7</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">runtime</span> <span class="o">=</span> <span class="n">total_time</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="s2">&quot;initialization&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Model.set_initial_conditions"><a class="viewcode-back" href="../../_api/src.html#src.model.Model.set_initial_conditions">[docs]</a>    <span class="k">def</span> <span class="nf">set_initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># self.physics.set_nonuniform_initial_conditions(self.reservoir.mesh, pressure_grad=100, temperature_grad=30)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">set_uniform_initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">mesh</span><span class="p">,</span> <span class="n">uniform_pressure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uniform_pressure</span><span class="p">,</span>
+                                                   <span class="n">uniform_temperature</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prod_temperature</span><span class="p">)</span></div>
+
+    <span class="c1"># T=300K, P=200bars, the enthalpy is 1914.13 [kJ/kg]</span>
+<div class="viewcode-block" id="Model.set_boundary_conditions"><a class="viewcode-back" href="../../_api/src.html#src.model.Model.set_boundary_conditions">[docs]</a>    <span class="k">def</span> <span class="nf">set_boundary_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">wells</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s1">&#39;I&#39;</span> <span class="ow">in</span> <span class="n">w</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">new_rate_water_inj</span><span class="p">(</span><span class="mi">7500</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inj_temperature</span><span class="p">)</span>
+                <span class="c1"># w.constraint = self.physics.new_bhp_water_inj(200, self.inj_temperature)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">new_rate_water_prod</span><span class="p">(</span><span class="mi">7500</span><span class="p">)</span></div>
+            <span class="c1">#     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)</span>
+            <span class="c1"># else:</span>
+            <span class="c1">#     w.control = self.physics.new_mass_rate_water_prod(417000)</span>
+
+<div class="viewcode-block" id="Model.export_pro_vtk"><a class="viewcode-back" href="../../_api/src.html#src.model.Model.export_pro_vtk">[docs]</a>    <span class="k">def</span> <span class="nf">export_pro_vtk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;Results&#39;</span><span class="p">):</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">nb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">n_res_blocks</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">_Backward1_T_Ph_vec</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nb</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nb</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mf">18.015</span><span class="p">)</span>
+        <span class="n">press</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nb</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">local_cell_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Temperature&#39;</span><span class="p">:</span> <span class="n">temp</span><span class="p">,</span> <span class="s1">&#39;Pressure&#39;</span><span class="p">:</span> <span class="n">press</span><span class="p">,</span>
+                           <span class="s1">&#39;Perm&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">global_data</span><span class="p">[</span><span class="s1">&#39;permx&#39;</span><span class="p">]}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_vtk</span><span class="p">(</span><span class="n">local_cell_data</span><span class="o">=</span><span class="n">local_cell_data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Model.export_data"><a class="viewcode-back" href="../../_api/src.html#src.model.Model.export_data">[docs]</a>    <span class="k">def</span> <span class="nf">export_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">nb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">n_res_blocks</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">_Backward1_T_Ph_vec</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nb</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nb</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mf">18.015</span><span class="p">)</span>
+        <span class="n">press</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nb</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">press</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">global_data</span><span class="p">[</span><span class="s1">&#39;permx&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Model.run"><a class="viewcode-back" href="../../_api/src.html#src.model.Model.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">export_to_vtk</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">random</span>
+        <span class="c1"># use seed to generate the same random values every run</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">export_to_vtk</span><span class="p">:</span>
+            <span class="n">well_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+            <span class="c1"># injection well</span>
+            <span class="n">well_loc</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">jw</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">nx</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">iw</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="c1"># production well</span>
+            <span class="n">well_loc</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">jw</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">nx</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">iw</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">global_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;well location&#39;</span><span class="p">:</span> <span class="n">well_loc</span><span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">export_vtk</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">global_cell_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">global_data</span><span class="p">)</span>
+
+        <span class="c1"># now we start to run for the time report--------------------------------------------------------------</span>
+        <span class="n">time_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_time</span>
+        <span class="n">even_end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">runtime</span> <span class="o">/</span> <span class="n">time_step</span><span class="p">)</span> <span class="o">*</span> <span class="n">time_step</span>
+        <span class="n">time_step_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">runtime</span> <span class="o">/</span> <span class="n">time_step</span><span class="p">))</span> <span class="o">*</span> <span class="n">time_step</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">runtime</span> <span class="o">-</span> <span class="n">even_end</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">time_step_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time_step_arr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">runtime</span> <span class="o">-</span> <span class="n">even_end</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_pro_vtk</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">time_step_arr</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">wells</span><span class="p">):</span>
+                <span class="k">if</span> <span class="s1">&#39;I&#39;</span> <span class="ow">in</span> <span class="n">w</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">w</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">new_rate_water_inj</span><span class="p">(</span><span class="mi">7500</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inj_temperature</span><span class="p">)</span>
+                    <span class="c1"># w.constraint = self.physics.new_bhp_water_inj(200, self.inj_temperature)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">w</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">new_rate_water_prod</span><span class="p">(</span><span class="mi">7500</span><span class="p">)</span>
+                <span class="c1">#     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)</span>
+                    
+                <span class="c1"># else:</span>
+                <span class="c1">#     w.control = self.physics.new_mass_rate_water_prod(417000)</span>
+                 
+            <span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">report</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">export_to_vtk</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">export_pro_vtk</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span></div></div>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yuan Chen
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Yuan Chen.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
