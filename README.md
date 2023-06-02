@@ -36,6 +36,7 @@ Direct Use Geothermal Systems (DUGS), which are also known as low enthalpy geoth
 4. `src/real_base.py`
     - It is the file which is used to generate the vtk results using the the resolution and confining layers information derived from `src/run_serial_resolution.py`.
 
+After running above `src/run_serial_resolution.py`, `src/run_serial_layers.py` and `src/run_serial_layers.py`, the jupyter notebookd files in `notebook` folder can be applied to visualize the results.
 
 
 ## Results visualization
@@ -55,24 +56,24 @@ for the given domain as follows
 
 The serial forward simulation results which are used to decide above bases for three types of the reservoirs can be found in 
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7834079.svg)](https://doi.org/10.5281/zenodo.7834079).
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7855689.svg)](https://doi.org/10.5281/zenodo.7855689)
 
-**Before running following colab links, please make sure download all above dataset** 
+If you want to visuaize the results from `src/run_serial_resolution.py`, `src/run_serial_layers.py` and `src/run_serial_layers.py` directly, you need to **download the dataset and replace the data path within the jupyter notebooks accordingly** 
 
 The colab link to visualize the homogeneous reservoir base case can be found at
 
-<a target="_blank" href="https://colab.research.google.com/github/ychen1492/reference-simulation/blob/main/ho_resolution_visualization.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/ychen1492/reference-simulation/blob/main/notebooks/ho_resolution_visualization.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
 The colab link to visualize the stratified reservoir base case can be found at
 
-<a target="_blank" href="https://colab.research.google.com/github/ychen1492/reference-simulation/blob/main/layered_resolution_visualization.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/ychen1492/reference-simulation/blob/main/notebooks/layered_resolution_visualization.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
 The colab link to visualize the heterogeneous reservoir base case can be found at
 
-<a target="_blank" href="https://colab.research.google.com/github/ychen1492/reference-simulation/blob/main/he_resolution_visualization.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/ychen1492/reference-simulation/blob/main/notebooks/he_resolution_visualization.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
