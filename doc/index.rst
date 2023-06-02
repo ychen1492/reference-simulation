@@ -10,5 +10,5 @@ Welcome to Geothermal-Reference-Simulation's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   Geothermal Reference Simulation <readme>
    feature-a.md
