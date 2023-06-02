@@ -11,5 +11,5 @@ Welcome to Geothermal-Reference-Simulation's documentation!
    :caption: Contents:
 
    Geothermal Reference Simulation <readme>
-   feature-a.md
+   Base Resolution and Confining Layers <resolutionlayerstudy>
    API interface <_api/modules>
