@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 from darts.engines import redirect_darts_output
-from model import Model
+from .model import Model
 import pandas as pd
 
 from utils.read_files import read_pickle_file_upscaling_z, from_las_to_poro_gamma
@@ -60,9 +60,9 @@ def proxy_model_simulation_he(nx, ny, nz=10):
 
 
 def proxy_model_simulation(nx, ny, nz=set_nz):
-    """
-        For the given nx, ny and nz constructs a homogeneous reservoir model and
-        run the forward simulation
+    """For the given nx, ny and nz constructs a homogeneous reservoir model and
+    run the forward simulation
+
     :param nx: the number of cells in x direction
     :param ny: the number of cells in y direction
     :param nz: the number of cells in z directions
@@ -89,8 +89,8 @@ def proxy_model_simulation(nx, ny, nz=set_nz):
 
 
 def run_simulation():
-    """
-        Give the input of different nx, ny and nz to proxy_model_simulation
+    """Give the input of different nx, ny and nz to proxy_model_simulation
+
     :return:
     """
     nx = 225

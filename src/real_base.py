@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from darts.engines import redirect_darts_output
 
-from model import Model
+from .model import Model
 from utils.read_files import read_pickle_file, from_las_to_poro_gamma
 
 report_time = 100
@@ -25,8 +25,7 @@ overburden = 0
 
 
 def generate_base_ho():
-    """
-    This is a function without any inputs to generate vtk and time data file for homogeneous case
+    """This is a function without any inputs to generate vtk and time data file for homogeneous case
 
     :return:
         vtk and time data excel file

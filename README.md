@@ -2,13 +2,13 @@
 
 [fair-software.nl](https://fair-software.nl) recommendations:
 
-![Github](https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue/target?=https://github.com/ychen1492/reference-simulation)
+[![Github](https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue/target?=https://github.com/ychen1492/reference-simulation)][https://github.com/ychen1492/reference-simulation]
 [![GitHub](https://img.shields.io/github/license/ychen1492/reference-simulation)](https://github.com/ychen1492/reference-simulation/blob/main/LICENSE)
 
 
 Code quality checks
 
-![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/ychen1492/reference-simulation/python-app.yml?branch=main)
+[![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/ychen1492/reference-simulation/python-app.yml?branch=main)][https://github.com/ychen1492/reference-simulation/actions/workflows/python-app.yml]
 
 ## What is DUGS?
 Direct Use Geothermal Systems (DUGS), which are also known as low enthalpy geothermal systems, are mainly conduction mechanism dominated.

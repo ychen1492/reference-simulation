@@ -12,3 +12,4 @@ Welcome to Geothermal-Reference-Simulation's documentation!
 
    Geothermal Reference Simulation <readme>
    feature-a.md
+   API interface <_api/modules>

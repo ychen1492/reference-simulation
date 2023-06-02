@@ -3,7 +3,7 @@ import os
 import numpy as np
 from darts.engines import redirect_darts_output
 
-from model import Model
+from .model import Model
 import pandas as pd
 
 from utils.math_rel import arithmetic_average, harmonic_average
@@ -26,11 +26,12 @@ set_nz = int(z_spacing / set_dz)
 
 
 def proxy_model_simulation_stratified(overburden):
-    """
-        Main method to run forward simulations for given different overburden layers for stratified reservoir case
-        The resolution of the reservoir is fixed
+    """Main method to run forward simulations for given different overburden layers for stratified reservoir case
+    The resolution of the reservoir is fixed
+    
     :param overburden: the number of the overburden layers
-    :return: reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers
+    :return: 
+        reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers
     """
     redirect_darts_output(' ')
     # read porosity from the file
@@ -53,11 +54,12 @@ def proxy_model_simulation_stratified(overburden):
 
 
 def proxy_model_simulation_he(overburden):
-    """
-        Main method to run forward simulations for given different overburden layers for heterogeneous reservoir case
-        The resolution of the reservoir is fixed
+    """Main method to run forward simulations for given different overburden layers for heterogeneous reservoir case
+    The resolution of the reservoir is fixed
+
     :param overburden: the number of the overburden layers
-    :return: reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers
+    :return: 
+        reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers
     """
     redirect_darts_output(' ')
     poros, perms = read_pickle_file(set_ny, set_nx, "Porosity")
@@ -73,11 +75,12 @@ def proxy_model_simulation_he(overburden):
 
 
 def proxy_model_simulation(overburden):
-    """
-        Main method to run forward simulations for given different overburden layers for homogeneous reservoir case
-        The resolution of the reservoir is fixed
+    """Main method to run forward simulations for given different overburden layers for homogeneous reservoir case
+    The resolution of the reservoir is fixed
+
     :param overburden: the number of the overburden layers
-    :return: reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers
+    :return: 
+        reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers
     """
     redirect_darts_output(' ')
     perms = np.ones(set_nx * set_ny * set_nz) * perm
