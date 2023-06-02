@@ -3,8 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Geothermal-Reference-Simulation's documentation!
+Welcome to Geothermal Reference Simulation's documentation!
 ===========================================================
+
+.. attention:: 
+   Geothermal Reference Simulation is under active development and currently in a pre-alpha state.
 
 .. toctree::
    :maxdepth: 2
