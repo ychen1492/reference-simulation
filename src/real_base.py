@@ -27,8 +27,9 @@ overburden = 0
 def generate_base_ho():
     """
     This is a function without any inputs to generate vtk and time data file for homogeneous case
+
     :return:
-    vtk and time data excel file
+        vtk and time data excel file
     """
     redirect_darts_output('log.txt')
     perms = np.ones(set_nx * set_ny * set_nz) * perm
@@ -55,8 +56,8 @@ def generate_base_ho():
 
 
 def generate_base_stratified():
-    """
-        This is a function without any inputs to generate vtk and time data file for stratified case
+    """This is a function without any inputs to generate vtk and time data file for stratified case
+
     :return:
         vtk and time data excel file
     """
@@ -89,8 +90,8 @@ def generate_base_stratified():
 
 
 def generate_base_he():
-    """
-        This is a function without any inputs to generate vtk and time data file for heterogeneous case
+    """This is a function without any inputs to generate vtk and time data file for heterogeneous case
+
     :return:
         vtk and time data excel file
     """

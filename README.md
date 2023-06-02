@@ -3,7 +3,7 @@
 [fair-software.nl](https://fair-software.nl) recommendations:
 
 ![Github](https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue/target?=https://github.com/ychen1492/reference-simulation)
-![GitHub](https://img.shields.io/github/license/ychen1492/reference-simulation)
+[![GitHub](https://img.shields.io/github/license/ychen1492/reference-simulation)](https://github.com/ychen1492/reference-simulation/blob/main/LICENSE)
 
 
 Code quality checks
