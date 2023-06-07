@@ -9,11 +9,12 @@ import numpy as np
 
 
 def harmonic_average(input_array, upscaled_amount):
-    """
-        For the given input array, do a harmonic average on the input according to the upscale amount
+    """For the given input array, do a harmonic average on the input according to the upscale amount
+
     :param input_array: 1D array of the numbers
     :param upscaled_amount: the number of the groups to upscale to
-    :return: the upscaled array
+    :return:
+        the upscaled array
     """
     if upscaled_amount > len(input_array):
         raise ValueError('Can not upscale the input, please check upscaled amount...')
@@ -31,11 +32,12 @@ def harmonic_average(input_array, upscaled_amount):
 
 
 def arithmetic_average(input_array, upscaled_amount):
-    """
-        For the given input array, do an arithmetic average on the input according to the upscale amount
+    """For the given input array, do an arithmetic average on the input according to the upscale amount
+
     :param input_array: 1D array of the numbers
     :param upscaled_amount: the number of the groups to upscale to
-    :return: the upscaled array
+    :return:
+        the upscaled array
     """
     if upscaled_amount > len(input_array):
         raise ValueError('Can not upscale the input, please check upscaled amount...')
@@ -53,9 +55,9 @@ def arithmetic_average(input_array, upscaled_amount):
 
 
 def apply_kriging(nx, ny, n_sample, poro):
-    """
-        Apply kriging to generate a large scope of porosity values for the given dimension
-        , the number of samples, and the original values
+    """Apply kriging to generate a large scope of porosity values for the given dimension,
+    the number of samples, and the original values
+
     :param nx: number of the grid in x direction of the final grid for krigining interpolation
     :param ny: number of the grid in y direction of the final grid for krigining interpolation
     :param n_sample: the number of the samples which can be used

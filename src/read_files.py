@@ -10,10 +10,11 @@ from src.math_rel import apply_kriging
 
 
 def read_las(path_to_las):
-    """
-        Retrieve the log values from the las file
+    """Retrieve the log values from the las file
+
     :param path_to_las: the path to the las file which contains the log data
-    :return: the log values which are from the las. it is a DataFrame
+    :return:
+        the log values which are from the las. it is a DataFrame
     """
     well_log = pd.read_table(path_to_las, delim_whitespace=True)
     well_log = well_log.replace(-999.0000, np.NaN)
@@ -22,8 +23,8 @@ def read_las(path_to_las):
 
 
 def from_las_to_poro(path_to_las, number_layers):
-    """
-        For the given las path and number of layers, output the porosity
+    """For the given las path and number of layers, output the porosity
+
     :param reservoir_thickness: the thickness of the reservoir
     :param path_to_las: the path to las file which contains density log
     :param number_layers: number of reservoir layers
@@ -52,11 +53,12 @@ def from_las_to_poro(path_to_las, number_layers):
 
 
 def from_las_to_poro_gamma(path_to_las, number_of_layers):
-    """
-        For the given las path and number of layers, using the gamma ray to output the porosity
+    """For the given las path and number of layers, using the gamma ray to output the porosity
+
     :param path_to_las: the path to the second las file which contains gamma ray log
     :param number_of_layers: number of layers
-    :return: porosity for different layers
+    :return:
+        porosity for different layers
     """
 
     well_gr = read_las(path_to_las)
@@ -90,11 +92,11 @@ def from_las_to_poro_gamma(path_to_las, number_of_layers):
 
 
 def get_porosity_values(nz):
-    """
-        Read las files from seven wells and output the porosity using kriging
-        for different nz
+    """Read las files from seven wells and output the porosity using kriging for different nz
+
     :param nz: number of the grid in z direction
-    :return: 1D array of porosity
+    :return:
+        1D array of porosity
     """
     well_1_poro = from_las_to_poro_gamma('LogData/Well_HONSELERSDIJK_GT_01_depth_gr.las', nz)
     well_2_poro = from_las_to_poro_gamma('LogData/Well_PIJNACKER_GT_01_depth_gamma_4.las', nz)
@@ -125,13 +127,13 @@ def get_porosity_values(nz):
 
 
 def read_pickle_file(ny, nx, dir_to_pickle):
-    """
-        This method is used in heterogeneous reservoir resolution and layers study
-        when nz is 10
+    """This method is used in heterogeneous reservoir resolution and layers study when nz is 10
+    
     :param ny: number of the grid in y direction
     :param nx: number of the grid in x direction
     :param dir_to_pickle: the directory which contains the pickles files for just 10 layers' porosity
-    :return: 1D array of porosity and permeability
+    :return:
+        1D array of porosity and permeability
     """
     poros = {}
     perms = {}
@@ -157,14 +159,14 @@ def read_pickle_file(ny, nx, dir_to_pickle):
     return np.array(porosity), np.array(permeability)
 
 def read_pickle_file_upscaling_z(ny, nx, nz, dir_to_pickle):
-    """
-        The way to get the upscaled reservoir permeability, porosity when different
-        nx, ny and nz are given
+    """The way to get the upscaled reservoir permeability, porosity when different nx, ny and nz are given
+
     :param ny: number of the grid in y direction
     :param nx: number of the grid in x direction
     :param nz: number of the grid in z direction
     :param dir_to_pickle: the directory which contains the pickle files which have porosity in
-    :return: porosity, permeability in 1D
+    :return:
+        porosity, permeability in 1D
     """
     poros = []
     perms = []
