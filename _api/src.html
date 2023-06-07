@@ -275,6 +275,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-math-rel-module">src.math_rel module</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.model">src.model module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.model.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.model.Model.export_data"><code class="docutils literal notranslate"><span class="pre">Model.export_data()</span></code></a></li>
@@ -286,26 +287,10 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.real_base">src.real_base module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_he"><code class="docutils literal notranslate"><span class="pre">generate_base_he()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_ho"><code class="docutils literal notranslate"><span class="pre">generate_base_ho()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_stratified"><code class="docutils literal notranslate"><span class="pre">generate_base_stratified()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.run_serial_layers">src.run_serial_layers module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation_he"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_he()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation_stratified"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_stratified()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.run_simulation"><code class="docutils literal notranslate"><span class="pre">run_simulation()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.run_serial_resolution">src.run_serial_resolution module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation_he"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_he()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation_layered"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_layered()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.run_simulation"><code class="docutils literal notranslate"><span class="pre">run_simulation()</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-read-files-module">src.read_files module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-real-base-module">src.real_base module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-run-serial-layers-module">src.run_serial_layers module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-run-serial-resolution-module">src.run_serial_resolution module</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src">Module contents</a></li>
 </ul>
             </nav>
@@ -322,6 +307,9 @@ document.write(`
 <h1>src package<a class="headerlink" href="#src-package" title="Permalink to this heading">#</a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="src-math-rel-module">
+<h2>src.math_rel module<a class="headerlink" href="#src-math-rel-module" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="module-src.model">
 <span id="src-model-module"></span><h2>src.model module<a class="headerlink" href="#module-src.model" title="Permalink to this heading">#</a></h2>
@@ -411,137 +399,17 @@ document.write(`
 </dd></dl>
 
 </section>
-<section id="module-src.real_base">
-<span id="src-real-base-module"></span><h2>src.real_base module<a class="headerlink" href="#module-src.real_base" title="Permalink to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.real_base.generate_base_he">
-<span class="sig-prename descclassname"><span class="pre">src.real_base.</span></span><span class="sig-name descname"><span class="pre">generate_base_he</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/real_base.html#generate_base_he"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.real_base.generate_base_he" title="Permalink to this definition">#</a></dt>
-<dd><p>This is a function without any inputs to generate vtk and time data file for heterogeneous case</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>vtk and time data excel file</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.real_base.generate_base_ho">
-<span class="sig-prename descclassname"><span class="pre">src.real_base.</span></span><span class="sig-name descname"><span class="pre">generate_base_ho</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/real_base.html#generate_base_ho"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.real_base.generate_base_ho" title="Permalink to this definition">#</a></dt>
-<dd><p>This is a function without any inputs to generate vtk and time data file for homogeneous case</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>vtk and time data excel file</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.real_base.generate_base_stratified">
-<span class="sig-prename descclassname"><span class="pre">src.real_base.</span></span><span class="sig-name descname"><span class="pre">generate_base_stratified</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/real_base.html#generate_base_stratified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.real_base.generate_base_stratified" title="Permalink to this definition">#</a></dt>
-<dd><p>This is a function without any inputs to generate vtk and time data file for stratified case</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>vtk and time data excel file</p>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="src-read-files-module">
+<h2>src.read_files module<a class="headerlink" href="#src-read-files-module" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="module-src.run_serial_layers">
-<span id="src-run-serial-layers-module"></span><h2>src.run_serial_layers module<a class="headerlink" href="#module-src.run_serial_layers" title="Permalink to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.run_serial_layers.proxy_model_simulation">
-<span class="sig-prename descclassname"><span class="pre">src.run_serial_layers.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overburden</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_layers.html#proxy_model_simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_layers.proxy_model_simulation" title="Permalink to this definition">#</a></dt>
-<dd><p>Main method to run forward simulations for given different overburden layers for homogeneous reservoir case
-The resolution of the reservoir is fixed</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>overburden</strong> – the number of the overburden layers</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.run_serial_layers.proxy_model_simulation_he">
-<span class="sig-prename descclassname"><span class="pre">src.run_serial_layers.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation_he</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overburden</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_layers.html#proxy_model_simulation_he"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_layers.proxy_model_simulation_he" title="Permalink to this definition">#</a></dt>
-<dd><p>Main method to run forward simulations for given different overburden layers for heterogeneous reservoir case
-The resolution of the reservoir is fixed</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>overburden</strong> – the number of the overburden layers</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.run_serial_layers.proxy_model_simulation_stratified">
-<span class="sig-prename descclassname"><span class="pre">src.run_serial_layers.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation_stratified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overburden</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_layers.html#proxy_model_simulation_stratified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_layers.proxy_model_simulation_stratified" title="Permalink to this definition">#</a></dt>
-<dd><p>Main method to run forward simulations for given different overburden layers for stratified reservoir case
-The resolution of the reservoir is fixed</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>overburden</strong> – the number of the overburden layers</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.run_serial_layers.run_simulation">
-<span class="sig-prename descclassname"><span class="pre">src.run_serial_layers.</span></span><span class="sig-name descname"><span class="pre">run_simulation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_layers.html#run_simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_layers.run_simulation" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
+<section id="src-real-base-module">
+<h2>src.real_base module<a class="headerlink" href="#src-real-base-module" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="module-src.run_serial_resolution">
-<span id="src-run-serial-resolution-module"></span><h2>src.run_serial_resolution module<a class="headerlink" href="#module-src.run_serial_resolution" title="Permalink to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="src.run_serial_resolution.proxy_model_simulation">
-<span class="sig-prename descclassname"><span class="pre">src.run_serial_resolution.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_resolution.html#proxy_model_simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_resolution.proxy_model_simulation" title="Permalink to this definition">#</a></dt>
-<dd><p>For the given nx, ny and nz constructs a homogeneous reservoir model and
-run the forward simulation</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>nx</strong> – the number of cells in x direction</p></li>
-<li><p><strong>ny</strong> – the number of cells in y direction</p></li>
-<li><p><strong>nz</strong> – the number of cells in z directions</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>time data and the geothermal model which is inherited from the DartsModel</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.run_serial_resolution.proxy_model_simulation_he">
-<span class="sig-prename descclassname"><span class="pre">src.run_serial_resolution.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation_he</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_resolution.html#proxy_model_simulation_he"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_resolution.proxy_model_simulation_he" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.run_serial_resolution.proxy_model_simulation_layered">
-<span class="sig-prename descclassname"><span class="pre">src.run_serial_resolution.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation_layered</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_resolution.html#proxy_model_simulation_layered"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_resolution.proxy_model_simulation_layered" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="src.run_serial_resolution.run_simulation">
-<span class="sig-prename descclassname"><span class="pre">src.run_serial_resolution.</span></span><span class="sig-name descname"><span class="pre">run_simulation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_resolution.html#run_simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_resolution.run_simulation" title="Permalink to this definition">#</a></dt>
-<dd><p>Give the input of different nx, ny and nz to proxy_model_simulation</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
+<section id="src-run-serial-layers-module">
+<h2>src.run_serial_layers module<a class="headerlink" href="#src-run-serial-layers-module" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="src-run-serial-resolution-module">
+<h2>src.run_serial_resolution module<a class="headerlink" href="#src-run-serial-resolution-module" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="module-src">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src" title="Permalink to this heading">#</a></h2>
@@ -588,6 +456,7 @@ run the forward simulation</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-math-rel-module">src.math_rel module</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.model">src.model module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.model.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.model.Model.export_data"><code class="docutils literal notranslate"><span class="pre">Model.export_data()</span></code></a></li>
@@ -599,26 +468,10 @@ run the forward simulation</p>
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.real_base">src.real_base module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_he"><code class="docutils literal notranslate"><span class="pre">generate_base_he()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_ho"><code class="docutils literal notranslate"><span class="pre">generate_base_ho()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_stratified"><code class="docutils literal notranslate"><span class="pre">generate_base_stratified()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.run_serial_layers">src.run_serial_layers module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation_he"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_he()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation_stratified"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_stratified()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.run_simulation"><code class="docutils literal notranslate"><span class="pre">run_simulation()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.run_serial_resolution">src.run_serial_resolution module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation_he"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_he()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation_layered"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_layered()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.run_simulation"><code class="docutils literal notranslate"><span class="pre">run_simulation()</span></code></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-read-files-module">src.read_files module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-real-base-module">src.real_base module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-run-serial-layers-module">src.run_serial_layers module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-run-serial-resolution-module">src.run_serial_resolution module</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src">Module contents</a></li>
 </ul>
   </nav></div>

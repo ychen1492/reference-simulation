@@ -4,10 +4,26 @@ src package
 Submodules
 ----------
 
+src.math\_rel module
+--------------------
+
+.. automodule:: src.math_rel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 src.model module
 ----------------
 
 .. automodule:: src.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+src.read\_files module
+----------------------
+
+.. automodule:: src.read_files
    :members:
    :undoc-members:
    :show-inheritance:
