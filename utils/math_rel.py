@@ -16,7 +16,7 @@ def harmonic_average(input_array, upscaled_amount):
     :return: the upscaled array
     """
     if upscaled_amount > len(input_array):
-        raise Exception('Can not upscale the input, please check upscaled amount...')
+        raise ValueError('Can not upscale the input, please check upscaled amount...')
     groups = []
     group_size = math.ceil(len(input_array) / upscaled_amount)
     for i in range(0, len(input_array), group_size):
@@ -38,7 +38,7 @@ def arithmetic_average(input_array, upscaled_amount):
     :return: the upscaled array
     """
     if upscaled_amount > len(input_array):
-        raise Exception('Can not upscale the input, please check upscaled amount...')
+        raise ValueError('Can not upscale the input, please check upscaled amount...')
     groups = []
     group_size = math.ceil(len(input_array) / upscaled_amount)
     for i in range(0, len(input_array), group_size):
