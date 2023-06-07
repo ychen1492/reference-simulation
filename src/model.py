@@ -6,8 +6,34 @@ import numpy as np
 
 
 class Model(DartsModel):
+
     def __init__(self, total_time, set_nx, set_ny, set_nz, perms, poro,
                  set_dx, set_dy, set_dz, report_time_step, overburden):
+        """The constructor of the model
+
+        :param total_time: the total simulation time
+        :type total_time: int
+        :param set_nx: the number of grid blocks in x direction
+        :type set_nx: int
+        :param set_ny: the number of grid blocks in y direction
+        :type set_ny: int
+        :param set_nz: the number of grid blocks in z direction
+        :type set_nz: int
+        :param perms: permeability values of each grid
+        :type perms: np.ndarray
+        :param poro: porosity values of each grid
+        :type poro: np.ndarray
+        :param set_dx: the cartesian resolution in x direction
+        :type set_dx: float
+        :param set_dy: the cartesian resolution in y direction
+        :type set_dy: float
+        :param set_dz: the cartesian resolution in z direction
+        :type set_dz: float
+        :param report_time_step: the time step which is defined for reporting
+        :type report_time_step: int
+        :param overburden: the number of overburden layers
+        :type overburden: int
+        """
         # call base class constructor
         super().__init__()
 
@@ -86,12 +112,24 @@ class Model(DartsModel):
         self.timer.node["initialization"].stop()
 
     def set_initial_conditions(self):
+        """This is to set the initial condition of the reservoir
+
+        :return:
+            None
+        :rtype:
+        """
         # self.physics.set_nonuniform_initial_conditions(self.reservoir.mesh, pressure_grad=100, temperature_grad=30)
         self.physics.set_uniform_initial_conditions(self.reservoir.mesh, uniform_pressure=self.uniform_pressure,
                                                    uniform_temperature=self.prod_temperature)
 
     # T=300K, P=200bars, the enthalpy is 1914.13 [kJ/kg]
     def set_boundary_conditions(self):
+        """This is to set the boundary condition, normally to specify the well control and constraint
+
+        :return:
+            None
+        :rtype:
+        """
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
                 w.control = self.physics.new_rate_water_inj(7500, self.inj_temperature)
@@ -102,7 +140,15 @@ class Model(DartsModel):
             # else:
             #     w.control = self.physics.new_mass_rate_water_prod(417000)
 
-    def export_pro_vtk(self, file_name='Results'):
+    def export_pro_vtk(self, file_name):
+        """Export vtk data for each time step or given timestep for the given file name
+
+        :param file_name: the name of the vtk output
+        :type file_name:
+        :return:
+            None
+        :rtype:
+        """
         X = np.array(self.physics.engine.X, copy=False)
         nb = self.reservoir.mesh.n_res_blocks
         temp = _Backward1_T_Ph_vec(X[0:2 * nb:2] / 10, X[1:2 * nb:2] / 18.015)
@@ -110,9 +156,16 @@ class Model(DartsModel):
 
         local_cell_data = {'Temperature': temp, 'Pressure': press,
                            'Perm': self.reservoir.global_data['permx']}
-        self.export_vtk(local_cell_data=local_cell_data)
+        self.export_vtk(local_cell_data=local_cell_data, file_name=file_name)
 
     def export_data(self):
+        """Export the pressure, temperature of the reservoir at each timestep and also export the permeability
+
+        :return:
+            pressure of the reservoir, temperature of the reservoir, permeability of the reservoir
+        :rtype:
+            np.ndarray, np.ndarray, np.ndarray
+        """
         X = np.array(self.physics.engine.X, copy=False)
         nb = self.reservoir.mesh.n_res_blocks
         temp = _Backward1_T_Ph_vec(X[0:2 * nb:2] / 10, X[1:2 * nb:2] / 18.015)
@@ -120,9 +173,16 @@ class Model(DartsModel):
         return press, temp, self.reservoir.global_data['permx']
 
     def run(self, export_to_vtk=False, file_name='data'):
-        import random
-        # use seed to generate the same random values every run
-        random.seed(3)
+        """Run the simulation with the option to output the vtk and the vtk file name
+
+        :param export_to_vtk: boolean value to decide if the vtk data is exported
+        :type export_to_vtk: bool
+        :param file_name: the name of the vtk file
+        :type file_name: str
+        :return:
+            None
+        :rtype:
+        """
         if export_to_vtk:
             well_loc = np.zeros(self.reservoir.n)
             # injection well

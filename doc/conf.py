@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Geothermal-Reference-Simulation'
+project = 'Geothermal Reference Simulation'
 copyright = '2023, Yuan Chen'
 author = 'Yuan Chen'
 release = '0.1.0'
@@ -40,6 +40,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'sphinx_book_theme'
+html_title = 'Geothermal Reference Simulation'
 html_static_path = ['_static']
 
 
