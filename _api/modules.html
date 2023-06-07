@@ -283,7 +283,12 @@ document.write(`
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="src.html">src package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="src.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src.html#src-math-rel-module">src.math_rel module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.math_rel">src.math_rel module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.math_rel.apply_kriging"><code class="docutils literal notranslate"><span class="pre">apply_kriging()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.math_rel.arithmetic_average"><code class="docutils literal notranslate"><span class="pre">arithmetic_average()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.math_rel.harmonic_average"><code class="docutils literal notranslate"><span class="pre">harmonic_average()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="src.html#module-src.model">src.model module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="src.html#src.model.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="src.html#src.model.Model.export_data"><code class="docutils literal notranslate"><span class="pre">Model.export_data()</span></code></a></li>
@@ -295,10 +300,35 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="src.html#src-read-files-module">src.read_files module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src.html#src-real-base-module">src.real_base module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src.html#src-run-serial-layers-module">src.run_serial_layers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="src.html#src-run-serial-resolution-module">src.run_serial_resolution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.read_files">src.read_files module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.read_files.from_las_to_poro"><code class="docutils literal notranslate"><span class="pre">from_las_to_poro()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.read_files.from_las_to_poro_gamma"><code class="docutils literal notranslate"><span class="pre">from_las_to_poro_gamma()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.read_files.get_porosity_values"><code class="docutils literal notranslate"><span class="pre">get_porosity_values()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.read_files.read_las"><code class="docutils literal notranslate"><span class="pre">read_las()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.read_files.read_pickle_file"><code class="docutils literal notranslate"><span class="pre">read_pickle_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.read_files.read_pickle_file_upscaling_z"><code class="docutils literal notranslate"><span class="pre">read_pickle_file_upscaling_z()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.real_base">src.real_base module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.real_base.generate_base_he"><code class="docutils literal notranslate"><span class="pre">generate_base_he()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.real_base.generate_base_ho"><code class="docutils literal notranslate"><span class="pre">generate_base_ho()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.real_base.generate_base_stratified"><code class="docutils literal notranslate"><span class="pre">generate_base_stratified()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.run_serial_layers">src.run_serial_layers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.run_serial_layers.proxy_model_simulation"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.run_serial_layers.proxy_model_simulation_he"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_he()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.run_serial_layers.proxy_model_simulation_stratified"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_stratified()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.run_serial_layers.run_simulation"><code class="docutils literal notranslate"><span class="pre">run_simulation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.html#module-src.run_serial_resolution">src.run_serial_resolution module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.run_serial_resolution.proxy_model_simulation"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.run_serial_resolution.proxy_model_simulation_he"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_he()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.run_serial_resolution.proxy_model_simulation_layered"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_layered()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#src.run_serial_resolution.run_simulation"><code class="docutils literal notranslate"><span class="pre">run_simulation()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
 </ul>
 </li>

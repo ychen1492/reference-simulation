@@ -275,7 +275,12 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-math-rel-module">src.math_rel module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.math_rel">src.math_rel module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.math_rel.apply_kriging"><code class="docutils literal notranslate"><span class="pre">apply_kriging()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.math_rel.arithmetic_average"><code class="docutils literal notranslate"><span class="pre">arithmetic_average()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.math_rel.harmonic_average"><code class="docutils literal notranslate"><span class="pre">harmonic_average()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.model">src.model module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.model.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.model.Model.export_data"><code class="docutils literal notranslate"><span class="pre">Model.export_data()</span></code></a></li>
@@ -287,10 +292,35 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-read-files-module">src.read_files module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-real-base-module">src.real_base module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-run-serial-layers-module">src.run_serial_layers module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-run-serial-resolution-module">src.run_serial_resolution module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.read_files">src.read_files module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.from_las_to_poro"><code class="docutils literal notranslate"><span class="pre">from_las_to_poro()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.from_las_to_poro_gamma"><code class="docutils literal notranslate"><span class="pre">from_las_to_poro_gamma()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.get_porosity_values"><code class="docutils literal notranslate"><span class="pre">get_porosity_values()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.read_las"><code class="docutils literal notranslate"><span class="pre">read_las()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.read_pickle_file"><code class="docutils literal notranslate"><span class="pre">read_pickle_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.read_pickle_file_upscaling_z"><code class="docutils literal notranslate"><span class="pre">read_pickle_file_upscaling_z()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.real_base">src.real_base module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_he"><code class="docutils literal notranslate"><span class="pre">generate_base_he()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_ho"><code class="docutils literal notranslate"><span class="pre">generate_base_ho()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_stratified"><code class="docutils literal notranslate"><span class="pre">generate_base_stratified()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.run_serial_layers">src.run_serial_layers module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation_he"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_he()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation_stratified"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_stratified()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.run_simulation"><code class="docutils literal notranslate"><span class="pre">run_simulation()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.run_serial_resolution">src.run_serial_resolution module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation_he"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_he()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation_layered"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_layered()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.run_simulation"><code class="docutils literal notranslate"><span class="pre">run_simulation()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src">Module contents</a></li>
 </ul>
             </nav>
@@ -308,8 +338,62 @@ document.write(`
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
-<section id="src-math-rel-module">
-<h2>src.math_rel module<a class="headerlink" href="#src-math-rel-module" title="Permalink to this heading">#</a></h2>
+<section id="module-src.math_rel">
+<span id="src-math-rel-module"></span><h2>src.math_rel module<a class="headerlink" href="#module-src.math_rel" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.math_rel.apply_kriging">
+<span class="sig-prename descclassname"><span class="pre">src.math_rel.</span></span><span class="sig-name descname"><span class="pre">apply_kriging</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sample</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poro</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/math_rel.html#apply_kriging"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.math_rel.apply_kriging" title="Permalink to this definition">#</a></dt>
+<dd><p>Apply kriging to generate a large scope of porosity values for the given dimension,
+the number of samples, and the original values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nx</strong> – number of the grid in x direction of the final grid for krigining interpolation</p></li>
+<li><p><strong>ny</strong> – number of the grid in y direction of the final grid for krigining interpolation</p></li>
+<li><p><strong>n_sample</strong> – the number of the samples which can be used</p></li>
+<li><p><strong>poro</strong> – the original porosity values which have the same size as the n_sample</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.math_rel.arithmetic_average">
+<span class="sig-prename descclassname"><span class="pre">src.math_rel.</span></span><span class="sig-name descname"><span class="pre">arithmetic_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upscaled_amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/math_rel.html#arithmetic_average"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.math_rel.arithmetic_average" title="Permalink to this definition">#</a></dt>
+<dd><p>For the given input array, do an arithmetic average on the input according to the upscale amount</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_array</strong> – 1D array of the numbers</p></li>
+<li><p><strong>upscaled_amount</strong> – the number of the groups to upscale to</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the upscaled array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.math_rel.harmonic_average">
+<span class="sig-prename descclassname"><span class="pre">src.math_rel.</span></span><span class="sig-name descname"><span class="pre">harmonic_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upscaled_amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/math_rel.html#harmonic_average"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.math_rel.harmonic_average" title="Permalink to this definition">#</a></dt>
+<dd><p>For the given input array, do a harmonic average on the input according to the upscale amount</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_array</strong> – 1D array of the numbers</p></li>
+<li><p><strong>upscaled_amount</strong> – the number of the groups to upscale to</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the upscaled array</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-src.model">
 <span id="src-model-module"></span><h2>src.model module<a class="headerlink" href="#module-src.model" title="Permalink to this heading">#</a></h2>
@@ -399,17 +483,240 @@ document.write(`
 </dd></dl>
 
 </section>
-<section id="src-read-files-module">
-<h2>src.read_files module<a class="headerlink" href="#src-read-files-module" title="Permalink to this heading">#</a></h2>
+<section id="module-src.read_files">
+<span id="src-read-files-module"></span><h2>src.read_files module<a class="headerlink" href="#module-src.read_files" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_files.from_las_to_poro">
+<span class="sig-prename descclassname"><span class="pre">src.read_files.</span></span><span class="sig-name descname"><span class="pre">from_las_to_poro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_las</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_layers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/read_files.html#from_las_to_poro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_files.from_las_to_poro" title="Permalink to this definition">#</a></dt>
+<dd><p>For the given las path and number of layers, output the porosity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reservoir_thickness</strong> – the thickness of the reservoir</p></li>
+<li><p><strong>path_to_las</strong> – the path to las file which contains density log</p></li>
+<li><p><strong>number_layers</strong> – number of reservoir layers</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_files.from_las_to_poro_gamma">
+<span class="sig-prename descclassname"><span class="pre">src.read_files.</span></span><span class="sig-name descname"><span class="pre">from_las_to_poro_gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_las</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_layers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/read_files.html#from_las_to_poro_gamma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_files.from_las_to_poro_gamma" title="Permalink to this definition">#</a></dt>
+<dd><p>For the given las path and number of layers, using the gamma ray to output the porosity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_to_las</strong> – the path to the second las file which contains gamma ray log</p></li>
+<li><p><strong>number_of_layers</strong> – number of layers</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>porosity for different layers</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_files.get_porosity_values">
+<span class="sig-prename descclassname"><span class="pre">src.read_files.</span></span><span class="sig-name descname"><span class="pre">get_porosity_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/read_files.html#get_porosity_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_files.get_porosity_values" title="Permalink to this definition">#</a></dt>
+<dd><p>Read las files from seven wells and output the porosity using kriging for different nz</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nz</strong> – number of the grid in z direction</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>1D array of porosity</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_files.read_las">
+<span class="sig-prename descclassname"><span class="pre">src.read_files.</span></span><span class="sig-name descname"><span class="pre">read_las</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_las</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/read_files.html#read_las"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_files.read_las" title="Permalink to this definition">#</a></dt>
+<dd><p>Retrieve the log values from the las file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path_to_las</strong> – the path to the las file which contains the log data</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the log values which are from the las. it is a DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_files.read_pickle_file">
+<span class="sig-prename descclassname"><span class="pre">src.read_files.</span></span><span class="sig-name descname"><span class="pre">read_pickle_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_to_pickle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/read_files.html#read_pickle_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_files.read_pickle_file" title="Permalink to this definition">#</a></dt>
+<dd><p>This method is used in heterogeneous reservoir resolution and layers study when nz is 10</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ny</strong> – number of the grid in y direction</p></li>
+<li><p><strong>nx</strong> – number of the grid in x direction</p></li>
+<li><p><strong>dir_to_pickle</strong> – the directory which contains the pickles files for just 10 layers’ porosity</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>1D array of porosity and permeability</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.read_files.read_pickle_file_upscaling_z">
+<span class="sig-prename descclassname"><span class="pre">src.read_files.</span></span><span class="sig-name descname"><span class="pre">read_pickle_file_upscaling_z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dir_to_pickle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/read_files.html#read_pickle_file_upscaling_z"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.read_files.read_pickle_file_upscaling_z" title="Permalink to this definition">#</a></dt>
+<dd><p>The way to get the upscaled reservoir permeability, porosity when different nx, ny and nz are given</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ny</strong> – number of the grid in y direction</p></li>
+<li><p><strong>nx</strong> – number of the grid in x direction</p></li>
+<li><p><strong>nz</strong> – number of the grid in z direction</p></li>
+<li><p><strong>dir_to_pickle</strong> – the directory which contains the pickle files which have porosity in</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>porosity, permeability in 1D</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="src-real-base-module">
-<h2>src.real_base module<a class="headerlink" href="#src-real-base-module" title="Permalink to this heading">#</a></h2>
+<section id="module-src.real_base">
+<span id="src-real-base-module"></span><h2>src.real_base module<a class="headerlink" href="#module-src.real_base" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.real_base.generate_base_he">
+<span class="sig-prename descclassname"><span class="pre">src.real_base.</span></span><span class="sig-name descname"><span class="pre">generate_base_he</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/real_base.html#generate_base_he"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.real_base.generate_base_he" title="Permalink to this definition">#</a></dt>
+<dd><p>This is a function without any inputs to generate vtk and time data file for heterogeneous case</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>vtk and time data excel file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.real_base.generate_base_ho">
+<span class="sig-prename descclassname"><span class="pre">src.real_base.</span></span><span class="sig-name descname"><span class="pre">generate_base_ho</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/real_base.html#generate_base_ho"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.real_base.generate_base_ho" title="Permalink to this definition">#</a></dt>
+<dd><p>This is a function without any inputs to generate vtk and time data file for homogeneous case</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>vtk and time data excel file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.real_base.generate_base_stratified">
+<span class="sig-prename descclassname"><span class="pre">src.real_base.</span></span><span class="sig-name descname"><span class="pre">generate_base_stratified</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/real_base.html#generate_base_stratified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.real_base.generate_base_stratified" title="Permalink to this definition">#</a></dt>
+<dd><p>This is a function without any inputs to generate vtk and time data file for stratified case</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>vtk and time data excel file</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="src-run-serial-layers-module">
-<h2>src.run_serial_layers module<a class="headerlink" href="#src-run-serial-layers-module" title="Permalink to this heading">#</a></h2>
+<section id="module-src.run_serial_layers">
+<span id="src-run-serial-layers-module"></span><h2>src.run_serial_layers module<a class="headerlink" href="#module-src.run_serial_layers" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.run_serial_layers.proxy_model_simulation">
+<span class="sig-prename descclassname"><span class="pre">src.run_serial_layers.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overburden</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_layers.html#proxy_model_simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_layers.proxy_model_simulation" title="Permalink to this definition">#</a></dt>
+<dd><p>Main method to run forward simulations for given different overburden layers for homogeneous reservoir case
+The resolution of the reservoir is fixed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>overburden</strong> – the number of the overburden layers</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.run_serial_layers.proxy_model_simulation_he">
+<span class="sig-prename descclassname"><span class="pre">src.run_serial_layers.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation_he</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overburden</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_layers.html#proxy_model_simulation_he"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_layers.proxy_model_simulation_he" title="Permalink to this definition">#</a></dt>
+<dd><p>Main method to run forward simulations for given different overburden layers for heterogeneous reservoir case
+The resolution of the reservoir is fixed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>overburden</strong> – the number of the overburden layers</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.run_serial_layers.proxy_model_simulation_stratified">
+<span class="sig-prename descclassname"><span class="pre">src.run_serial_layers.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation_stratified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">overburden</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_layers.html#proxy_model_simulation_stratified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_layers.proxy_model_simulation_stratified" title="Permalink to this definition">#</a></dt>
+<dd><p>Main method to run forward simulations for given different overburden layers for stratified reservoir case
+The resolution of the reservoir is fixed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>overburden</strong> – the number of the overburden layers</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>reservoir pressure, reservoir temperature and the geothermal model for the given overburden layers</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.run_serial_layers.run_simulation">
+<span class="sig-prename descclassname"><span class="pre">src.run_serial_layers.</span></span><span class="sig-name descname"><span class="pre">run_simulation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_layers.html#run_simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_layers.run_simulation" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </section>
-<section id="src-run-serial-resolution-module">
-<h2>src.run_serial_resolution module<a class="headerlink" href="#src-run-serial-resolution-module" title="Permalink to this heading">#</a></h2>
+<section id="module-src.run_serial_resolution">
+<span id="src-run-serial-resolution-module"></span><h2>src.run_serial_resolution module<a class="headerlink" href="#module-src.run_serial_resolution" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.run_serial_resolution.proxy_model_simulation">
+<span class="sig-prename descclassname"><span class="pre">src.run_serial_resolution.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_resolution.html#proxy_model_simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_resolution.proxy_model_simulation" title="Permalink to this definition">#</a></dt>
+<dd><p>For the given nx, ny and nz constructs a homogeneous reservoir model and
+run the forward simulation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nx</strong> – the number of cells in x direction</p></li>
+<li><p><strong>ny</strong> – the number of cells in y direction</p></li>
+<li><p><strong>nz</strong> – the number of cells in z directions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>time data and the geothermal model which is inherited from the DartsModel</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.run_serial_resolution.proxy_model_simulation_he">
+<span class="sig-prename descclassname"><span class="pre">src.run_serial_resolution.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation_he</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nz</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_resolution.html#proxy_model_simulation_he"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_resolution.proxy_model_simulation_he" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.run_serial_resolution.proxy_model_simulation_layered">
+<span class="sig-prename descclassname"><span class="pre">src.run_serial_resolution.</span></span><span class="sig-name descname"><span class="pre">proxy_model_simulation_layered</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nz</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_resolution.html#proxy_model_simulation_layered"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_resolution.proxy_model_simulation_layered" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.run_serial_resolution.run_simulation">
+<span class="sig-prename descclassname"><span class="pre">src.run_serial_resolution.</span></span><span class="sig-name descname"><span class="pre">run_simulation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/src/run_serial_resolution.html#run_simulation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.run_serial_resolution.run_simulation" title="Permalink to this definition">#</a></dt>
+<dd><p>Give the input of different nx, ny and nz to proxy_model_simulation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-src">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src" title="Permalink to this heading">#</a></h2>
@@ -456,7 +763,12 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-math-rel-module">src.math_rel module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.math_rel">src.math_rel module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.math_rel.apply_kriging"><code class="docutils literal notranslate"><span class="pre">apply_kriging()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.math_rel.arithmetic_average"><code class="docutils literal notranslate"><span class="pre">arithmetic_average()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.math_rel.harmonic_average"><code class="docutils literal notranslate"><span class="pre">harmonic_average()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.model">src.model module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.model.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#src.model.Model.export_data"><code class="docutils literal notranslate"><span class="pre">Model.export_data()</span></code></a></li>
@@ -468,10 +780,35 @@ document.write(`
 </li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-read-files-module">src.read_files module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-real-base-module">src.real_base module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-run-serial-layers-module">src.run_serial_layers module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#src-run-serial-resolution-module">src.run_serial_resolution module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.read_files">src.read_files module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.from_las_to_poro"><code class="docutils literal notranslate"><span class="pre">from_las_to_poro()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.from_las_to_poro_gamma"><code class="docutils literal notranslate"><span class="pre">from_las_to_poro_gamma()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.get_porosity_values"><code class="docutils literal notranslate"><span class="pre">get_porosity_values()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.read_las"><code class="docutils literal notranslate"><span class="pre">read_las()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.read_pickle_file"><code class="docutils literal notranslate"><span class="pre">read_pickle_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.read_files.read_pickle_file_upscaling_z"><code class="docutils literal notranslate"><span class="pre">read_pickle_file_upscaling_z()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.real_base">src.real_base module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_he"><code class="docutils literal notranslate"><span class="pre">generate_base_he()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_ho"><code class="docutils literal notranslate"><span class="pre">generate_base_ho()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.real_base.generate_base_stratified"><code class="docutils literal notranslate"><span class="pre">generate_base_stratified()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.run_serial_layers">src.run_serial_layers module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation_he"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_he()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.proxy_model_simulation_stratified"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_stratified()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_layers.run_simulation"><code class="docutils literal notranslate"><span class="pre">run_simulation()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src.run_serial_resolution">src.run_serial_resolution module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation_he"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_he()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.proxy_model_simulation_layered"><code class="docutils literal notranslate"><span class="pre">proxy_model_simulation_layered()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#src.run_serial_resolution.run_simulation"><code class="docutils literal notranslate"><span class="pre">run_simulation()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-src">Module contents</a></li>
 </ul>
   </nav></div>
