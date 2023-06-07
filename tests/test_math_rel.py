@@ -1,11 +1,11 @@
-import unittest
+import pytest
 
 import numpy as np
 
 from utils.math_rel import harmonic_average, arithmetic_average
 
 
-class TestReadFiles(unittest.TestCase):
+class TestReadFiles:
     def test_harmonic_average_with_correct_input_and_upscaling_amount(self):
         # Arrange
         test_input_array = np.array([0.2, 0.1, 1, 0.5, 0.5])
@@ -31,19 +31,16 @@ class TestReadFiles(unittest.TestCase):
         test_input_array = np.array([0.2, 0.1, 1, 0.5, 0.5])
         test_upscaling_amount = 10
         # Assert
-        with self.assertRaises(ValueError) as context:
+        with pytest.raises(ValueError) as context:
             harmonic_average(test_input_array, test_upscaling_amount)
-            self.assertEqual('Can not upscale the input, please check upscaled amount...', str(context.exception))
+        assert 'Can not upscale the input, please check upscaled amount...' in str(context.value)
 
     def test_arithmatic_average_throw_exception(self):
         # Arrange
         test_input_array = np.array([0.2, 0.1, 1, 0.5, 0.5])
         test_upscaling_amount = 10
         # Assert
-        with self.assertRaises(ValueError) as context:
+        with pytest.raises(ValueError) as context:
             arithmetic_average(test_input_array, test_upscaling_amount)
-            self.assertEqual('Can not upscale the input, please check upscaled amount...', str(context.exception))
+        assert 'Can not upscale the input, please check upscaled amount...' in str(context.value)
 
-
-if __name__ == '__main__':
-    unittest.main()
