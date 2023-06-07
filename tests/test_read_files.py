@@ -1,9 +1,8 @@
 import os.path
-import pytest
 import pathlib
 import numpy as np
 import pandas as pd
-from utils.read_files import read_las
+from src.read_files import read_las
 
 
 class TestReadFiles:

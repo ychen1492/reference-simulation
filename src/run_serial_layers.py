@@ -6,8 +6,8 @@ from darts.engines import redirect_darts_output
 from .model import Model
 import pandas as pd
 
-from utils.math_rel import arithmetic_average, harmonic_average
-from utils.read_files import from_las_to_poro_gamma, read_pickle_file
+from src.math_rel import arithmetic_average, harmonic_average
+from src.read_files import from_las_to_poro_gamma, read_pickle_file
 
 report_time = 100
 total_time = 10000

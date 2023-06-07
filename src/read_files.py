@@ -4,10 +4,9 @@ import pickle
 
 import numpy as np
 import pandas as pd
-from matplotlib import pyplot as plt
 from skimage.transform import resize
 
-from utils.math_rel import apply_kriging
+from src.math_rel import apply_kriging
 
 
 def read_las(path_to_las):

@@ -2,7 +2,7 @@ import pytest
 
 import numpy as np
 
-from utils.math_rel import harmonic_average, arithmetic_average
+from src.math_rel import harmonic_average, arithmetic_average
 
 
 class TestReadFiles:

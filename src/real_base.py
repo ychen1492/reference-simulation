@@ -5,7 +5,7 @@ import pandas as pd
 from darts.engines import redirect_darts_output
 
 from .model import Model
-from utils.read_files import read_pickle_file, from_las_to_poro_gamma
+from src.read_files import read_pickle_file, from_las_to_poro_gamma
 
 report_time = 100
 total_time = 10000
