@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>src.model &#8212; Geothermal-Reference-Simulation 0.1.0 documentation</title>
+    <title>src.model &#8212; Geothermal Reference Simulation</title>
   
   
   
@@ -113,7 +113,7 @@
   
   
   
-    <p class="title logo__title">Geothermal-Reference-Simulation 0.1.0 documentation</p>
+    <p class="title logo__title">Geothermal Reference Simulation</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -235,8 +235,34 @@ document.write(`
 
 
 <div class="viewcode-block" id="Model"><a class="viewcode-back" href="../../_api/src.html#src.model.Model">[docs]</a><span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">DartsModel</span><span class="p">):</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total_time</span><span class="p">,</span> <span class="n">set_nx</span><span class="p">,</span> <span class="n">set_ny</span><span class="p">,</span> <span class="n">set_nz</span><span class="p">,</span> <span class="n">perms</span><span class="p">,</span> <span class="n">poro</span><span class="p">,</span>
                  <span class="n">set_dx</span><span class="p">,</span> <span class="n">set_dy</span><span class="p">,</span> <span class="n">set_dz</span><span class="p">,</span> <span class="n">report_time_step</span><span class="p">,</span> <span class="n">overburden</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The constructor of the model</span>
+
+<span class="sd">        :param total_time: the total simulation time</span>
+<span class="sd">        :type total_time: int</span>
+<span class="sd">        :param set_nx: the number of grid blocks in x direction</span>
+<span class="sd">        :type set_nx: int</span>
+<span class="sd">        :param set_ny: the number of grid blocks in y direction</span>
+<span class="sd">        :type set_ny: int</span>
+<span class="sd">        :param set_nz: the number of grid blocks in z direction</span>
+<span class="sd">        :type set_nz: int</span>
+<span class="sd">        :param perms: permeability values of each grid</span>
+<span class="sd">        :type perms: np.ndarray</span>
+<span class="sd">        :param poro: porosity values of each grid</span>
+<span class="sd">        :type poro: np.ndarray</span>
+<span class="sd">        :param set_dx: the cartesian resolution in x direction</span>
+<span class="sd">        :type set_dx: float</span>
+<span class="sd">        :param set_dy: the cartesian resolution in y direction</span>
+<span class="sd">        :type set_dy: float</span>
+<span class="sd">        :param set_dz: the cartesian resolution in z direction</span>
+<span class="sd">        :type set_dz: float</span>
+<span class="sd">        :param report_time_step: the time step which is defined for reporting</span>
+<span class="sd">        :type report_time_step: int</span>
+<span class="sd">        :param overburden: the number of overburden layers</span>
+<span class="sd">        :type overburden: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># call base class constructor</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
@@ -315,12 +341,24 @@ document.write(`
         <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="s2">&quot;initialization&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Model.set_initial_conditions"><a class="viewcode-back" href="../../_api/src.html#src.model.Model.set_initial_conditions">[docs]</a>    <span class="k">def</span> <span class="nf">set_initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is to set the initial condition of the reservoir</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            None</span>
+<span class="sd">        :rtype:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># self.physics.set_nonuniform_initial_conditions(self.reservoir.mesh, pressure_grad=100, temperature_grad=30)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">set_uniform_initial_conditions</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">mesh</span><span class="p">,</span> <span class="n">uniform_pressure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uniform_pressure</span><span class="p">,</span>
                                                    <span class="n">uniform_temperature</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">prod_temperature</span><span class="p">)</span></div>
 
     <span class="c1"># T=300K, P=200bars, the enthalpy is 1914.13 [kJ/kg]</span>
 <div class="viewcode-block" id="Model.set_boundary_conditions"><a class="viewcode-back" href="../../_api/src.html#src.model.Model.set_boundary_conditions">[docs]</a>    <span class="k">def</span> <span class="nf">set_boundary_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This is to set the boundary condition, normally to specify the well control and constraint</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            None</span>
+<span class="sd">        :rtype:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">wells</span><span class="p">):</span>
             <span class="k">if</span> <span class="s1">&#39;I&#39;</span> <span class="ow">in</span> <span class="n">w</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
                 <span class="n">w</span><span class="o">.</span><span class="n">control</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">new_rate_water_inj</span><span class="p">(</span><span class="mi">7500</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inj_temperature</span><span class="p">)</span>
@@ -331,7 +369,15 @@ document.write(`
             <span class="c1"># else:</span>
             <span class="c1">#     w.control = self.physics.new_mass_rate_water_prod(417000)</span>
 
-<div class="viewcode-block" id="Model.export_pro_vtk"><a class="viewcode-back" href="../../_api/src.html#src.model.Model.export_pro_vtk">[docs]</a>    <span class="k">def</span> <span class="nf">export_pro_vtk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;Results&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Model.export_pro_vtk"><a class="viewcode-back" href="../../_api/src.html#src.model.Model.export_pro_vtk">[docs]</a>    <span class="k">def</span> <span class="nf">export_pro_vtk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Export vtk data for each time step or given timestep for the given file name</span>
+
+<span class="sd">        :param file_name: the name of the vtk output</span>
+<span class="sd">        :type file_name:</span>
+<span class="sd">        :return:</span>
+<span class="sd">            None</span>
+<span class="sd">        :rtype:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">nb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">n_res_blocks</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="n">_Backward1_T_Ph_vec</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nb</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nb</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mf">18.015</span><span class="p">)</span>
@@ -339,9 +385,16 @@ document.write(`
 
         <span class="n">local_cell_data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Temperature&#39;</span><span class="p">:</span> <span class="n">temp</span><span class="p">,</span> <span class="s1">&#39;Pressure&#39;</span><span class="p">:</span> <span class="n">press</span><span class="p">,</span>
                            <span class="s1">&#39;Perm&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">global_data</span><span class="p">[</span><span class="s1">&#39;permx&#39;</span><span class="p">]}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">export_vtk</span><span class="p">(</span><span class="n">local_cell_data</span><span class="o">=</span><span class="n">local_cell_data</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">export_vtk</span><span class="p">(</span><span class="n">local_cell_data</span><span class="o">=</span><span class="n">local_cell_data</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="n">file_name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Model.export_data"><a class="viewcode-back" href="../../_api/src.html#src.model.Model.export_data">[docs]</a>    <span class="k">def</span> <span class="nf">export_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Export the pressure, temperature of the reservoir at each timestep and also export the permeability</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            pressure of the reservoir, temperature of the reservoir, permeability of the reservoir</span>
+<span class="sd">        :rtype:</span>
+<span class="sd">            np.ndarray, np.ndarray, np.ndarray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">nb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">n_res_blocks</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="n">_Backward1_T_Ph_vec</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nb</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span> <span class="o">*</span> <span class="n">nb</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="mf">18.015</span><span class="p">)</span>
@@ -349,9 +402,16 @@ document.write(`
         <span class="k">return</span> <span class="n">press</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">global_data</span><span class="p">[</span><span class="s1">&#39;permx&#39;</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="Model.run"><a class="viewcode-back" href="../../_api/src.html#src.model.Model.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">export_to_vtk</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">):</span>
-        <span class="kn">import</span> <span class="nn">random</span>
-        <span class="c1"># use seed to generate the same random values every run</span>
-        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Run the simulation with the option to output the vtk and the vtk file name</span>
+
+<span class="sd">        :param export_to_vtk: boolean value to decide if the vtk data is exported</span>
+<span class="sd">        :type export_to_vtk: bool</span>
+<span class="sd">        :param file_name: the name of the vtk file</span>
+<span class="sd">        :type file_name: str</span>
+<span class="sd">        :return:</span>
+<span class="sd">            None</span>
+<span class="sd">        :rtype:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">export_to_vtk</span><span class="p">:</span>
             <span class="n">well_loc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reservoir</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
             <span class="c1"># injection well</span>
