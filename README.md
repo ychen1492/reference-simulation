@@ -14,7 +14,7 @@ Code quality checks
 ## What is DUGS?
 Direct Use Geothermal Systems (DUGS), which are also known as low enthalpy geothermal systems, are mainly conduction mechanism dominated.
 ## System requirements
-- Windows 10
+- Windows 10/Linux
 - Language: Python
 
 ## Computational Dependencies
