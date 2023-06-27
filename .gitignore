@@ -7,3 +7,5 @@
 log*
 */__pycache__/*
 /RealBase/*
+/doc/_api/*
+/doc/_build/*
