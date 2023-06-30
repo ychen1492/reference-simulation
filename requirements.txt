@@ -1,9 +1,9 @@
-matplotlib==3.7.0
-matplotlib-inline==0.1.6
-pandas==1.5.3
-PyKrige==1.7.0
-gstools==1.4.1
-scikit-image==0.20.0
-open-darts==0.1.3
+matplotlib
+matplotlib-inline
+pandas
+PyKrige
+gstools
+scikit-image
+open-darts
 pytest
 pytest-cov

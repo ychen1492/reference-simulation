@@ -199,7 +199,6 @@ class Model(DartsModel):
         if self.runtime - even_end > 0:
             time_step_arr = np.append(time_step_arr, self.runtime - even_end)
 
-        self.export_pro_vtk(file_name)
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
