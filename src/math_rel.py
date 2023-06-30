@@ -1,11 +1,48 @@
 import math
 
+from darts.models.physics.iapws.iapws_property import iapws_water_density_evaluator
 from matplotlib import pyplot as plt
 # Kriging interpolation--------------------------------
 from pykrige.ok import OrdinaryKriging
 from pykrige.uk import UniversalKriging
 from gstools import Gaussian
 import numpy as np
+
+DENSITY_OF_WATER = 996.69  # unit kg/m3 at temperature of 26 degree C
+
+
+def calculate_heat_in_place(m, injection_temperature, is_constant_density=False):
+    """Calculate heat in place
+
+    :param is_constant_density: specify if the density is constant
+    :param injection_temperature: the injection temperature
+    :param m: the model after initialization
+    :return:
+    """
+    dx = m.reservoir.dx
+    dy = m.reservoir.dy
+    dz = m.reservoir.dz
+    volume_of_each_grid = dx * dy * dz
+    porosity = m.poro
+    matrix = 1 - m.poro
+    X = np.array(m.physics.engine.X, copy=False)
+    fluid_enthalpy = X[1:2 * m.reservoir.mesh.n_res_blocks:2] / 18.015  # kJ/kg
+    pressure, temperature, _ = m.export_data()
+    rock_energy = matrix * m.reservoir.mesh.heat_capacity[:m.reservoir.mesh.n_res_blocks] * (
+            temperature - injection_temperature) * volume_of_each_grid
+    if is_constant_density:
+        fluid_energy = DENSITY_OF_WATER * porosity * fluid_enthalpy * volume_of_each_grid
+
+        heat_in_place = sum(fluid_energy + rock_energy)
+    else:
+        water_density = np.ones(m.reservoir.mesh.n_res_blocks)
+        density_evaluator = iapws_water_density_evaluator()
+        for i in range(m.reservoir.mesh.n_res_blocks):
+            water_density[i] = density_evaluator.evaluate([pressure[i], fluid_enthalpy[i] * 18.015])
+        fluid_energy = water_density * 18.015 * porosity * fluid_enthalpy * volume_of_each_grid
+        heat_in_place = sum(fluid_energy + rock_energy)
+
+    return heat_in_place
 
 
 def harmonic_average(input_array, upscaled_amount):
@@ -48,7 +85,7 @@ def arithmetic_average(input_array, upscaled_amount):
         # Calculate the sum of the input
         sum_inputs = sum(group)
         # Calculate the arithmetic average
-        arithmetic_avg = sum_inputs/len(group)
+        arithmetic_avg = sum_inputs / len(group)
         groups.append(arithmetic_avg)
 
     return groups
