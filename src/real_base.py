@@ -12,8 +12,8 @@ total_time = 10000
 perm = 3000
 poro = 0.2
 
-x_spacing = 45000
-y_spacing = 40000
+x_spacing = 8000
+y_spacing = 7000
 z_spacing = 200
 set_dx = 20
 set_nx = int(x_spacing / set_dx)
