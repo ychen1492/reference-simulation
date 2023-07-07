@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from darts.engines import redirect_darts_output
 
-from .model import Model
+from model import Model
 from src.read_files import read_pickle_file, from_las_to_poro_gamma
 
 report_time = 100
@@ -12,9 +12,9 @@ total_time = 10000
 perm = 3000
 poro = 0.2
 
-x_spacing = 4500
-y_spacing = 4000
-z_spacing = 100
+x_spacing = 45000
+y_spacing = 40000
+z_spacing = 200
 set_dx = 20
 set_nx = int(x_spacing / set_dx)
 set_dy = 75
@@ -49,7 +49,7 @@ def generate_base_ho():
     output_path = os.path.relpath(f'./RealBase/base_resolution_ho.xlsx')
     writer = pd.ExcelWriter(output_path)
     td.to_excel(writer, 'Sheet1')
-    writer.save()
+    writer.close()
     with open('./RealBase/simulation_time_resolution_ho.txt', 'w') as f:
         f.write(f'{proxy_model_elapsed_time}')
 

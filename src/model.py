@@ -44,7 +44,7 @@ class Model(DartsModel):
         self.poro = poro
         # add more layers above the reservoir
         underburden = overburden
-        nz += (overburden+underburden)
+        nz += (overburden + underburden)
         overburden_prop = np.ones(set_nx * set_ny * overburden) * 1e-5
         underburden_prop = np.ones(set_nx * set_ny * underburden) * 1e-5
         self.perm = np.concatenate([overburden_prop, self.perm, underburden_prop])
@@ -52,36 +52,26 @@ class Model(DartsModel):
         self.report_time = report_time_step
         # add more layers above or below the reservoir
         self.reservoir = StructReservoir(self.timer, nx=nx, ny=ny, nz=nz, dx=set_dx, dy=set_dy, dz=set_dz,
-                                         permx=self.perm, permy=self.perm, permz=0.1*self.perm, poro=self.poro,
+                                         permx=self.perm, permy=self.perm, permz=0.1 * self.perm, poro=self.poro,
                                          depth=2300)
-
+        well_diam = 0.1524
+        well_rad = well_diam / 2
         # add larger volumes
         self.reservoir.set_boundary_volume(yz_minus=1e15, yz_plus=1e15, xz_minus=1e15, xz_plus=1e15)
-        # given the x spacing 4500m, the distance between injection well and boundary is 2400m
-        # well spacing is 1300m
-        # add well's locations
-        injection_well_x = int(2400/set_dx)
-        production_well_x = injection_well_x + int(1300/set_dx)
-        self.iw = [injection_well_x, production_well_x]
-        self.jw = [int(set_ny/2), int(set_ny/2)]
+        self.inj_list = [[27, 26], [47, 26], [67, 26], [87, 26], [107, 26]]
+        self.prod_list = [[27, 32], [47, 32], [67, 32], [87, 32], [107, 32]]
 
-        self.well_index = 100
+        for i, inj in enumerate(self.inj_list):
+            self.reservoir.add_well('I' + str(i + 1))
+            for k in range(1, self.reservoir.nz):
+                self.reservoir.add_perforation(self.reservoir.wells[-1], inj[0], inj[1], k, well_radius=well_rad,
+                                               multi_segment=False, verbose=True)
 
-        # add well
-        self.reservoir.add_well("INJ")
-        # add perforations to the payzone
-        start_index = overburden + 1
-        end_index = nz - underburden + 1
-        for n in range(start_index, end_index):
-            self.reservoir.add_perforation(well=self.reservoir.wells[-1], i=self.iw[0], j=self.jw[0], k=n,
-                                           well_index=self.well_index, multi_segment=False)
-
-        # add well
-        self.reservoir.add_well("PRD")
-        # add perforations to te payzone 
-        for n in range(start_index, end_index):
-            self.reservoir.add_perforation(self.reservoir.wells[-1], i=self.iw[1], j=self.jw[1], k=n,
-                                           well_index=self.well_index, multi_segment=False)
+        for p, prod in enumerate(self.prod_list):
+            self.reservoir.add_well('P' + str(p + 1))
+            for k in range(1,  self.reservoir.nz):
+                self.reservoir.add_perforation(self.reservoir.wells[-1], prod[0], prod[1], k, well_radius=well_rad,
+                                               multi_segment=False, verbose=True)
 
         self.uniform_pressure = 200
         self.inj_temperature = 300
@@ -120,7 +110,7 @@ class Model(DartsModel):
         """
         # self.physics.set_nonuniform_initial_conditions(self.reservoir.mesh, pressure_grad=100, temperature_grad=30)
         self.physics.set_uniform_initial_conditions(self.reservoir.mesh, uniform_pressure=self.uniform_pressure,
-                                                   uniform_temperature=self.prod_temperature)
+                                                    uniform_temperature=self.prod_temperature)
 
     # T=300K, P=200bars, the enthalpy is 1914.13 [kJ/kg]
     def set_boundary_conditions(self):
@@ -185,12 +175,24 @@ class Model(DartsModel):
         """
         if export_to_vtk:
             well_loc = np.zeros(self.reservoir.n)
-            # injection well
-            well_loc[(self.jw[0] - 1) * self.reservoir.nx + self.iw[0] - 1] = -1
-            # production well
-            well_loc[(self.jw[1] - 1) * self.reservoir.nx + self.iw[1] - 1] = 1
+            # well_loc[(self.inj_loc[1] - 1) * self.reservoir.nx + self.inj_loc[0] - 1] = -1
+            # well_loc[(self.prod_loc[1] - 1) * self.reservoir.nx + self.prod_loc[0] - 1] = 1
+
+            for inj in self.inj_list:
+                well_loc[(inj[1] - 1) * self.reservoir.nx + inj[0] - 1] = -1
+
+            for prod in self.prod_list:
+                well_loc[(prod[1] - 1) * self.reservoir.nx + prod[0] - 1] = 1
+
             self.global_data = {'well location': well_loc}
-            self.export_vtk(file_name, global_cell_data=self.global_data)
+
+            nb = self.reservoir.mesh.n_res_blocks
+            nv = self.physics.n_vars
+            X = np.array(self.physics.engine.X, copy=False)
+            tempr = _Backward1_T_Ph_vec(X[0:nb * nv:nv] / 10, X[1:nb * nv:nv] / 18.015)
+            local_cell_data = {'Temperature': tempr}
+
+            self.export_vtk(local_cell_data=local_cell_data, global_cell_data=self.global_data)
 
         # now we start to run for the time report--------------------------------------------------------------
         time_step = self.report_time
@@ -208,10 +210,10 @@ class Model(DartsModel):
                 else:
                     w.control = self.physics.new_rate_water_prod(7500)
                 #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
-                    
+
                 # else:
                 #     w.control = self.physics.new_mass_rate_water_prod(417000)
-                 
+
             self.physics.engine.run(ts)
             self.physics.engine.report()
             if export_to_vtk:
