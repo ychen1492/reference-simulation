@@ -7,17 +7,17 @@ from darts.engines import redirect_darts_output
 from model import Model
 from src.read_files import read_pickle_file, from_las_to_poro_gamma
 
-report_time = 100
-total_time = 10000
+report_time = 365
+total_time = 40*365
 perm = 3000
-poro = 0.2
+poro = 0.3
 
-x_spacing = 8000
-y_spacing = 7000
+x_spacing = 6000
+y_spacing = 5000
 z_spacing = 200
 set_dx = 20
 set_nx = int(x_spacing / set_dx)
-set_dy = 75
+set_dy = 50
 set_ny = int(y_spacing / set_dy)
 set_dz = 10
 set_nz = int(z_spacing / set_dz)
@@ -105,7 +105,7 @@ def generate_base_he():
     proxy_model_elapsed_time = proxy_model.timer.node['initialization'].get_timer() + proxy_model.timer.node[
         'simulation'].get_timer()
 
-    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
+    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data_report)
 
     if not os.path.exists('RealBase'):
         os.mkdir('RealBase')
@@ -118,4 +118,4 @@ def generate_base_he():
 
 
 if __name__ == '__main__':
-    generate_base_ho()
+    generate_base_he()

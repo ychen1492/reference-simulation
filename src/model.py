@@ -58,8 +58,8 @@ class Model(DartsModel):
         well_rad = well_diam / 2
         # add larger volumes
         self.reservoir.set_boundary_volume(yz_minus=1e15, yz_plus=1e15, xz_minus=1e15, xz_plus=1e15)
-        self.inj_list = [[27, 26], [47, 26], [67, 26], [87, 26], [107, 26]]
-        self.prod_list = [[27, 32], [47, 32], [67, 32], [87, 32], [107, 32]]
+        self.inj_list = [[50, 20], [110, 20], [170, 20], [230, 20], [50, 80], [110, 80], [170, 80], [230, 80]]
+        self.prod_list = [[50, 40], [110, 40], [170, 40], [230, 40], [50, 60], [110, 60], [170, 60], [230, 60]]
 
         for i, inj in enumerate(self.inj_list):
             self.reservoir.add_well('I' + str(i + 1))
@@ -122,10 +122,10 @@ class Model(DartsModel):
         """
         for _, w in enumerate(self.reservoir.wells):
             if 'I' in w.name:
-                w.control = self.physics.new_rate_water_inj(7500, self.inj_temperature)
+                w.control = self.physics.new_rate_water_inj(5500, self.inj_temperature)
                 # w.constraint = self.physics.new_bhp_water_inj(200, self.inj_temperature)
             else:
-                w.control = self.physics.new_rate_water_prod(7500)
+                w.control = self.physics.new_rate_water_prod(5500)
             #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
             # else:
             #     w.control = self.physics.new_mass_rate_water_prod(417000)
@@ -205,10 +205,10 @@ class Model(DartsModel):
         for ts in time_step_arr:
             for _, w in enumerate(self.reservoir.wells):
                 if 'I' in w.name:
-                    w.control = self.physics.new_rate_water_inj(7500, self.inj_temperature)
+                    w.control = self.physics.new_rate_water_inj(5500, self.inj_temperature)
                     # w.constraint = self.physics.new_bhp_water_inj(200, self.inj_temperature)
                 else:
-                    w.control = self.physics.new_rate_water_prod(7500)
+                    w.control = self.physics.new_rate_water_prod(5500)
                 #     w.control = self.physics.new_mass_rate_water_inj(417000, 1914.13)
 
                 # else:
