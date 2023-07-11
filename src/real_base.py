@@ -42,14 +42,14 @@ def generate_base_ho():
     proxy_model_elapsed_time = proxy_model.timer.node['initialization'].get_timer() + proxy_model.timer.node[
         'simulation'].get_timer()
 
-    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
+    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data_report)
 
     if not os.path.exists('RealBase'):
         os.mkdir('RealBase')
     output_path = os.path.relpath(f'./RealBase/base_resolution_ho.xlsx')
     writer = pd.ExcelWriter(output_path)
     td.to_excel(writer, 'Sheet1')
-    writer.save()
+    writer.close()
     with open('./RealBase/simulation_time_resolution_ho.txt', 'w') as f:
         f.write(f'{proxy_model_elapsed_time}')
 
@@ -76,14 +76,14 @@ def generate_base_stratified():
     proxy_model_elapsed_time = proxy_model.timer.node['initialization'].get_timer() + proxy_model.timer.node[
         'simulation'].get_timer()
 
-    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
+    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data_report)
 
     if not os.path.exists('RealBase'):
         os.mkdir('RealBase')
     output_path = os.path.relpath(f'./RealBase/base_resolution_layered.xlsx')
     writer = pd.ExcelWriter(output_path)
     td.to_excel(writer, 'Sheet1')
-    writer.save()
+    writer.close()
     with open('./RealBase/simulation_time_resolution_layered.txt', 'w') as f:
         f.write(f'{proxy_model_elapsed_time}')
 
@@ -105,14 +105,14 @@ def generate_base_he():
     proxy_model_elapsed_time = proxy_model.timer.node['initialization'].get_timer() + proxy_model.timer.node[
         'simulation'].get_timer()
 
-    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data)
+    td = pd.DataFrame.from_dict(proxy_model.physics.engine.time_data_report)
 
     if not os.path.exists('RealBase'):
         os.mkdir('RealBase')
     output_path = os.path.relpath(f'./RealBase/base_resolution_he.xlsx')
     writer = pd.ExcelWriter(output_path)
     td.to_excel(writer, 'Sheet1')
-    writer.save()
+    writer.close()
     with open('./RealBase/simulation_time_resolution_he.txt', 'w') as f:
         f.write(f'{proxy_model_elapsed_time}')
 
